@@ -1,0 +1,8 @@
+__pycache__
+app.db
+config.py
+index_archive.html
+.venv/
+ohheybrian/static/images/
+.DS_Store
+cover.txt

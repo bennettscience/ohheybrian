@@ -1,0 +1,568 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+@keyframes fade-in {
+  from { 
+    opacity: 0;
+    transform: translateX(90px); 
+  }
+}
+
+@keyframes fade-out {
+  to { 
+    opacity: 0;
+    transform: translateX(-90px); 
+  }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(90px) }
+}
+
+@keyframes slide-out {
+  to { transform: translateX(-90px) }
+}
+
+:root {
+  --black: #121212;
+  --gray: #eee;
+  --white: #fff;
+  --yellow: #fbec88;
+  --green: #aaba78;
+  --orange: #f0ca6a;
+  --pink: #ffc2b0;
+}
+
+/* GENERICS */
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  min-height:100vh;
+  height: auto;
+}
+
+/* Box sizing and color generics */
+* { 
+  box-sizing: border-box;
+  position: relative; 
+}
+*::before, *::after { box-sizing: border-box; }
+
+div.green {
+  background-color: var(--green);
+}
+
+div.orange {
+  background-color: var(--orange);
+}
+
+div.yellow {
+  background-color: var(--yellow);
+}
+
+div.pink {
+  background-color: var(--pink);
+}
+
+.btn {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.5rem;
+  border: none;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn--primary {
+  color: var(--white);
+  background-color: var(--green);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  border: 2px solid transparent;
+  border-radius: 2px;
+}
+
+gallery img {
+  border-radius: 0;
+}
+
+.full-bleed {
+  position: unset;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 2rem;
+}
+
+.full-bleed > * {
+  flex-basis: 50%;
+}
+
+.gallery--img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 2px;
+}
+
+form > input {
+  padding: 0.5rem;
+  flex-basis: 45%;
+  font-size: inherit;
+  border: none;
+  border-bottom: 1px solid var(--black);
+}
+
+form > textarea {
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  height: 100px;
+}
+
+.small-header {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: block;
+}
+
+.small-header:before {
+  content: "";
+  height: 100%;
+  width: 2rem;
+  position: absolute;
+  left: 0;
+  top: -0.5rem;
+  z-index: -1;
+  background-color: var(--yellow);
+}
+/* Visual elements */
+.float-block--small {
+  height: 40px;
+  width: 40px;
+  border-radius: 2px;
+}
+
+.float-block--small.inline {
+  display: inline-block;
+}
+
+/* Typography */
+h1, h2, h3 { 
+  text-align: left;  /* always left-align headings */
+  width: 100%; /* Need this becuause <main> is a centered flex */  
+} 
+
+h1 {
+  position: relative;
+}
+
+/*h1:after {
+  content:"";
+  position: absolute;
+  background-color: var(--yellow);
+  top: 55%;
+  left: -25%;
+  height: 50%;
+  width: 75%;
+  z-index: -1;
+}*/
+.right {
+  text-align: right;
+}
+
+ul[role="menu"] {
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+img.medium {
+  width: 50%;
+}
+
+img.small {
+  width: 25%;
+}
+
+ul[role="menu"] li[role="menuitem"] {
+  list-style-type: none;
+  border: 2px solid var(--black);
+  border-radius: 2px;
+  padding: 1rem;
+  margin-block-end: 0.5rem;
+  transition: all ease-in-out 350ms;
+}
+
+li[role="menuitem"]:hover {
+  cursor: pointer;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+img:not(.face) {
+  position: relative;
+}
+
+.social {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/*img::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--pink);
+}*/
+
+.section-heading {
+  background-color: var(--black);
+  color: var(--white);
+  text-align: center;
+}
+
+nav {
+  background-color: var(--white);
+  width: 100vw;
+  position: sticky; 
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 2px solid var(--gray);
+  padding: 1rem 1.5rem;
+  z-index: 1;
+}
+
+nav.scrolled {
+  border-color: #ddd;
+}
+
+nav.scrolled #nav-face {
+  transform: scale(1);
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+
+.nav-items a:last-child {
+  margin-right: 1.5rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75vw;
+  margin: 0 auto 2rem;
+}
+
+footer {
+  border-top: 1px solid var(--gray);
+  background-color:var(--white);
+  text-align: left;
+  padding: 1rem;
+  font-size: 14px;
+  width: 100vw;
+  position: sticky;
+  top: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 1rem;
+  margin-block-start: 2rem;
+  margin-block-end: 3rem; 
+}
+
+.container--flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem; /* Keep the titles in the viewport */
+}
+
+/* Left side section title for links to major assignments */
+.container--flex .block--title {
+  position: relative;
+}
+
+.container--flex .block--title:after{
+  content: "";
+  position: absolute;
+  bottom: 1rem;
+  left: -2rem;
+  background-color: var(--orange);
+  opacity: 0.65;
+  height: 60%;
+  width: 100%;
+  z-index: -1;
+}
+
+#cover { position: relative; }
+
+#block1 {
+  position: absolute;
+  top:0;
+  right:0;
+}
+
+#block2 {
+  position: absolute;
+  top:10px;
+  right:20px;
+}
+
+.container--grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "menu details";
+  gap: 2rem;
+  min-width: 100%;
+  opacity: 1;
+  animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in
+}
+
+.container--grid .menu {
+  grid-area: menu;
+}
+
+.container--grid #details {
+  grid-area: details;
+}
+
+.cta {
+  display: inline-block;
+}
+
+a.cta:after {
+  content: url('./right-arrow.svg');
+  margin-left: 0.25rem;
+}
+
+.box--title__wrap{
+  display: block;
+  position: relative;
+}
+
+.box--title__outer {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--black);
+  border-radius: 2px;
+  height: 0px;
+  justify-content: center;
+}
+
+.box--title__inner {
+  height: auto;
+  padding: 5px 10px;
+  font-size: 2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--black);
+  border-radius: 2px;
+}
+
+.container--flex .box {
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  padding: 2rem;
+  flex: 1;
+}
+
+.face {
+  height: 200px;
+  width: 200px;
+  transition: all 150ms ease;
+}
+
+#scroll-face {
+  position: fixed;
+  top: 5rem;
+  left: 1.5rem;
+  margin-left: 1.5rem;
+  height: 32px;
+  width: 32px;
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 150ms ease-in-out;
+}
+
+#scroll-face.scrolled {
+  transform: scale(1)
+}
+
+#academics, #beekeeping {
+  position: relative;
+  min-width: 25%;
+  max-width: 28%;
+}
+
+#beekeeping:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 5rem;
+  background-color: var(--orange);
+  opacity: 0.65;
+  height: 60%;
+  width: 100%;
+  z-index: -1;
+}
+
+#beekeeping:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  background-color: var(--green);
+  opacity: 0.5;
+  height: 60%;
+  width: 100%;
+  z-index: -1;
+} 
+
+/* #academics img, #beekeeping img {
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 100%;
+} */ 
+
+#academics:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2rem;
+  background-color: var(--orange);
+  opacity: 0.65;
+  height: 60%;
+  width: 58%;
+  z-index: -1;
+}
+
+#academics:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--pink);
+  opacity: 0.5;
+  height: 60%;
+  width: 75%;
+  z-index: -1;
+} 
+
+article {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 4rem;
+}
+
+@media screen and (max-width: 1068px) {
+
+  .face { display: none }
+
+  .container--flex {
+    flex-direction: column;
+  }
+
+  #beekeeping {
+    width: 30%;
+    margin: 0 auto;
+  }
+
+  #beekeeping:before {
+    left:0;
+  }
+
+  #beekeeping:after {
+    left:-2rem;
+  }
+
+  #academics {
+    order: 2;
+  }
+
+  #academics:before {
+    width: 60%;
+    left: 8rem;
+  }
+
+  #academics:after {
+    width: 52%;
+  }
+
+  img {
+    height:30%;
+  }
+}
+
+@media screen and (max-width: 630px)  {
+  main {
+    width: auto;
+  }
+
+  nav {
+    justify-content: space-around;
+  }
+
+  .nav-items a:last-child {
+    margin-right: 0;
+  }
+
+  #nav-face {
+    transform: scale(1);
+  }
+
+  .face {
+    display: none;
+  }
+
+}
