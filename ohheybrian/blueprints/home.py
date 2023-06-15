@@ -2,6 +2,8 @@ from flask import abort, current_app, Blueprint, redirect, render_template
 from htmx_flask import make_response, request
 from ohheybrian.extensions import db
 from ohheybrian.models import Contact
+
+import nh3
  
 from webargs import fields
 from webargs.flaskparser import parser
@@ -45,7 +47,16 @@ def submit_contact():
 		"message": fields.Str()
 	}, location="form")
 
-	db.session.add(Contact(**args))
+	clean_text = nh3.clean(args['message'])
+
+	db.session.add(
+		Contact(
+			last_name=args['last_name'], 
+			first_name=args['first_name'],
+			email=args['email'],
+			message=clean_text
+		)
+	)
 	db.session.commit()
 
 	if request.htmx:
