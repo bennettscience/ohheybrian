@@ -43,7 +43,7 @@ html {
 body {
   background: #fff;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.4;
   margin: 0;
   padding: 0;
@@ -72,6 +72,10 @@ div.yellow {
 
 div.pink {
   background-color: var(--pink);
+}
+
+.hidden {
+  display: none;
 }
 
 .btn {
@@ -184,6 +188,7 @@ h1, h2, h3 {
 } 
 
 h1 {
+  font-size: 2rem;
   position: relative;
 }
 
@@ -497,6 +502,177 @@ a.cta:after {
   height: 60%;
   width: 75%;
   z-index: -1;
+}
+
+#experience {
+  width: 100vw;
+  align-items: flex-start;
+}
+
+#contents {
+  position: sticky;
+  top: 55px;
+  width: 50%;
+}
+
+#contents > label {
+  display: block;
+  margin-block-start: 0.15rem;
+  margin-block-end: 0.15rem;
+}
+
+/* TIMELINE STYLES */
+.timeline,
+.timeline-horizontal {
+  list-style: none;
+  padding: 20px;
+  overflow: scroll;
+}
+.timeline:before {
+  top: 40px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 3px;
+  background-color: #eeeeee;
+  left: 50%;
+}
+.timeline .timeline--item {
+  margin-bottom: 20px;
+  position: relative;
+  transition: display ease-in-out 0.25s;
+}
+.timeline .timeline--item:before,
+.timeline .timeline--item:after {
+  content: "";
+  display: table;
+}
+.timeline .timeline--item:after {
+  clear: both;
+}
+.timeline .timeline--item .timeline--item__icon {
+  color: #fff;
+  width: 54px;
+  height: 54px;
+  line-height: 52px;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: #7c7c7c;
+  border: 3px solid #ffffff;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+.timeline .timeline--item .timeline--item__icon i,
+.timeline .timeline--item .timeline--item__icon .fa,
+.timeline .timeline--item .timeline--item__icon .glyphicon {
+  top: 2px;
+  left: 0px;
+}
+.timeline .timeline--item .timeline--panel {
+  position: relative;
+  width: 46%;
+  float: left;
+  right: 16px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.timeline .timeline--item .timeline--panel:before {
+  position: absolute;
+  top: 26px;
+  right: -16px;
+  display: inline-block;
+  border-top: 16px solid transparent;
+  border-left: 16px solid #c0c0c0;
+  border-right: 0 solid #c0c0c0;
+  border-bottom: 16px solid transparent;
+  content: " ";
+}
+.timeline .timeline--item .timeline--panel .timeline--item__title {
+  margin: 0;
+}
+.timeline--panel > p.timeline--item__date {
+  font-size: 0.8rem;
+}
+.timeline .timeline--item .timeline--panel .timeline--item__description > p,
+.timeline .timeline--item .timeline--panel .timeline--item__description > ul {
+  margin-bottom: 0;
+}
+.timeline .timeline--item .timeline--panel .timeline--item__description > p + p {
+  margin-top: 5px;
+}
+.timeline .timeline--item:nth-child(even) .timeline--panel {
+  float: right;
+  left: 16px;
+}
+.timeline .timeline--item:nth-child(even) .timeline--panel:before {
+  border-left-width: 0;
+  border-right-width: 14px;
+  left: -14px;
+  right: auto;
+}
+.timeline-horizontal {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+}
+.timeline-horizontal:before {
+  height: 3px;
+  top: auto;
+  bottom: 26px;
+  left: 56px;
+  right: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline--item {
+  display: table-cell;
+  height: 280px;
+  width: 20%;
+  min-width: 320px;
+  float: none !important;
+  padding-left: 0px;
+  padding-right: 20px;
+  margin: 0 auto;
+  vertical-align: bottom;
+}
+.timeline-horizontal .timeline--item .timeline--panel {
+  top: auto;
+  bottom: 64px;
+  display: inline-block;
+  float: none !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.timeline-horizontal .timeline--item .timeline--panel:before {
+  top: auto;
+  bottom: -16px;
+  left: 28px !important;
+  right: auto;
+  border-right: 16px solid transparent !important;
+  border-top: 16px solid #c0c0c0 !important;
+  border-bottom: 0 solid #c0c0c0 !important;
+  border-left: 16px solid transparent !important;
+}
+.timeline-horizontal .timeline--item:before,
+.timeline-horizontal .timeline--item:after {
+  display: none;
+}
+.timeline-horizontal .timeline--item .timeline--item__icon {
+  top: auto;
+  bottom: 0px;
+  left: 43px;
 } 
 
 article {

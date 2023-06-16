@@ -2,6 +2,7 @@ from flask import abort, current_app, Blueprint, redirect, render_template
 from htmx_flask import make_response, request
 from ohheybrian.extensions import db
 from ohheybrian.models import Contact
+from ohheybrian.templates.icons import icons
 
 import nh3
  
@@ -78,6 +79,23 @@ def leadership():
 
 	return resp
 
+@bp.get("/about/resume")
+def resume():
+	template = "about/resume.html"
+	resp_data = {
+		"icons": icons
+	}
+
+	if request.htmx:
+		resp = render_template(template, **resp_data)
+	else:
+		resp = render_template(
+			"shared/layout-wrap.html",
+			partial=template,
+			data=resp_data
+		)
+
+	return resp
 
 @bp.get("/academics")
 def academics():
