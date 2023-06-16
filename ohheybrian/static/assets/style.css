@@ -583,8 +583,6 @@ a.cta:after {
   background: #ffffff;
   border-radius: 2px;
   padding: 20px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
 .timeline .timeline--item .timeline--panel:before {
   position: absolute;
