@@ -112,3 +112,19 @@ def academics():
 		)
 
 	return resp
+
+@bp.get("/academics/showcase")
+def showcase():
+	template = "academics/showcase.html"
+	resp_data = {}
+
+	if request.htmx:
+		resp = render_template(template, **resp_data)
+	else:
+		resp = render_template(
+			"shared/layout-wrap.html",
+			partial=template,
+			data=resp_data
+		)
+
+	return resp

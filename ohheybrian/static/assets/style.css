@@ -78,6 +78,10 @@ div.pink {
   display: none;
 }
 
+.left {
+  object-position: left;
+}
+
 .btn {
   font-family: inherit;
   font-size: inherit;
@@ -93,6 +97,7 @@ div.pink {
   color: var(--white);
   background-color: var(--green);
 }
+
 
 .gallery {
   display: grid;
@@ -350,6 +355,21 @@ footer {
   z-index: -1;
 }
 
+.cards {
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0;
+}
+
+.container--flex .card {
+  height: auto;
+  padding: 1rem;
+  flex-basis: 0;
+  flex-grow: 1;
+  border: 1px solid var(--gray);
+  border-radius: 2px;
+}
+
 #cover { position: relative; }
 
 #block1 {
@@ -504,18 +524,19 @@ a.cta:after {
   z-index: -1;
 }
 
+#showcase,
 #experience {
   width: 100vw;
   align-items: flex-start;
 }
 
-#contents {
+.filters {
   position: sticky;
-  top: 55px;
+  top: 75px;
   width: 50%;
 }
 
-#contents > label {
+.filters > label {
   display: block;
   margin-block-start: 0.15rem;
   margin-block-end: 0.15rem;
@@ -685,6 +706,11 @@ article {
 
   .container--flex {
     flex-direction: column;
+  }
+
+  .container--flex .card {
+    min-width: 80%;
+    max-width: 100%;
   }
 
   #beekeeping {
