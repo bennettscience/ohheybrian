@@ -533,7 +533,7 @@ a.cta:after {
 .filters {
   position: sticky;
   top: 75px;
-  width: 50%;
+  width: 60%;
 }
 
 .filters > label {
