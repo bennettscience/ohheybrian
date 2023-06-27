@@ -98,7 +98,6 @@ div.pink {
   background-color: var(--green);
 }
 
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -530,16 +529,33 @@ a.cta:after {
   align-items: flex-start;
 }
 
+.card[data-type="principles"] {
+  border-left: 4px solid var(--green);
+}
+
+.card[data-type="leadership"] {
+  border-left: 4px solid var(--pink);
+}
+
+.card[data-type="design"] {
+  border-left: 4px solid var(--orange);
+}
+
 .filters {
   position: sticky;
   top: 75px;
   width: 60%;
+  background-color: var(--white);
 }
 
 .filters > label {
   display: block;
   margin-block-start: 0.15rem;
   margin-block-end: 0.15rem;
+}
+
+.filters > label:hover {
+  cursor: pointer;
 }
 
 /* TIMELINE STYLES */
@@ -741,6 +757,12 @@ article {
 
   img {
     height:30%;
+  }
+
+  .filters {
+    position: relative;
+    top: auto;
+    width: auto;
   }
 }
 
