@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask 
 from ohheybrian.extensions import db, htmx, migrate, partials
 from ohheybrian.blueprints import academics, home, leadership
 
