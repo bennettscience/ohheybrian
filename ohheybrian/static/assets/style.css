@@ -350,6 +350,10 @@ main {
   margin: 0 auto 2rem;
 }
 
+main.left {
+  align-items: start;
+}
+
 footer {
   border-top: 1px solid var(--gray);
   background-color: var(--white);
