@@ -6,12 +6,31 @@
 <div class="container--grid">
 	<section class="menu">
 		<ul role="menu">
-			<li role="menuitem" hx-get="/leadership/institutes" hx-target="#details" hx-swap="innerHTML">Elkhart
-				Institute Days</li>
-			<li role="menuitem" hx-get="/leadership/grants" hx-target="#details" hx-swap="innerHTML">Grant Writing</li>
-			<li role="menuitem" hx-get="/leadership/assessment" hx-target="#details" hx-swap="innerHTML">
+			<li role="menuitem" hx-get="/leadership/institutes" hx-target="#details" hx-swap="innerHTML" 
+				_="
+					on click remove .selected from <li/>
+					add .selected to me
+				"
+			>Elkhart Institute Days</li>
+			<li role="menuitem" hx-get="/leadership/grants" hx-target="#details" hx-swap="innerHTML"
+				_="
+					on click remove .selected from <li/>
+					add .selected to me
+				"
+			>Grant Writing</li>
+			<li role="menuitem" hx-get="/leadership/assessment" hx-target="#details" hx-swap="innerHTML"
+			
+				_="
+					on click remove .selected from <li/>
+					add .selected to me
+				">
 				Alternative Assessment Training</li>
-			<li role="menuitem" hx-get="/leadership/technology" hx-target="#details" hx-swap="innerHTML">
+			<li role="menuitem" hx-get="/leadership/technology" hx-target="#details" hx-swap="innerHTML" 
+				_="
+					on click remove .selected from <li/>
+					add .selected to me
+				"
+			>
 				Instructional Technology Training</li>
 		</ul>
 	</section>

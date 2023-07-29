@@ -90,6 +90,11 @@ div.pink {
   object-position: left;
 }
 
+.selected {
+  background-color: var(--black);
+  color: var(--white);
+}
+
 .btn {
   font-family: inherit;
   font-size: inherit;
