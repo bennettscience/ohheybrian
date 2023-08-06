@@ -1,7 +1,13 @@
 <div id="cover" class="container container--flex">
   <div class="yellow float-block--small" id="block1"></div>
   <div class="orange float-block--small" id="block2"></div>
-  <img class="face" src="static/images/selfie.webp" alt="A sketch of my face" />
+  <img class="face" 
+      _="
+        on intersection(intersecting) having threshold 0.99
+            if intersecting remove .scrolled from <nav/>
+            else add .scrolled to <nav/>"
+            src="static/images/selfie.webp" 
+  alt="A sketch of my face" />
   <div>
     <h1>Oh, hey.</h1>
     I'm <strong>Brian Bennett</strong>: A collaborative educator and leader focused on using innovative
@@ -31,9 +37,9 @@
       teaching our kids the value of hard work.
     </p>
     <p>
-      In my other spare time, I like making things on the Internet.
+      In my other spare time, I like making things on the Internet, including this very website. To see more of my professional credentials, you can take a look at <a href="{{ url_for('home.resume')}}">my resume</a>.
     </p>
-    <a class="cta" href="{{ url_for('home.contact') }}">Get in touch</a>
+    <p>Have other questions? Please <a class="cta" href="{{ url_for('home.contact') }}">get in touch</a></p>
   </section>
   <section id="beekeeping">
     <img src="/static/images/beekeeping.webp" />
@@ -42,7 +48,7 @@
 <div class="container">
   <div class="box--title__wrap">
     <div class="box--title__outer">
-      <div class="box--title__inner orange">professional</div>
+      <div class="box--title__inner orange">writing</div>
     </div>
   </div>
 </div>
@@ -51,14 +57,6 @@
     <img src="static/images/teaching_small.webp" />
   </section>
   <section>
-    <span class="small-header">Credentials</span>
-    <p>MA Education Technology - Michigan State University, 2023 (anticipated)
-    <p>
-    <p>BA Biological Science and Education - Asbury College, 2008</p>
-    <span class="small-header">Licenses</span>
-    <p>Michigan: 6-12 Biology (DA), 6-12 Chemistry (DC)</p>
-    <p>Indiana: 5-12 Life Sciences, 5-12 Chemistry</p>
-    <span class="small-header">Writing</span>
     <p>In addition to <a href="{{url_for('home.academics')}}">publications</a>, I've maintained <a href="https://blog.ohheybrian.com">an active blog</a> for many years where I explore teaching and life in general. Some posts you may find interesting are:</p>
     <ul>
       <li><a href="https://blog.ohheybrian.com/2023/03/consistency-and-variety/" target="_blank">Consistency and Variety</a>: How does our use of the LMS hurt or help students? This post considers the LMS as a tool from a system and individual perspective</li>

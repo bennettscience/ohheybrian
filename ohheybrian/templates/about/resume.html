@@ -1,6 +1,7 @@
-
 <section id="experience" class="container--flex">
 	<aside class="filters">
+		<h1>Resume</h1>
+		<p>This is an overview of my career to date. Use the filters below for specific details or use the print button to open a traditional PDF version.</p>
 		<h2>Filters</h2>
 		<label>
 		<input type="radio" name="type" _="on click show .timeline--item in .timeline" checked />All items</label>
@@ -11,7 +12,10 @@
 		<label>
 		<input type="radio" name="type" _="on click show .timeline--item in .timeline when its @life-event is 'degree'" />Education</label>
 		<hr />
-		<a class="cta" href="https://docs.google.com/document/d/1BKWnZOfDgCGIKn02AnO_qHhhovACFRWFgKcR78m7YPE/preview" target="_blank">Printable version</a>
+		<div class="print">
+		{{ icons.print | safe }}
+		<a href="https://docs.google.com/document/d/1BKWnZOfDgCGIKn02AnO_qHhhovACFRWFgKcR78m7YPE/preview" target="_blank">Printable Resume</a>
+		</div>
 	</aside>
 	<ul class="timeline ">
 		<li class="timeline--item" life-event="job">

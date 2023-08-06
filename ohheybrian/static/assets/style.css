@@ -28,6 +28,7 @@
 
 :root {
   --black: #121212;
+  --dark-gray: #bababa;
   --gray: #eee;
   --white: #fff;
   --yellow: #fbec88;
@@ -80,6 +81,20 @@ div.yellow {
 
 div.pink {
   background-color: var(--pink);
+}
+
+a[role="button"] {
+  display: block;
+  margin-block-start: 1rem;
+  margin-block-end: 1rem;
+  padding: 0.6rem;
+  width: 100%;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: 900;
+  text-decoration: none;
+  outline: 2px solid var(--white);
+  outline-offset: -3px;
 }
 
 .hidden {
@@ -320,11 +335,17 @@ nav {
   position: sticky;
   top: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid var(--gray);
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   z-index: 1;
+}
+
+#nav-face {
+  width: 32px;
+  transform: scale(0);
+  transition: transform 0.25s ease-in-out;
 }
 
 nav.scrolled {
@@ -466,6 +487,16 @@ footer {
 a.cta:after {
   content: url('./right-arrow.svg');
   margin-left: 0.25rem;
+}
+
+.print {
+  display: flex;
+  flex-direction: row;
+  align-items: middle;
+  gap: 1.2rem;
+  margin: 0.6rem 0;
+  padding: 0.6rem;
+  border: 1px solid var(--dark-gray);
 }
 
 .box--title__wrap {
