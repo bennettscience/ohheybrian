@@ -344,16 +344,10 @@ nav {
 
 #nav-face {
   width: 32px;
-  transform: scale(0);
-  transition: transform 0.25s ease-in-out;
 }
 
 nav.scrolled {
   border-color: #ddd;
-}
-
-nav.scrolled #nav-face {
-  transform: scale(1);
 }
 
 .nav-items {
