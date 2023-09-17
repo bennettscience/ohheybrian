@@ -1,0 +1,21 @@
+{% extends "_layout.html" %}
+{% block main_content %}
+<div class="container">
+	<h2>Privacy Policy</h2>
+	<p>With all web applications, certain permissions must be granted in order for the app to function. This page
+		details the permissions you grant the Endnote Generator AddOn when you install from the Workspace Marketplace.
+	</p>
+	<hr />
+	<h2>Permissions</h2>
+	<ul>
+		<li><strong>Document (read and write)</strong> - Authorize Endnote Generator to access the current open
+			document. This allows the app to look for footnotes and write endnotes to the document body. It does not
+			save any information from the document to a third party.</li>
+		<li><strong>Sidebars (read and write)</strong> - Create and show a sidebar to run the AddOn in the current
+			document. No user information is collected or stored when you allow the AddOn to access the current menus.
+		</li>
+	</ul>
+	<p>All authorizations are handled by Google's OAuth login. There is no data collected or stored as a component of
+		using the application.</p>
+</div>
+{% endblock %}

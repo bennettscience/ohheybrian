@@ -152,3 +152,7 @@ def transcript():
         )
 
     return resp
+
+@bp.get("/privacy/endnote.html")
+def privacy():
+    return render_template("privacy/index.html")
