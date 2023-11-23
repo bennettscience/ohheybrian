@@ -1,8 +1,10 @@
-from ohheybrian.extensions import db, lm
+from dataclasses import dataclass
+
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from ohheybrian.extensions import db, lm
 
 @lm.user_loader
 def load_user(id):
@@ -16,13 +18,14 @@ class Contact(db.Model):
 	message = db.Column(db.String)
 
 
+@dataclass
 class Comment(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	slug = db.Column(db.String(128))
+	id:int = db.Column(db.Integer, primary_key=True)
+	slug:str = db.Column(db.String(128))
 	occurred = db.Column(db.DateTime(timezone=True), default=func.now())
-	name = db.Column(db.String(64), default="Anonymous Internet Person")
-	website = db.Column(db.String(128))
-	message = db.Column(db.String)
+	name:str = db.Column(db.String(64), default="Anonymous Internet Person")
+	website:str = db.Column(db.String(128))
+	message:str = db.Column(db.String)
 	approved = db.Column(db.Boolean, default=False)
 
 	def toggle_state(self):
