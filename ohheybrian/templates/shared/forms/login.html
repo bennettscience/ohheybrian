@@ -1,0 +1,8 @@
+{% extends '_layout.html' %}
+{% block main_content %}
+<form hx-trigger="submit" hx-post="/login">
+	<input type="text" name="email" placeholder="email" required />
+	<input type="password" name="password" placeholder="password" required />
+	<input type="submit" />
+</form>
+{% endblock %}

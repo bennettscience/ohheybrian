@@ -1,0 +1,12 @@
+{% extends '_layout.html' %}
+{% block main_content %}
+<h1>Oh hey</h1>
+<h3>Comments</h3>
+{% for comment in comments %}
+<b>{{comment.name}}</b>
+<p>{{comment.message}}</p>
+<p>{{comment.occurred}}</p>
+<button hx-trigger="click" hx-put="/comments/{{comment.id}}">{{comment.approved}}</button>
+<hr />
+{% endfor %}
+{% endblock %}
