@@ -1,6 +1,6 @@
 from flask import Flask 
-from ohheybrian.extensions import db, htmx, migrate, partials
-from ohheybrian.blueprints import academics, home, leadership
+from ohheybrian.extensions import db, htmx, lm, migrate, partials
+from ohheybrian.blueprints import admin, auth, comments, home
 
 def create_app(config):
     app = Flask(__name__, static_url_path="/static")
@@ -8,13 +8,15 @@ def create_app(config):
 
     db.init_app(app)
     htmx.init_app(app)
+    lm.init_app(app)
     migrate.init_app(app, db)
 
     partials.register_extensions(app)
 
-    app.register_blueprint(academics.bp)
+    app.register_blueprint(admin.bp)
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(comments.bp)
     app.register_blueprint(home.bp)
-    app.register_blueprint(leadership.bp)
 
     return app
 

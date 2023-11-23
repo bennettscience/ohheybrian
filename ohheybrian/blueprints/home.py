@@ -42,116 +42,116 @@ def contact():
     return resp
 
 
-@bp.post("/about/contact")
-def submit_contact():
-    template = "about/contact-confirm.html"
-    resp_data = {}
+# @bp.post("/about/contact")
+# def submit_contact():
+#     template = "about/contact-confirm.html"
+#     resp_data = {}
 
-    args = parser.parse(
-        {
-            "last_name": fields.Str(),
-            "first_name": fields.Str(),
-            "email": fields.Str(),
-            "message": fields.Str(),
-        },
-        location="form",
-    )
+#     args = parser.parse(
+#         {
+#             "last_name": fields.Str(),
+#             "first_name": fields.Str(),
+#             "email": fields.Str(),
+#             "message": fields.Str(),
+#         },
+#         location="form",
+#     )
 
-    clean_text = nh3.clean(args["message"])
+#     clean_text = nh3.clean(args["message"])
 
-    db.session.add(
-        Contact(
-            last_name=args["last_name"],
-            first_name=args["first_name"],
-            email=args["email"],
-            message=clean_text,
-        )
-    )
-    db.session.commit()
+#     db.session.add(
+#         Contact(
+#             last_name=args["last_name"],
+#             first_name=args["first_name"],
+#             email=args["email"],
+#             message=clean_text,
+#         )
+#     )
+#     db.session.commit()
 
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
 
-    return resp
-
-
-@bp.get("/leadership")
-def leadership():
-    template = "leadership/index.html"
-    resp_data = {}
-
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
-
-    return resp
+#     return resp
 
 
-@bp.get("/about/resume")
-def resume():
-    template = "about/resume.html"
-    resp_data = {"icons": icons}
+# @bp.get("/leadership")
+# def leadership():
+#     template = "leadership/index.html"
+#     resp_data = {}
 
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
 
-    return resp
-
-
-@bp.get("/academics")
-def academics():
-    template = "academics/index.html"
-    resp_data = {}
-
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
-
-    return resp
+#     return resp
 
 
-@bp.get("/academics/showcase")
-def showcase():
-    template = "academics/showcase.html"
-    resp_data = {}
+# @bp.get("/about/resume")
+# def resume():
+#     template = "about/resume.html"
+#     resp_data = {"icons": icons}
 
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
 
-    return resp
+#     return resp
 
 
-@bp.get("/academics/transcript")
-def transcript():
-    template = "academics/transcript.html"
-    resp_data = {}
+# @bp.get("/academics")
+# def academics():
+#     template = "academics/index.html"
+#     resp_data = {}
 
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
 
-    return resp
+#     return resp
+
+
+# @bp.get("/academics/showcase")
+# def showcase():
+#     template = "academics/showcase.html"
+#     resp_data = {}
+
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
+
+#     return resp
+
+
+# @bp.get("/academics/transcript")
+# def transcript():
+#     template = "academics/transcript.html"
+#     resp_data = {}
+
+#     if request.htmx:
+#         resp = render_template(template, **resp_data)
+#     else:
+#         resp = render_template(
+#             "shared/layout-wrap.html", partial=template, data=resp_data
+#         )
+
+#     return resp
 
 @bp.get("/privacy/endnote.html")
 def endnote_privacy():
