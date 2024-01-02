@@ -12,7 +12,11 @@ def get_comments():
 	comments = Comment.query.filter(Comment.approved == True).all()
 	
 	return jsonify(comments)
-	
+
+@bp.post("/comments/<string:slug>")
+def post_comment(slug):
+	pass
+
 @bp.get("/comments/<string:slug>")
 def get_post_comments(slug):
 	comments = Comment.query.filter(Comment.slug == slug and Comment.approved == True).order_by(Comment.occurred).all()

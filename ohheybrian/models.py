@@ -22,9 +22,9 @@ class Contact(db.Model):
 class Comment(db.Model):
 	id:int = db.Column(db.Integer, primary_key=True)
 	slug:str = db.Column(db.String(128))
-	occurred = db.Column(db.DateTime(timezone=True), default=func.now())
+	occurred:str = db.Column(db.DateTime(timezone=True), default=func.now())
 	name:str = db.Column(db.String(64), default="Anonymous Internet Person")
-	website:str = db.Column(db.String(128))
+	url:str = db.Column(db.String(128))
 	message:str = db.Column(db.String)
 	approved = db.Column(db.Boolean, default=False)
 
