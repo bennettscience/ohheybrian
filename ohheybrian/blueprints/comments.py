@@ -1,6 +1,10 @@
 from flask import Blueprint, jsonify, redirect, render_template
 from htmx_flask import make_response, request
 
+import nh3
+from webargs import fields
+from webargs.flaskparser import parser
+
 from ohheybrian.extensions import db
 from ohheybrian.models import Comment
 
@@ -15,11 +19,37 @@ def get_comments():
 
 @bp.post("/comments/<string:slug>")
 def post_comment(slug):
-	pass
+	args = parser.parse(
+		{
+			"name": fields.Str(),
+			"slug": fields.Str(),
+            "url": fields.Str(),
+            "message": fields.Str(),
+			"user_email": fields.Bool()
+        },
+        location="form"
+    )
+
+	print(args)
+
+	clean_text = nh3.clean(args["message"])
+
+	if not hasattr(args, "user_email"):
+		db.session.add(
+			Comment(
+				slug=args["slug"],
+				name=args["name"],
+				url=args["url"],
+				message=args["message"]
+			)
+	    )
+		db.session.commit()
+
+	return "Thanks! All comments are moderated, so yours will appear soon."
 
 @bp.get("/comments/<string:slug>")
 def get_post_comments(slug):
-	comments = Comment.query.filter(Comment.slug == slug and Comment.approved == True).order_by(Comment.occurred).all()
+	comments = Comment.query.filter_by(slug=slug, approved=True).order_by(Comment.occurred).all()
 	return jsonify(comments)
 
 
