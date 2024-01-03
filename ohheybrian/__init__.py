@@ -7,7 +7,7 @@ def create_app(config):
     app = Flask(__name__, static_url_path="/static")
     app.config.from_object(config)
 
-    cors = CORS(app, resources={r"/comments/*": {"origins": "http://localhost:8000"}})
+    cors = CORS(app, resources={r"/comments/*": {"origins": "https://blog.ohheybrian.com"}})
 
     db.init_app(app)
     htmx.init_app(app)
