@@ -30,8 +30,6 @@ def post_comment(slug):
         location="form"
     )
 
-	print(args)
-
 	clean_text = nh3.clean(args["message"])
 
 	if not hasattr(args, "user_email"):
@@ -59,4 +57,14 @@ def moderate(id):
 	comment.toggle_state()
 	return make_response(
 		trigger={"showToast": "Comment status updated"}
+	)
+
+@bp.delete("/comments/<int:id>")
+def delete_comment(id):
+	comment = Comment.query.filter(Comment.id == id).first()
+	db.session.delete(comment)
+
+	db.session.commit()
+	return make_response(
+		trigger={"showToast": "Comment deleted"}
 	)
