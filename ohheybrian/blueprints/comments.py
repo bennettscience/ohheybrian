@@ -32,19 +32,20 @@ def post_comment(slug):
 
 	clean_text = nh3.clean(args["message"])
 
-	if not hasattr(args, "user_email"):
-		db.session.add(
-			Comment(
-				slug=args["slug"],
-				name=args["name"],
-				url=args["url"],
-				message=args["message"],
-				is_spam=args["user_email"]
-			)
-	    )
-		db.session.commit()
+	comment = Comment(
+		slug=args["slug"],
+		name=args["name"],
+		url=args["url"],
+		message=args["message"],
+	)
 
-	return "Thanks! All comments are moderated, so yours will appear soon."
+	if hasattr(args, "user_email"):
+		comment.is_spam=True
+
+	db.session.add(comment)
+	db.session.commit()
+
+	return "Thanks! All comments are moderated, so yours will appear once approved."
 
 @bp.get("/comments/<string:slug>")
 def get_post_comments(slug):
