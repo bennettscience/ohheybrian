@@ -26,7 +26,7 @@ class Comment(db.Model):
 	name:str = db.Column(db.String(64), default="Anonymous Internet Person")
 	url:str = db.Column(db.String(128))
 	message:str = db.Column(db.String)
-	approved = db.Column(db.Boolean, default=False)
+	approved:bool = db.Column(db.Boolean, default=False)
 	is_spam:bool = db.Column(db.Boolean, default=False)
 
 	def toggle_state(self):
