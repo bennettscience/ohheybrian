@@ -27,6 +27,7 @@ class Comment(db.Model):
 	url:str = db.Column(db.String(128))
 	message:str = db.Column(db.String)
 	approved = db.Column(db.Boolean, default=False)
+	is_spam:bool = db.Column(db.Boolean, default=False)
 
 	def toggle_state(self):
 		self.approved = not self.approved

@@ -12,7 +12,7 @@ bp = Blueprint("admin", __name__)
 def index():
     if current_user.is_anonymous:
         redirect(url_for("home.index"))
-    comments = Comment.query.all()
+    comments = Comment.query.order_by(Comment.occurred.desc()).all()
     return render_template(
         "admin/index.html",
         comments=comments

@@ -7,7 +7,7 @@
 		<b>{{comment.name}}</b>
 		<p>{{comment.message}}</p>
 		<p>{{comment.occurred}}</p>
-		<p>Spam likely: {{comment.user_email}}</p>
+		<p>Spam likely: {{comment.is_spam}}</p>
 		<section class="comment-actions">
 			<button hx-trigger="click" hx-put="/comments/{{comment.id}}">{% if comment.approved %}Approved {% else %}
 				Pending {% endif %}</button>
