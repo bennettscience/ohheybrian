@@ -1,12 +1,19 @@
 {% extends '_layout.html' %}
 {% block main_content %}
-<h1>Oh hey</h1>
-<h3>Comments</h3>
-{% for comment in comments %}
-<b>{{comment.name}}</b>
-<p>{{comment.message}}</p>
-<p>{{comment.occurred}}</p>
-<button hx-trigger="click" hx-put="/comments/{{comment.id}}">{{comment.approved}}</button>
-<hr />
-{% endfor %}
+<div class="container container--flex col left">
+	<h3>Comments</h3>
+	{% for comment in comments %}
+	<div class="comment">
+		<b>{{comment.name}}</b>
+		<p>{{comment.message}}</p>
+		<p>{{comment.occurred}}</p>
+		<p>Spam likely: {{comment.user_email}}</p>
+		<section class="comment-actions">
+			<button hx-trigger="click" hx-put="/comments/{{comment.id}}">{% if comment.approved %}Approved {% else %}
+				Pending {% endif %}</button>
+			<button hx-trigger="click" hx-delete="/comments/{{comment.id}}">Delete</button>
+		</section>
+	</div>
+	{% endfor %}
+</div>
 {% endblock %}

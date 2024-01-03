@@ -403,9 +403,14 @@ footer {
 }
 
 .container--flex.col {
+  width: inherit;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.2rem;
+}
+
+.left {
+  align-items: flex-start;
 }
 
 /* Left side section title for links to major assignments */
@@ -819,6 +824,20 @@ article {
   border: 1px solid #ddd;
   border-radius: 3px;
   padding: 4rem;
+}
+
+/* Comments */
+.comment {
+  border: 1px solid var(--dark-gray);
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
 }
 
 @media screen and (max-width: 1068px) {
