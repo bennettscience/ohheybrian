@@ -16,7 +16,7 @@
     {% include 'shared/partials/nav.html' %}
     <main>
         {% block main_content %} {% endblock %}
-        <div id="toast"></div>
+        {% include 'shared/partials/toast.html' %}
     </main>
     <footer>
         <p>This site was created with love by Brian Bennett. Updated September, 2023.</p>
@@ -26,9 +26,9 @@
             noted.</p>
         <a href="{{ url_for('home.endnote_privacy') }}">Terms & Privacy</a>
     </footer>
-    <script src="static/assets/script.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="static/assets/script.js"></script>
 </body>
 
 </html>
