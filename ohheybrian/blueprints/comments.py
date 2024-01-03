@@ -38,7 +38,8 @@ def post_comment(slug):
 				slug=args["slug"],
 				name=args["name"],
 				url=args["url"],
-				message=args["message"]
+				message=args["message"],
+				is_spam=args["user_email"]
 			)
 	    )
 		db.session.commit()
@@ -55,7 +56,9 @@ def get_post_comments(slug):
 def moderate(id):
 	comment = Comment.query.filter(Comment.id == id).first()
 	comment.toggle_state()
+	value = "Approved" if comment.approved else "Pending"
 	return make_response(
+		value,
 		trigger={"showToast": "Comment status updated"}
 	)
 
