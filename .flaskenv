@@ -1,2 +1,0 @@
-FLASK_DEBUG=True
-SECRET_KEY="my_key"
