@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from flask_login import UserMixin
+from sqlalchemy.orm import Mapped
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -38,13 +39,13 @@ class Comment(db.Model):
     message: str = db.Column(db.String)
     approved: bool = db.Column(db.Boolean, default=False)
     is_spam: bool = db.Column(db.Boolean, default=False)
+    is_reply: bool = db.Column(db.Boolean, default=False)
 
-    replies = db.relationship(
+    replies: Mapped["comment_replies"] = db.relationship(
         "Comment",
         secondary="comment_replies",
         primaryjoin=(comment_replies.c.original_id == id),
         secondaryjoin=(comment_replies.c.reply_id == id),
-        lazy="dynamic",
     )
 
     def add_reply(self, comment):
