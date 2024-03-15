@@ -1,0 +1,16 @@
+<form hx-post="/comments/{{slug}}?reply_to={{comment_id}}" hx-trigger="submit">
+  <input name="slug" value="{{slug}}" type="hidden" />
+  <label
+    >Name *
+    <input name="name" type="text" />
+  </label>
+  <label
+    >Website
+    <input name="url" type="url" />
+  </label>
+  <label>What do you think?
+  <textara name="message" placeholder="What do you think?"></textarea>
+  </label>
+  <input name="user_email" class="user_email" type="checkbox" />
+  <input type="submit" />
+</form>
