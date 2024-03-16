@@ -21,16 +21,32 @@ def load_data(request, schema):
     return MultiDictProxy(newdata, schema)
 
 
+# Get all comments, admin view only. Essentially just a dump of everything in the database.
 @bp.get("/comments")
 def get_comments():
     comments = Comment.query.filter(Comment.approved == True).all()
     return jsonify(comments)
 
 
-# Get a form to reply to a comment
-@bp.get("/comments/<string:slug>/reply/<int:id>")
-def get_comment_form(slug, id):
-    return render_template("shared/forms/comment-reply.html", slug=slug, comment_id=id)
+# Get approved top-level comments for a single post.
+# This is fetched on load. Replies can be fetched with a user interaction.
+@bp.get("/comments/<string:slug>")
+def get_post_comments(slug):
+    args = parser.parse({"reply_id": fields.String()}, location="query")
+    if hasattr(args, "reply_id"):
+        comments = (
+            Comment.query.filter(Comment.id == args["reply_id"])
+            .first()
+            .replies.order_by(Comment.occurred)
+            .all()
+        )
+    else:
+        comments = (
+            Comment.query.filter_by(slug=slug, approved=True, is_reply=False)
+            .order_by(Comment.occurred)
+            .all()
+        )
+    return render_template("comments/comments.html", comments=comments)
 
 
 @bp.post("/comments/<string:slug>")
@@ -72,25 +88,6 @@ def post_comment(slug):
     return "Thanks! All comments are moderated, so yours will appear once approved."
 
 
-@bp.get("/comments/<string:slug>")
-def get_post_comments(slug):
-    args = parser.parse({"reply_id": fields.String()}, location="query")
-    if hasattr(args, "reply_id"):
-        comments = (
-            Comment.query.filter(Comment.id == args["reply_id"])
-            .first()
-            .replies.order_by(Comment.occurred)
-            .all()
-        )
-    else:
-        comments = (
-            Comment.query.filter_by(slug=slug, approved=True, is_reply=False)
-            .order_by(Comment.occurred)
-            .all()
-        )
-    return jsonify(comments)
-
-
 @bp.put("/comments/<int:id>")
 def moderate(id):
     comment = Comment.query.filter(Comment.id == id).first()
@@ -106,3 +103,9 @@ def delete_comment(id):
 
     db.session.commit()
     return make_response(trigger={"showToast": "Comment deleted"})
+
+
+# Get a form to reply to a comment
+@bp.get("/comments/<string:slug>/reply/<int:id>")
+def get_comment_form(slug, id):
+    return render_template("shared/forms/comment-reply.html", slug=slug, comment_id=id)
