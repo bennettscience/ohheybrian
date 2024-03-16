@@ -77,7 +77,7 @@ def post_comment(slug):
     db.session.add(comment)
 
     # If the comment has a reply_to key, do that now
-    if hasattr(request, "query_string"):
+    if request.args.get("reply_to"):
         comment.is_reply = True
         replied_to = Comment.query.filter(
             Comment.id == request.args.get("reply_to")
