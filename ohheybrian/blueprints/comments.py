@@ -32,8 +32,8 @@ def get_comments():
 # This is fetched on load. Replies can be fetched with a user interaction.
 @bp.get("/comments/<string:slug>")
 def get_post_comments(slug):
-    args = parser.parse({"reply_id": fields.String()}, location="query")
-    if hasattr(args, "reply_id"):
+    args = parser.parse({"reply_id": fields.Int()}, request, location="query")
+    if args.get("reply_id"):
         comments = (
             Comment.query.filter(Comment.id == args["reply_id"])
             .first()
@@ -50,7 +50,6 @@ def get_post_comments(slug):
 
 
 @bp.post("/comments/<string:slug>")
-@parser.use_args({"reply_to": fields.Int()}, location="query_and_form")
 def post_comment(slug):
     args = parser.parse(
         {
@@ -78,9 +77,11 @@ def post_comment(slug):
     db.session.add(comment)
 
     # If the comment has a reply_to key, do that now
-    if hasattr(args, "reply_to"):
+    if hasattr(request, "query_string"):
         comment.is_reply = True
-        replied_to = Comment.query.filter(Comment.id == args["reply_to"])
+        replied_to = Comment.query.filter(
+            Comment.id == request.args.get("reply_to")
+        ).first()
         replied_to.add_reply(comment)
 
     db.session.commit()

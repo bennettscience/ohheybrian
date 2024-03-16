@@ -53,11 +53,11 @@ class Comment(db.Model):
     )
 
     def add_reply(self, comment):
-        if not has_reply(comment):
-            self.replies.add(comment)
+        if not self.has_reply(comment):
+            self.replies.append(comment)
 
     def has_reply(self, comment):
-        query = self.replies.filter(Comment.id == comment.id)
+        query = self.replies.filter(Comment.id == comment.id).first()
         return query is not None
 
     @property

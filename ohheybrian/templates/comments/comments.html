@@ -7,14 +7,15 @@
   <p>{{ comment.message }}</p>
   {% if comment.has_replies %}
   <button
-    hx-get="{{ COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}?reply_id={{comment.id}}"
+    hx-get="{{ config.COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}?reply_id={{comment.id}}"
+    hx-target="next .reply"
   >
     Load {{comment.num_replies}} more comment{% if comment.num_replies == 0 or
     comment.num_replies > 1 %}s{% endif %}
   </button>
   {% endif %}
   <button
-    hx-get="{{ COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}/reply/{{ comment.id }}"
+    hx-get="{{ config.COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}/reply/{{ comment.id }}"
     hx-target="next div"
     hx-swap="innerHTML"
     hx-trigger="click"
