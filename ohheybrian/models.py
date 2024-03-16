@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped
 from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -39,13 +40,16 @@ class Comment(db.Model):
     message: str = db.Column(db.String)
     approved: bool = db.Column(db.Boolean, default=False)
     is_spam: bool = db.Column(db.Boolean, default=False)
-    is_reply: bool = db.Column(db.Boolean, default=False)
+    is_reply = db.Column(db.Boolean, default=False)
+    has_replies: bool
+    num_replies: int
 
-    replies: Mapped["comment_replies"] = db.relationship(
+    replies = db.relationship(
         "Comment",
         secondary="comment_replies",
         primaryjoin=(comment_replies.c.original_id == id),
         secondaryjoin=(comment_replies.c.reply_id == id),
+        lazy="dynamic",
     )
 
     def add_reply(self, comment):
@@ -56,8 +60,13 @@ class Comment(db.Model):
         query = self.replies.filter(Comment.id == comment.id)
         return query is not None
 
-    def has_replies(self):
-        return len(self.replies) > 0
+    @property
+    def num_replies(self):
+        return len(self.replies.all())
+
+    @property
+    def has_replies(self) -> bool:
+        return len(self.replies.all()) > 0
 
     def toggle_state(self):
         self.approved = not self.approved

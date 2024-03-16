@@ -74,11 +74,20 @@ def post_comment(slug):
 
 @bp.get("/comments/<string:slug>")
 def get_post_comments(slug):
-    comments = (
-        Comment.query.filter_by(slug=slug, approved=True, is_reply=False)
-        .order_by(Comment.occurred)
-        .all()
-    )
+    args = parser.parse({"reply_id": fields.String()}, location="query")
+    if hasattr(args, "reply_id"):
+        comments = (
+            Comment.query.filter(Comment.id == args["reply_id"])
+            .first()
+            .replies.order_by(Comment.occurred)
+            .all()
+        )
+    else:
+        comments = (
+            Comment.query.filter_by(slug=slug, approved=True, is_reply=False)
+            .order_by(Comment.occurred)
+            .all()
+        )
     return jsonify(comments)
 
 
