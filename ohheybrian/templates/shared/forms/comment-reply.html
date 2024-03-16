@@ -1,6 +1,8 @@
 <form
   hx-post="{{ config.COMMENTS_ENDPOINT }}/comments/{{slug}}?reply_to={{comment_id}}"
   hx-trigger="submit"
+  hx-target="this"
+  hx-swap="outerHTML"
 >
   <input name="slug" value="{{slug}}" type="hidden" />
   <label
