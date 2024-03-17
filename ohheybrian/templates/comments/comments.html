@@ -1,27 +1,2 @@
-{% for comment in comments %}
-<article class="comment">
-  <span class="comment--meta">
-    <p>A thought from <b>{{ comment.name }}</b></p>
-  </span>
-  <em class="comment--datestamp">{{comment.occurred}}</em>
-  <p>{{ comment.message }}</p>
-  {% if comment.has_replies %}
-  <button
-    hx-get="{{ config.COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}?reply_id={{comment.id}}"
-    hx-target="next .reply"
-  >
-    Load {{comment.num_replies}} more comment{% if comment.num_replies == 0 or
-    comment.num_replies > 1 %}s{% endif %}
-  </button>
-  {% endif %}
-  <button
-    hx-get="{{ config.COMMENTS_ENDPOINT }}/comments/{{ comment.slug }}/reply/{{ comment.id }}"
-    hx-target="next div"
-    hx-swap="innerHTML"
-    hx-trigger="click"
-  >
-    Reply
-  </button>
-  <div class="reply"></div>
-</article>
-{% endfor %}
+{% from 'shared/macros.html' import render_comment %} {% for comment in comments
+%} {{ render_comment(comment) }} {% endfor %}
