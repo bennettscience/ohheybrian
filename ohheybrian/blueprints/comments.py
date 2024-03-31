@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, redirect, render_template
+from flask_login import login_required
 from htmx_flask import make_response, request
 
 import nh3
@@ -19,13 +20,6 @@ def load_data(request, schema):
     newdata = request.args.copy()
     newdata.update(request.form)
     return MultiDictProxy(newdata, schema)
-
-
-# # Get all comments, admin view only. Essentially just a dump of everything in the database.
-# @bp.get("/comments")
-# def get_comments():
-#     comments = Comment.query.filter(Comment.approved == True).all()
-#     return jsonify(comments)
 
 
 # Get approved top-level comments for a single post.
@@ -90,6 +84,7 @@ def post_comment(slug):
 
 
 @bp.put("/comments/<int:id>")
+@login_required
 def moderate(id):
     comment = Comment.query.filter(Comment.id == id).first()
     comment.toggle_state()
@@ -98,6 +93,7 @@ def moderate(id):
 
 
 @bp.delete("/comments/<int:id>")
+@login_required
 def delete_comment(id):
     comment = Comment.query.filter(Comment.id == id).first()
     db.session.delete(comment)
