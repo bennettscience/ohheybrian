@@ -21,11 +21,11 @@ def load_data(request, schema):
     return MultiDictProxy(newdata, schema)
 
 
-# Get all comments, admin view only. Essentially just a dump of everything in the database.
-@bp.get("/comments")
-def get_comments():
-    comments = Comment.query.filter(Comment.approved == True).all()
-    return jsonify(comments)
+# # Get all comments, admin view only. Essentially just a dump of everything in the database.
+# @bp.get("/comments")
+# def get_comments():
+#     comments = Comment.query.filter(Comment.approved == True).all()
+#     return jsonify(comments)
 
 
 # Get approved top-level comments for a single post.
