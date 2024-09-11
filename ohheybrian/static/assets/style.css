@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 @keyframes fade-in {
   from {
@@ -16,13 +16,13 @@
 
 @keyframes slide-in {
   from {
-    transform: translateX(90px)
+    transform: translateX(90px);
   }
 }
 
 @keyframes slide-out {
   to {
-    transform: translateX(-90px)
+    transform: translateX(-90px);
   }
 }
 
@@ -47,7 +47,19 @@ html {
 
 body {
   background: #fff;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
@@ -148,7 +160,7 @@ gallery img {
   padding: 2rem;
 }
 
-.full-bleed>* {
+.full-bleed > * {
   flex-basis: 50%;
 }
 
@@ -158,7 +170,6 @@ gallery img {
   object-fit: cover;
   border-radius: 0;
 }
-
 
 form {
   display: flex;
@@ -170,7 +181,7 @@ form {
   border-radius: 2px;
 }
 
-form>input {
+form > input {
   padding: 0.5rem;
   flex-basis: 45%;
   font-size: inherit;
@@ -178,7 +189,7 @@ form>input {
   border-bottom: 1px solid var(--black);
 }
 
-form>textarea {
+form > textarea {
   padding: 0.5rem;
   font-family: inherit;
   font-size: inherit;
@@ -210,7 +221,6 @@ form>textarea {
   padding: 12px 12px;
   display: table-cell;
 }
-
 
 .small-header {
   position: relative;
@@ -468,7 +478,7 @@ footer {
   gap: 2rem;
   min-width: 100%;
   opacity: 1;
-  animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in
+  animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in;
 }
 
 .container--grid .menu {
@@ -484,7 +494,7 @@ footer {
 }
 
 a.cta:after {
-  content: url('./right-arrow.svg');
+  content: url("./right-arrow.svg");
   margin-left: 0.25rem;
 }
 
@@ -531,7 +541,7 @@ a.cta:after {
 
 .face {
   height: 200px;
-  width: 200px;
+  width: auto;
   transition: all 150ms ease;
 }
 
@@ -548,7 +558,7 @@ a.cta:after {
 }
 
 #scroll-face.scrolled {
-  transform: scale(1)
+  transform: scale(1);
 }
 
 #academics,
@@ -637,13 +647,13 @@ a.cta:after {
   background-color: var(--white);
 }
 
-.filters>label {
+.filters > label {
   display: block;
   margin-block-start: 0.15rem;
   margin-block-end: 0.15rem;
 }
 
-.filters>label:hover {
+.filters > label:hover {
   cursor: pointer;
 }
 
@@ -734,16 +744,21 @@ a.cta:after {
   margin: 0;
 }
 
-.timeline--panel>p.timeline--item__date {
+.timeline--panel > p.timeline--item__date {
   font-size: 0.8rem;
 }
 
-.timeline .timeline--item .timeline--panel .timeline--item__description>p,
-.timeline .timeline--item .timeline--panel .timeline--item__description>ul {
+.timeline .timeline--item .timeline--panel .timeline--item__description > p,
+.timeline .timeline--item .timeline--panel .timeline--item__description > ul {
   margin-bottom: 0;
 }
 
-.timeline .timeline--item .timeline--panel .timeline--item__description>p+p {
+.timeline
+  .timeline--item
+  .timeline--panel
+  .timeline--item__description
+  > p
+  + p {
   margin-top: 5px;
 }
 
@@ -879,9 +894,8 @@ article {
 }
 
 @media screen and (max-width: 1068px) {
-
   .face {
-    display: none
+    display: none;
   }
 
   .container--flex {
@@ -988,5 +1002,4 @@ article {
     padding: 2px 16px;
     display: block;
   }
-
 }
