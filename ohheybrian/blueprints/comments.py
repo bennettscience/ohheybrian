@@ -59,10 +59,7 @@ def post_comment(slug):
     clean_text = nh3.clean(args["message"])
 
     comment = Comment(
-        slug=args["slug"],
-        name=args["name"],
-        url=args["url"],
-        message=args["message"],
+        slug=args["slug"], name=args["name"], url=args["url"], message=clean_text
     )
 
     if hasattr(args, "user_email"):
