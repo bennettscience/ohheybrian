@@ -1,0 +1,4 @@
+{% extends "microblog/base.html" %} {% block main %} {% if posts %} {% for post
+in posts %} Some HTML and a thing {% endfor %} {% else %}
+<p>There's nothing to see here today.</p>
+{% endif %} {% endblock %}

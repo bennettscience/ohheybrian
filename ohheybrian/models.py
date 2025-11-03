@@ -73,6 +73,31 @@ class Comment(db.Model):
         db.session.commit()
 
 
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    author = db.Column(db.Integer, db.ForeignKey("user.id"))
+    created_on = db.Column(db.DateTime(timezone=True), default=func.now())
+    tag = db.relationship(
+        "PostTag",
+        secondary="posttag_association",
+        uselist=True,
+        lazy="subquery",
+        backref=db.backref("tag_name", lazy="subquery"),
+    )
+    post_body = db.Column(db.String)
+    published = db.Column(db.Boolean, default=False)
+
+
+class PostTag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, index=True, unique=True)
+
+    @classmethod
+    def tag_names(cls):
+        return PostTag.query.filter()
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(128))
@@ -85,3 +110,10 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+posttag_association = db.Table(
+    "posttag_association",
+    db.Column("tag_id", db.Integer, db.ForeignKey("post_tag.id")),
+    db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
+)

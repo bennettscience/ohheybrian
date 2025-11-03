@@ -1,0 +1,17 @@
+<html lang="en">
+  <head>
+    <title>{% block title %}ohhey[micro]{% endblock %}</title>
+    <meta name="viewport" content="width=devide-width, initial-scale=1.0" />
+    <meta name="author" content="Brian Bennett" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="fediverse:creator" content="@brianb@fosstodon.org" />
+    <meta name="description" content="oh hey, it's a tiny blog" />
+
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    <nav>micro</nav>
+    <main>{% block main %} {% endblock %}</main>
+  </body>
+  <footer>{% block footer %} {% endblock %}</footer>
+</html>
