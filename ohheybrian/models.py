@@ -9,17 +9,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from ohheybrian.extensions import db, lm
 
 
-comment_replies = db.Table(
-    "comment_replies",
-    db.metadata,
-    db.Column("original_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
-    db.Column("reply_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
-)
-
-
 @lm.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+class Base(db.Model):
+
+    def toggle_state(self, prop):
+        if hasattr(self, prop):
+            self.prop = not self.prop
+            db.session.commit()
+        else:
+            return False
+        return True
 
 
 class Contact(db.Model):
@@ -31,7 +34,7 @@ class Contact(db.Model):
 
 
 @dataclass
-class Comment(db.Model):
+class Comment(db.Model, Base):
     id: int = db.Column(db.Integer, primary_key=True)
     slug: str = db.Column(db.String(128))
     occurred: str = db.Column(db.DateTime(timezone=True), default=func.now())
@@ -68,18 +71,30 @@ class Comment(db.Model):
     def has_replies(self) -> bool:
         return len(self.replies.all()) > 0
 
-    def toggle_state(self):
-        self.approved = not self.approved
-        db.session.commit()
+
+class Page(db.Model, Base):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    created_on = db.Column(db.DateTime(timezone=True), default=func.now())
+    page_body = db.Column(db.String)
+    published = db.Column(db.Boolean, default=False)
+    show_in_nav = db.Column(db.Boolean, default=True)
 
 
-class Post(db.Model):
+class Post(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     author = db.Column(db.Integer, db.ForeignKey("user.id"))
     created_on = db.Column(db.DateTime(timezone=True), default=func.now())
-    tag = db.relationship(
-        "PostTag",
+    category = db.relationship(
+        "Category",
+        secondary="postcategory_association",
+        uselist=False,
+        lazt="subquery",
+        backref=db.backref("category_name", lazy="subquery"),
+    )
+    tags = db.relationship(
+        "Tag",
         secondary="posttag_association",
         uselist=True,
         lazy="subquery",
@@ -89,13 +104,22 @@ class Post(db.Model):
     published = db.Column(db.Boolean, default=False)
 
 
-class PostTag(db.Model):
+class Category(db.Model, Base):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, index=True, unique=True)
+
+    @classmethod
+    def category_name(cls):
+        return Category.query.filter()
+
+
+class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, index=True, unique=True)
 
     @classmethod
     def tag_names(cls):
-        return PostTag.query.filter()
+        return Tag.query.filter()
 
 
 class User(UserMixin, db.Model):
@@ -112,8 +136,22 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
+# Associations
+comment_replies = db.Table(
+    "comment_replies",
+    db.metadata,
+    db.Column("original_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
+    db.Column("reply_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
+)
+
 posttag_association = db.Table(
     "posttag_association",
-    db.Column("tag_id", db.Integer, db.ForeignKey("post_tag.id")),
+    db.Column("tag_id", db.Integer, db.ForeignKey("tag.id")),
+    db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
+)
+
+postcategory_association = db.Table(
+    "postcategory_association",
+    db.Column("category_id", db.Integer, db.ForeignKey("category.id")),
     db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
 )

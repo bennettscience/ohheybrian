@@ -1,7 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
 from ohheybrian.extensions import db, htmx, lm, migrate, partials
-from ohheybrian.blueprints import admin, auth, comments, home, microblog
+from ohheybrian.blueprints import (
+    admin,
+    auth,
+    comments,
+    home,
+    microblog,
+    microblog_admin,
+)
 
 
 def create_app(config):
@@ -24,5 +31,6 @@ def create_app(config):
     app.register_blueprint(comments.bp)
     app.register_blueprint(home.bp)
     app.register_blueprint(microblog.bp, url_prefix="/micro")
+    app.register_blueprint(microblog_admin.bp, url_prfix="/micro/admin")
 
     return app
