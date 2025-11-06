@@ -10,8 +10,8 @@
     {% block head %} {% endblock %}
   </head>
   <body>
-    <nav>micro</nav>
-    <main>{% block main %} {% endblock %}</main>
+    {% include 'shared/partials/nav.html' %}
+    <main>{% block post_content %} {% endblock %}</main>
   </body>
   <footer>{% block footer %} {% endblock %}</footer>
 </html>

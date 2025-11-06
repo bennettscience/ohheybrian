@@ -1,1 +1,27 @@
-
+{% extends "_layout.html" %} {% block main_content %}
+<form hx-trigger="submit" hx-post="/admin/posts/new">
+  <label
+    >Title
+    <input name="title" type="text" />
+  </label>
+  <textarea name="content"></textarea>
+  <label
+    >Category
+    <input list="categories" name="category" />
+  </label>
+  <datalist name="categories">
+    {% for cat in categories %}
+    <option value="{{ cat.id }}">{{cat.name}}</option>
+    {% endfor %}
+  </datalist>
+  <label
+    >Tags
+    <input type="text" name="tags" />
+  </label>
+  <label for="published"
+    >Published:
+    <input type="checkbox" name="published" />
+  </label>
+  <input type="submit" />
+</form>
+{% endblock %}
