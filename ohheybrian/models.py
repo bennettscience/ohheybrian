@@ -14,7 +14,15 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-class Base(db.Model):
+comment_replies = db.Table(
+    "comment_replies",
+    db.metadata,
+    db.Column("original_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
+    db.Column("reply_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
+)
+
+
+class Base:
 
     def toggle_state(self, prop):
         if hasattr(self, prop):
@@ -90,7 +98,7 @@ class Post(db.Model, Base):
         "Category",
         secondary="postcategory_association",
         uselist=False,
-        lazt="subquery",
+        lazy="subquery",
         backref=db.backref("category_name", lazy="subquery"),
     )
     tags = db.relationship(
@@ -109,7 +117,7 @@ class Category(db.Model, Base):
     name = db.Column(db.String, index=True, unique=True)
 
     @classmethod
-    def category_name(cls):
+    def category_names(cls):
         return Category.query.filter()
 
 
@@ -137,12 +145,6 @@ class User(UserMixin, db.Model):
 
 
 # Associations
-comment_replies = db.Table(
-    "comment_replies",
-    db.metadata,
-    db.Column("original_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
-    db.Column("reply_id", db.Integer, db.ForeignKey("comment.id"), primary_key=True),
-)
 
 posttag_association = db.Table(
     "posttag_association",
