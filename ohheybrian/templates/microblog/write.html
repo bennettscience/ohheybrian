@@ -1,10 +1,10 @@
 {% extends "_layout.html" %} {% block main_content %}
-<form hx-trigger="submit" hx-post="/admin/posts/new">
+<form hx-trigger="submit" hx-post="/admin/posts/add">
   <label
     >Title
     <input name="title" type="text" />
   </label>
-  <textarea name="content"></textarea>
+  <textarea name="post_body"></textarea>
   <label
     >Category
     <input list="categories" name="category" />

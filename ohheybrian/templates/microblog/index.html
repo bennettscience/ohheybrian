@@ -1,4 +1,23 @@
-{% extends "microblog/base.html" %} {% block main %} {% if posts %} {% for post
-in posts %} Some HTML and a thing {% endfor %} {% else %}
-<p>There's nothing to see here today.</p>
-{% endif %} {% endblock %}
+{% extends "_layout.html" %} {% block head %} {% endblock %} {% block
+main_content %} {% if posts %} {% for post in posts %}
+<article>
+  <header class="article_title">
+    <h2>
+      <a href="{{ url_for('posts.get_single_post', post_id=post.id)}}"
+        >{{post.title}}</a
+      >
+    </h2>
+  </header>
+  {{ post.post_body|safe}}
+  <footer class="article_footer">
+    <time
+      datetime="{{ post.created_on.isoformat() }}"
+      pubdate="{{ post.created_on.isoformat() }}"
+      >{{ post.created_on.strftime('%Y-%m-%d') }}</time
+    >
+    <p>{{ post.category }}</p>
+  </footer>
+  {% endfor %} {% else %}
+  <p>There's nothing to see here today.</p>
+  {% endif %} {% endblock %}
+</article>
