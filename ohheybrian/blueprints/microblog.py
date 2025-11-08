@@ -11,4 +11,5 @@ bp = Blueprint("microblog_index", __name__)
 @bp.get("/")
 def microblog_index():
     posts = Post.query.all()
+    print(posts)
     return render_template("microblog/index.html", posts=posts)

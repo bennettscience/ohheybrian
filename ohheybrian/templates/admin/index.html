@@ -1,5 +1,8 @@
 {% extends '_layout.html' %} {% block main_content %}
 <div class="container">
+  {% for post in posts %}
+  <p>{{post.title}}</p>
+  {% endfor %}
   <h2>Comments</h2>
   <div class="container--flex">
     <div id="pending">
