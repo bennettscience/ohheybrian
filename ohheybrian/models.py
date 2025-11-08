@@ -110,6 +110,7 @@ class Post(db.Model, Base):
     )
     post_body = db.Column(db.String)
     published = db.Column(db.Boolean, default=False)
+    slug = db.Column(db.String)
 
 
 class Category(db.Model, Base):
