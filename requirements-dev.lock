@@ -32,7 +32,7 @@ flask-login==0.6.3
     # via ohheybrian
 flask-migrate==4.0.4
     # via ohheybrian
-flask-sqlalchemy==3.0.3
+flask-sqlalchemy==3.1.1
     # via flask-migrate
     # via ohheybrian
 htmx-flask==0.1.0
