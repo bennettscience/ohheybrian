@@ -1,5 +1,3 @@
-from typing import type
-
 from ohheybrian.models import Tag
 
 
