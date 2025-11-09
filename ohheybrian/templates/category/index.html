@@ -1,0 +1,4 @@
+{% extends "_layout.html" %} {% block main_content %} {% for category in
+categories %}
+<a href="/categories/{{ category.id }}">{{ category.name }}</a>
+{% endfor %} {% endblock %}
