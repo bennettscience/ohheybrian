@@ -11,7 +11,7 @@ from webargs.flaskparser import parser
 import markdown
 
 from ohheybrian.extensions import db
-from ohheybrian.helpers import parse_post_tags
+from ohheybrian.functions.helpers import parse_post_tags
 from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
