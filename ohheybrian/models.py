@@ -99,14 +99,14 @@ class Post(db.Model, Base):
         secondary="postcategory_association",
         uselist=False,
         lazy="subquery",
-        backref=db.backref("category_name", lazy="subquery"),
+        backref=db.backref("posts", lazy="subquery"),
     )
     tags = db.relationship(
         "Tag",
         secondary="posttag_association",
         uselist=True,
         lazy="subquery",
-        backref=db.backref("tag_name", lazy="subquery"),
+        backref=db.backref("posts", lazy="subquery"),
     )
     post_body = db.Column(db.String)
     published = db.Column(db.Boolean, default=False)
