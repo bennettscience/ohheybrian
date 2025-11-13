@@ -9,7 +9,7 @@
       >
     </h2>
   </header>
-  {{ post.post_body|safe}}
+  {{ post.post_body|safe|truncate(150, True)}}
   <footer class="article_footer">
     <time
       datetime="{{ post.created_on.isoformat() }}"
