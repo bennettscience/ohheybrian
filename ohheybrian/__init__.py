@@ -4,11 +4,12 @@ from ohheybrian.extensions import db, htmx, lm, migrate, partials
 from ohheybrian.blueprints import (
     admin,
     auth,
-    categories,
-    comments,
+    category,
+    comment,
     home,
     microblog,
-    posts,
+    post,
+    tag,
 )
 
 
@@ -29,10 +30,11 @@ def create_app(config):
 
     app.register_blueprint(admin.bp, url_prefix="/admin")
     app.register_blueprint(auth.bp)
-    app.register_blueprint(categories.bp)
-    app.register_blueprint(comments.bp)
+    app.register_blueprint(category.bp)
+    app.register_blueprint(comment.bp)
     app.register_blueprint(home.bp)
     app.register_blueprint(microblog.bp, url_prefix="/micro")
-    app.register_blueprint(posts.bp)
+    app.register_blueprint(post.bp)
+    app.register_blueprint(tag.bp)
 
     return app
