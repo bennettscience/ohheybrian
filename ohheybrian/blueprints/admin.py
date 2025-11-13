@@ -11,7 +11,11 @@ from webargs.flaskparser import parser
 import markdown
 
 from ohheybrian.extensions import db
-from ohheybrian.functions.helpers import parse_post_tags
+from ohheybrian.functions.helpers import (
+    parse_post_tags,
+    check_tag_or_category_exists,
+    create_new_category,
+)
 from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
@@ -82,6 +86,12 @@ def save_new_post():
     )
 
     db.session.add(post)
+
+    # Add the tags to the new post object
+    post.tags.extend(args["tags"])
+
+    # check the post category
+    # Can only be single, so checking here isn't awful
     db.session.commit()
 
     return redirect(url_for("admin.index"))

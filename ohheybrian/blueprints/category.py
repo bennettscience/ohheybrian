@@ -9,29 +9,32 @@ from ohheybrian.database import DBClient
 
 client = DBClient(db)
 
-bp = Blueprint("categories", __name__)
+bp = Blueprint("category", __name__)
 
 
 # Get all cats
-@bp.get("/categories")
+@bp.get("/category")
 def categories():
     categories = client.get(Category).all()
     return render_template("category/index.html", categories=categories)
 
 
-@bp.get("/categories/<int:cat_id>")
+@bp.get("/category/<int:cat_id>")
 def get_category(cat_id):
-    pass
+    stmt = db.select(Category).where(Category.id == cat_id)
+    category = db.session.scalars(stmt).one()
+
+    return render_template("category/single.html", category=category)
 
 
 # Start a new cat
-@bp.get("/categories/new")
+@bp.get("/category/new")
 def create_category():
     return render_template("category/create.html")
 
 
 # Create the new cat
-@bp.post("/categories/new")
+@bp.post("/category/new")
 def save_new_category():
     """
     Expect a form with `name` property
@@ -49,9 +52,10 @@ def save_new_category():
 
 
 # Edit a cat
-@bp.get("/categories/<int:cat_id>/edit")
+@bp.get("/category/<int:cat_id>/edit")
 def edit_category(cat_id: int):
-    category = Category.query.filter(Category.id == cat_id).first()
+    stmt = db.session.get(Category, cat_id)
+    category = db.session.scalars(stmt).all()
 
     if not category:
         abort(404)
