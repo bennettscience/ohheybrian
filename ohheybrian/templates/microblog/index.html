@@ -3,7 +3,8 @@ main_content %} {% if posts %} {% for post in posts %}
 <article>
   <header class="article_title">
     <h2>
-      <a href="{{ url_for('posts.get_single_post', post_id=post.id)}}"
+      <a
+        href="{{ url_for('posts.get_single_post', post_month=post.created_on.strftime('%m'), post_year=post.created_on.strftime('%Y'), post_slug=post.slug)}}"
         >{{post.title}}</a
       >
     </h2>
