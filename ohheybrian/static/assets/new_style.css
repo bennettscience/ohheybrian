@@ -96,19 +96,12 @@ svg > path {
 img,
 video,
 .gist {
-  max-width: 90%;
   margin: 0.6rem auto;
 }
 
 img {
   display: block;
 }
-
-/* 
-img:not([alt]), img[alt=""] {
-  filter: blur(10px);
-  outline: 10px solid;
-} */
 
 pre {
   padding: 1rem;
@@ -157,11 +150,7 @@ table td {
   cursor: pointer;
 }
 
-#user_meta img {
-  height: 32px;
-  width: 32px;
-}
-
+/* NAVIGATION */
 nav {
   background-color: #fff;
 
@@ -195,7 +184,7 @@ nav h1 {
 }
 
 nav img {
-  height: 36px;
+  height: auto;
   width: 36px;
 }
 
@@ -207,32 +196,32 @@ nav img {
   gap: 1.5rem;
 }
 
+.nav-items li {
+  list-style-type: none;
+}
+
+/* CONTAINERS */
+.with-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.with-sidebar > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 30%;
+  padding: 1rem;
+}
+
+.with-sidebar > :last-child {
+  flex-basis: 10rem;
+  flex-grow: 1;
+}
+
 main {
-  display: grid;
   width: 80vw;
   margin: 1rem auto;
-  gap: 2rem;
-  grid-template-columns: 70% 1fr;
-  grid-template-areas: "main--left main--right";
-}
-
-#main--left {
-  grid-area: main--left;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 1rem auto;
-}
-
-#main--right {
-  grid-area: main--right;
-  width: 100%;
-}
-
-#main--right .container {
-  padding: 1rem;
-  margin: 0.5rem;
-  border: 1px solid var(--gray);
 }
 
 section {
@@ -306,7 +295,7 @@ form {
 
 label {
   width: 100%;
-  flex-basis: 48%;
+  display: block;
 }
 
 label:nth-of-type(3) {
@@ -318,7 +307,6 @@ textarea {
   border: 1px solid var(--light-black);
   border-radius: 3px;
   padding: 0.5rem;
-  width: 100%;
 }
 
 input[type="submit"] {
