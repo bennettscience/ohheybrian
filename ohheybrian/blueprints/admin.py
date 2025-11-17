@@ -21,20 +21,19 @@ from ohheybrian.models import Comment, Post
 bp = Blueprint("admin", __name__)
 
 
-@bp.get("/")
-def index():
+@bp.get("/posts")
+def admin_posts():
     if current_user.is_anonymous:
         redirect(url_for("home.index"))
     # gather stats from the database
     posts = Post.query.all()
+    return render_template("admin/index.html", posts=posts)
+
+
+@bp.get("/comments")
+def admin_comments():
     comments = Comment.query.order_by(Comment.occurred.desc()).all()
-    return render_template("admin/index.html", posts=posts, comments=comments)
-
-
-# Get all posts
-@bp.get("/posts")
-def posts():
-    pass
+    return render_template("admin/index.html", comments=comments)
 
 
 # Start a new post
@@ -46,6 +45,11 @@ def create_post():
 # Create the new post
 @bp.post("/posts/add")
 def save_new_post():
+    """
+    Save a post to the database
+
+    Create a new entry with submitted form data.
+    """
     args = parser.parse(
         {
             "title": fields.String(),

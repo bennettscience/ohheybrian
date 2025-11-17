@@ -22,7 +22,7 @@
   </head>
 
   <body>
-    {% include 'shared/partials/nav.html' %}
+    {% block nav %} {% include 'shared/partials/nav.html' %} {% endblock %}
     <main>
       {% block main_content %} {% endblock %} {% include
       'shared/partials/toast.html' %}

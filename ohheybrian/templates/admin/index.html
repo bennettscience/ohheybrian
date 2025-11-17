@@ -1,59 +1,54 @@
-{% extends '_layout.html' %} {% block main_content %}
-<div class="container">
-  {% for post in posts %}
-  <p>{{post.title}}</p>
-  {% endfor %}
-  <h2>Comments</h2>
-  <div class="container--flex">
-    <div id="pending">
-      <h3>Pending</h3>
-      <p>
-        {{ comments | selectattr("approved", "equalto", False) | list | count}}
-      </p>
-    </div>
-    <div id="approved">
-      <h3>Approved</h3>
-      <p>
-        {{ comments | selectattr("approved", "equalto", True) | list | count}}
-      </p>
-    </div>
-    <div id="spam">
-      <h3>Spam</h3>
-      <p>
-        {{ comments | selectattr("is_spam", "equalto", True) | list | count}}
-      </p>
-    </div>
-    <div id="total">
-      <h3>Total</h3>
-      <p>{{ comments | count }}</p>
-    </div>
-  </div>
-  <div class="container--flex col">
-    {% for comment in comments %}
-    <div
-      class="comment"
-      _="on delete remove me"
-      data-approved="{{comment.approved}}"
+{% extends '_layout.html' %} {% block nav %}
+<nav>
+  <a href="/"
+    ><img
+      id="nav-face"
+      src="https://ohheybrian.com/static/images/selfie.webp"
+      alt="A sketch of my face"
+  /></a>
+  <ul class="nav-items">
+    <li><a href="#">Posts</a></li>
+    <li><a href="#">Comments</a></li>
+    <li><a href="#">Pages</a></li>
+    <li><a href="#">Categories</a></li>
+    <li><a href="#">Tags</a></li>
+  </ul>
+</nav>
+{% endblock %} {% block main_content %}
+<a class="btn" href="{{ url_for('admin.create_post')}}">New post</a>
+<div class="container with-sidebar">
+  <section>
+    <h2>Posts</h2>
+    {% for post in posts %}
+    <article
+      class="admin"
+      style="display: flex; justify-content: space-between"
     >
-      <b>{{comment.name}}</b>
-      <p>Post: {{comment.slug}}</p>
-      <p>{{comment.message}}</p>
-      <p>{{comment.occurred}}</p>
-      <p>Spam likely: {{comment.is_spam}}</p>
-      <section class="comment-actions">
-        <button hx-trigger="click" hx-put="/comments/{{comment.id}}">
-          {% if comment.approved %}Approved {% else %} Pending {% endif %}
-        </button>
-        <button
-          hx-trigger="click"
-          hx-delete="/comments/{{comment.id}}"
-          _="on htmx:afterRequest(detail) if detail.xhr.status is 200 trigger delete"
-        >
-          Delete
-        </button>
+      <section>
+        <p>{{post.title}}</p>
+        <p>{{ post.created_on.strftime('%Y-%m-%d : %I:%M %p' )}}</p>
+        <p>{{ post.post_body|safe|truncate}}</p>
       </section>
-    </div>
-  </div>
-  {% endfor %}
+      <section>
+        <p>{% if post.published %}published{% else %}draft{% endif %}</p>
+      </section>
+    </article>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Filters</h3>
+    <label>
+      <input type="checkbox" value="all" />
+      All
+    </label>
+    <label>
+      <input type="checkbox" value="published" />
+      Published
+    </label>
+    <label>
+      <input type="checkbox" value="draft" />
+      Draft
+    </label>
+  </section>
 </div>
 {% endblock %}
