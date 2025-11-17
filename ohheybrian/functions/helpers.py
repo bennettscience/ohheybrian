@@ -2,10 +2,6 @@ from ohheybrian.extensions import db
 from ohheybrian.models import Tag
 
 
-def parse_date(date):
-    pass
-
-
 def check_tag_or_category_exists(table: str, name: str) -> bool:
     stmt = db.select(table).where(getattr(table, "name") == name)
     return db.session.scalar(stmt)
