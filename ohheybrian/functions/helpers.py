@@ -11,9 +11,9 @@ def parse_post_tags(tags: list) -> list:
     result = []
     for tag in tags:
         # TODO: wrap this in the db client
-        tag = check_tag_or_category_exists("Tag", tag)
-        if tag:
-            result.append(tag)
+        tag_exists = check_tag_or_category_exists(Tag, tag)
+        if tag_exists:
+            result.append(tag_exists)
         else:
             new_tag = create_new_tag(tag)
             result.append(new_tag)
@@ -26,7 +26,8 @@ def create_new_tag(tag: str) -> type("Tag"):
     Create a new tag for a submitted string if one does not exist.
     Return the new Tag object
     """
-    new_tag = db.session.add(Tag(name=tag))
+    new_tag = Tag(name=tag)
+    db.session.add(new_tag)
     db.session.commit()
 
     return new_tag

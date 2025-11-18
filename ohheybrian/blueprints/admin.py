@@ -1,20 +1,14 @@
 from datetime import datetime
 
-from flask import abort, Blueprint, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user
-from htmx_flask import make_response
 from slugify import slugify
-from webargs import fields
-
-from webargs.flaskparser import parser
 
 import markdown
 
 from ohheybrian.extensions import db
 from ohheybrian.functions.helpers import (
     parse_post_tags,
-    check_tag_or_category_exists,
-    create_new_category,
 )
 from ohheybrian.models import Comment, Post
 
@@ -50,36 +44,28 @@ def save_new_post():
 
     Create a new entry with submitted form data.
     """
-    args = parser.parse(
-        {
-            "title": fields.String(),
-            "post_body": fields.String(),
-            "category": fields.String(),
-            "tags": fields.String(),
-            "published": fields.String(),
-        },
-        location="form",
-    )
+    # TODO: Break this into a a helper function to process the new post?
+    args = {}
+    form = request.form
 
+    args["title"] = form.get("title")
     # create the post slug from the title
-    args["slug"] = slugify(args["title"])
+    args["slug"] = slugify(form.get("title"))
 
     # set the post publish date - no scheduling yet.
     args["created_on"] = datetime.now()
 
     args["author"] = current_user
 
-    args["post_body"] = markdown.markdown(args["post_body"])
-
-    # check the tags and create new ones if necessary
-    args["tags"] = parse_post_tags(args["tags"])
+    args["post_body"] = markdown.markdown(form.get("post_body"))
 
     # check published - HTML sends "ok" for checkboxes
-    if args["published"] == "ok":
+    if form.get("published") == "on":
         args["published"] = True
     else:
         args["published"] = False
 
+    # At this point, the post is complete and can be added to the database.
     post = Post(
         title=args["title"],
         slug=args["slug"],
@@ -92,13 +78,17 @@ def save_new_post():
     db.session.add(post)
 
     # Add the tags to the new post object
+    # check the tags and create new ones if necessary
+    # Turn the tags field into a list
+    args["tags"] = parse_post_tags(form.get("tags").split(", "))
     post.tags.extend(args["tags"])
 
     # check the post category
     # Can only be single, so checking here isn't awful
+    # If the tags or category fail, flip the post to "draft" and flash and error?
     db.session.commit()
 
-    return redirect(url_for("admin.index"))
+    return redirect(url_for("admin.admin_posts"))
 
 
 # Edit a post
