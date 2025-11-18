@@ -27,4 +27,4 @@ def login():
         )
 
     login_user(user)
-    return make_response(redirect=url_for("admin.index"))
+    return make_response(redirect=url_for("admin.admin_posts"))
