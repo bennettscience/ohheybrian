@@ -1,3 +1,5 @@
+import imghdr
+
 from ohheybrian.extensions import db
 from ohheybrian.models import Tag
 
@@ -39,3 +41,17 @@ def create_new_category(category: str) -> object:
     returns Category object
     """
     pass
+
+
+def validate_image(stream):
+    """
+    Ensure an upload is actually an image.
+    Modified from a post by Miguel Grinberg detailing how to handle file uploads with Flask for dummies like myself.
+    https://blog.miguelgrinberg.com/post/handling-file-uploads-with-flask
+    """
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return "." + (format if format != "jpeg" else "jpg")

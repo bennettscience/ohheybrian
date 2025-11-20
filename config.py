@@ -12,3 +12,4 @@ class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY")
     CORS_ENDPOINT = os.environ.get("CORS_ENDPOINT")
     COMMENTS_ENDPOINT = os.environ.get("COMMENTS_ENDPOINT")
+    UPLOAD_PATH = os.path.join(basedir, "uploads")

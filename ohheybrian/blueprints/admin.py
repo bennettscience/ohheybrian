@@ -1,15 +1,16 @@
+import os
+
 from datetime import datetime
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import abort, Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user
 from slugify import slugify
+from werkzeug.utils import secure_filename
 
 import markdown
 
 from ohheybrian.extensions import db
-from ohheybrian.functions.helpers import (
-    parse_post_tags,
-)
+from ohheybrian.functions.helpers import parse_post_tags, validate_image
 from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
@@ -34,6 +35,18 @@ def admin_comments():
 @bp.get("/posts/add")
 def create_post():
     return render_template("microblog/write.html")
+
+
+@bp.post("/upload")
+def save_new_image():
+    uploaded_file = request.files["file"]
+    filename = secure_filename(uploaded_file.filename)
+    if filename:
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext != validate_image(uploaded_file.stream):
+            abort(400)
+        uploaded_file.save(uploaded_file.filename)
+    return 204
 
 
 # Create the new post
