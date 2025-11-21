@@ -34,7 +34,7 @@ def create_app(config):
     app.register_blueprint(category.bp)
     app.register_blueprint(comment.bp)
     app.register_blueprint(home.bp)
-    app.register_blueprint(microblog.bp, url_prefix="/micro")
+    app.register_blueprint(microblog.bp, url_prefix="/blog")
     app.register_blueprint(post.bp)
     app.register_blueprint(search.bp)
     app.register_blueprint(tag.bp)
