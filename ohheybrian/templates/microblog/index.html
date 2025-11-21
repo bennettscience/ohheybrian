@@ -16,9 +16,11 @@ main_content %} {% if posts %} {% for post in posts %}
       pubdate="{{ post.created_on.isoformat() }}"
       >{{ post.created_on.strftime('%Y-%m-%d') }}</time
     >
-    <a href="{{ url_for('category.get_category', cat_id=post.category.id)}}"
+    {% if post.category %}<a
+      href="{{ url_for('category.get_category', cat_id=post.category.id)}}"
       >{{ post.category.name }}</a
     >
+    {% endif %}
   </footer>
   {% endfor %} {% else %}
   <p>There's nothing to see here today.</p>

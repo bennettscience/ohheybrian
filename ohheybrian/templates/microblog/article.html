@@ -16,13 +16,15 @@ main_content %}
         <p>
           Published: {{ article.created_on.strftime('%Y-%m-%d %-I:%M %p') }}
         </p>
+        {% if article.category %}
         <p>
           Category:
           <a
             href="{{ url_for('category.get_category', cat_id=article.category.id) }}"
             >{{ article.category.name }}</a
           >
-          | {% if article.tags %} Tags: {% for tag in article.tags %}
+          {% endif %} | {% if article.tags %} Tags: {% for tag in article.tags
+          %}
           <a href="{{ url_for('tag.single_tag', tag_id=tag.id)}}"
             >{{ tag.name }}</a
           >{% if not loop.last %},{% endif %} {% endfor %}
