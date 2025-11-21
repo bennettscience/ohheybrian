@@ -4,7 +4,7 @@
     >Title
     <input name="title" type="text" />
   </label>
-  <textarea name="post_body"></textarea>
+  <textarea name="post_body" id="post_body"></textarea>
   <label
     >Category
     <input list="categories" name="category" />
@@ -24,8 +24,15 @@
   </label>
   <input type="submit" />
 </form>
-<form method="post" action="" enctype="multipart/form-data">
-  <input type="file" name="img" accept=".jpg,.jpeg,.png,.webp" multple />
+<form
+  id="img-upload"
+  hx-post="{{ url_for('admin.save_new_image') }}"
+  hx-encoding="multipart/form-data"
+  hx-target="#result"
+  hx-swap="innerHTML"
+>
+  <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
   <input type="submit" value="Submit" />
 </form>
+<img id="result" src=""></div>
 {% endblock %}

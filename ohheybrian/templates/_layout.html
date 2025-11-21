@@ -18,7 +18,7 @@
     />
     <link rel="canonical" href="https://ohheybrian.com" />
     <!-- <link rel="stylesheet" href="/static/assets/style.css" /> -->
-    <link rel="stylesheet" href="/static/assets/new_style.css" />
+    <!-- <link rel="stylesheet" href="/static/assets/new_style.css" /> -->
   </head>
 
   <body>
@@ -47,6 +47,6 @@
     </footer>
     <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
-    <script src="static/assets/script.js"></script>
+    <script src="{{ url_for("static", filename="assets/script.js")}}"></script>
   </body>
 </html>

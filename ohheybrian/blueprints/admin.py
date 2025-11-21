@@ -2,10 +2,19 @@ import os
 
 from datetime import datetime
 
-from flask import abort, Blueprint, redirect, render_template, request, url_for
+from flask import (
+    abort,
+    Blueprint,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import current_user
 from slugify import slugify
 from werkzeug.utils import secure_filename
+from htmx_flask import make_response
 
 import markdown
 
@@ -39,14 +48,30 @@ def create_post():
 
 @bp.post("/upload")
 def save_new_image():
+    # Set the current year to get the file into the right image folder
+    year = str(datetime.now().year)
+
+    # check that the path exists. This is mainly for new year photos
+    savedir = os.path.join(current_app.config["UPLOAD_PATH"], year)
+
+    if not os.path.exists(savedir):
+        os.makedirs(savedir)
+
     uploaded_file = request.files["file"]
     filename = secure_filename(uploaded_file.filename)
-    if filename:
+    if filename != "":
         file_ext = os.path.splitext(filename)[1]
-        if file_ext != validate_image(uploaded_file.stream):
+
+        # Check for the extension sent in the config or that it is actuall an image:
+        if file_ext not in current_app.config[
+            "UPLOAD_EXTENSIONS"
+        ] or file_ext != validate_image(uploaded_file.stream):
             abort(400)
-        uploaded_file.save(uploaded_file.filename)
-    return 204
+        uploaded_file.save(os.path.join(savedir, filename))
+
+        src = url_for("static", filename=f"images/{year}/" + filename)
+        response = {"textarea": "#post_body", "value": src}
+    return make_response(response, trigger={"insertImgSrc": response})
 
 
 # Create the new post
