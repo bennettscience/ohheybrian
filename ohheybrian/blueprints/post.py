@@ -3,12 +3,12 @@ from flask import abort, Blueprint, render_template
 from ohheybrian.extensions import db
 from ohheybrian.models import Post
 
-bp = Blueprint("posts", __name__)
+bp = Blueprint("post", __name__)
 
 
-@bp.get("/posts")
+@bp.get("/")
 def get_posts():
-    query = db.select(Post)
+    query = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
     posts = db.session.scalars(query).all()
 
     return render_template("microblog/index.html", posts=posts)
