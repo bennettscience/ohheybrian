@@ -19,8 +19,8 @@ from htmx_flask import make_response
 import markdown
 
 from ohheybrian.extensions import db
-from ohheybrian.functions.helpers import parse_post_tags, validate_image
-from ohheybrian.models import Comment, Post
+from ohheybrian.functions.helpers import check_category, parse_post_tags, validate_image
+from ohheybrian.models import Category, Comment, Post, Tag
 
 bp = Blueprint("admin", __name__)
 
@@ -30,7 +30,9 @@ def admin_posts():
     if current_user.is_anonymous:
         redirect(url_for("home.index"))
     # gather stats from the database
-    posts = Post.query.all()
+    stmt = db.select(Post).order_by(Post.created_on.desc())
+    posts = db.session.scalars(stmt).all()
+
     return render_template("admin/index.html", posts=posts)
 
 
@@ -43,7 +45,10 @@ def admin_comments():
 # Start a new post
 @bp.get("/posts/add")
 def create_post():
-    return render_template("microblog/write.html")
+    tags = db.session.scalars(db.select(Tag)).all()
+    categories = db.session.scalars(db.select(Category)).all()
+
+    return render_template("microblog/write.html", tags=tags, categories=categories)
 
 
 @bp.post("/upload")
@@ -123,6 +128,10 @@ def save_new_post():
 
     # check the post category
     # Can only be single, so checking here isn't awful
+    # This is redundant - assign directly if it works?
+    args["category"] = check_category(form.get("category"))
+    post.category = args["category"]
+
     # If the tags or category fail, flip the post to "draft" and flash and error?
     db.session.commit()
 

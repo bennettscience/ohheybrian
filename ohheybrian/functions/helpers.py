@@ -1,7 +1,7 @@
 import imghdr
 
 from ohheybrian.extensions import db
-from ohheybrian.models import Tag
+from ohheybrian.models import Category, Tag
 
 
 def check_tag_or_category_exists(table: str, name: str) -> bool:
@@ -23,6 +23,16 @@ def parse_post_tags(tags: list) -> list:
     return result
 
 
+def check_category(category: str) -> type(Category):
+    stmt = db.select(Category).where(Category.name == category)
+    result = db.session.scalar(stmt)
+
+    if not result:
+        result = create_new_category(category)
+
+    return result
+
+
 def create_new_tag(tag: str) -> type("Tag"):
     """
     Create a new tag for a submitted string if one does not exist.
@@ -35,12 +45,16 @@ def create_new_tag(tag: str) -> type("Tag"):
     return new_tag
 
 
-def create_new_category(category: str) -> object:
+def create_new_category(category: str) -> type(Category):
     """
     Create a new category if it does not exist.
     returns Category object
     """
-    pass
+    category = Category(name=category)
+    db.session.add(category)
+    db.session.commit()
+
+    return category
 
 
 def validate_image(stream):

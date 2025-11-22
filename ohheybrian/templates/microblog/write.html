@@ -7,16 +7,16 @@
   <textarea name="post_body" id="post_body"></textarea>
   <label
     >Category
-    <input list="categories" name="category" />
+    <input list="categories" name="category" autocompelte="off" />
   </label>
-  <datalist name="categories">
+  <datalist id="categories" >
     {% for cat in categories %}
-    <option value="{{ cat.id }}">{{cat.name}}</option>
+    <option>{{cat.name}}</option>
     {% endfor %}
   </datalist>
   <label
     >Tags
-    <input type="text" name="tags" />
+    <input type="text" name="tags" autocomplete="off" />
   </label>
   <label for="published"
     >Published:
