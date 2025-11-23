@@ -6,32 +6,22 @@
 {% endblock %} {% block title %}{{ article.title }}{% endblock %} {% block
 main_content %}
 <main>
-  <div id="main--left">
-    {% block page_header %} {% endblock %}
     <article>
       <div id="article_title">
         <h1>{{ article.title }}</h1>
       </div>
       <div id="article_meta">
         <p>
-          Published: {{ article.created_on.strftime('%Y-%m-%d %-I:%M %p') }}
+          {{ article.created_on.strftime('%Y-%m-%d %-I:%M %p') }}
         </p>
-        {% if article.category %}
-        <p>
-          Category:
-          <a
-            href="{{ url_for('category.get_category', cat_id=article.category.id) }}"
-            >{{ article.category.name }}</a
-          >
-          {% endif %} | {% if article.tags %} Tags: {% for tag in article.tags
+          {% if article.tags %} {% for tag in article.tags
           %}
           <a href="{{ url_for('tag.single_tag', tag_id=tag.id)}}"
-            >{{ tag.name }}</a
-          >{% if not loop.last %},{% endif %} {% endfor %}
+            >{% if not loop.last %}#{% endif %}{{ tag.name }}</a
+          > {% endfor %}
         </p>
         {% endif %}
       </div>
-      <hr />
       <div id="article_text">{{ article.post_body|safe }}</div>
       <div class="article_actions">
         <img src="https://shareopenly.org/images/logo.svg" />
