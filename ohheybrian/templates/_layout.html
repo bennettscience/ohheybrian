@@ -18,24 +18,20 @@
       max-video-preview:-1"
     />
     <link rel="canonical" href="https://ohheybrian.com" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/2025_style.css')}}" />
-    <!-- <link rel="stylesheet" href="/static/assets/style.css" /> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='assets/2025_style.css')}}" /> -->
+    <link rel="stylesheet" href="/static/assets/style.css" />
+    <link rel="icon" type="image/webp" sizes="24x32" href="{{ url_for('static', filename='assets/img/selfie.webp')}}" />
     <!-- <link rel="stylesheet" href="/static/assets/new_style.css" /> -->
   </head>
 
   <body>
     {% block nav %} {% include 'shared/partials/nav.html' %} {% endblock %}
     <main>
-      {% block main_content %} {% endblock %} {% include
-      'shared/partials/toast.html' %}
+      {% block main_content %} {% endblock %} 
     </main>
     <footer>
       <p>
-        This site was created with love by Brian Bennett. Updated September,
-        2024.
-      </p>
-      <p>
-        All work, written and image, is licensed under
+        everything here is
         <a
           href="http://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1"
           target="_blank"
@@ -45,7 +41,7 @@
         >
         unless otherwise noted.
       </p>
-      <a href="{{ url_for('home.endnote_privacy') }}">Terms & Privacy</a>
+      <a href="">RSS</a>
     </footer>
     <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
