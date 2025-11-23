@@ -129,8 +129,9 @@ def save_new_post():
     # check the post category
     # Can only be single, so checking here isn't awful
     # This is redundant - assign directly if it works?
-    args["category"] = check_category(form.get("category"))
-    post.category = args["category"]
+    # DISABLED FOR NOW
+    # args["category"] = check_category(form.get("category"))
+    # post.category = args["category"]
 
     # If the tags or category fail, flip the post to "draft" and flash and error?
     db.session.commit()

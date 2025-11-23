@@ -6,15 +6,6 @@
   </label>
   <textarea name="post_body" id="post_body"></textarea>
   <label
-    >Category
-    <input list="categories" name="category" autocompelte="off" />
-  </label>
-  <datalist id="categories" >
-    {% for cat in categories %}
-    <option>{{cat.name}}</option>
-    {% endfor %}
-  </datalist>
-  <label
     >Tags
     <input type="text" name="tags" autocomplete="off" />
   </label>
