@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, url_for
 from flask_login import current_user, login_user, logout_user
 from htmx_flask import make_response
 from webargs import fields
@@ -28,3 +28,9 @@ def login():
 
     login_user(user)
     return make_response(redirect=url_for("admin.admin_posts"))
+
+
+@bp.get("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("home.index"))
