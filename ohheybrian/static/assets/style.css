@@ -4,7 +4,7 @@
   --gray: #eee;
   --white: #fff;
   --yellow: #fbec88;
-  --green: #aaba78;
+  --green: #47b65d;
   --orange: #f0ca6a;
   --pink: #ffc2b0;
 
@@ -54,18 +54,6 @@ body {
   padding: 0;
 }
 
-div.green {
-  background-color: var(--green);
-}
-
-div.orange {
-  background-color: var(--orange);
-}
-
-div.yellow {
-  background-color: var(--yellow);
-}
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -78,16 +66,26 @@ gallery img {
   border-radius: 0;
 }
 
-/* Visual elements */
-.float-block--small {
-  height: 40px;
-  width: 40px;
-  border-radius: 2px;
+/* SPECIFIC ELEMENTS */
+
+#add-post-btn {
+  align-self: flex-end;
+  padding-inline: var(--s1);
+  padding-block: var(--s-2);
+  width: max-content;
+  border-radius: var(--s-3);
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 600;
+  background-color: var(--green);
+  transition: all ease-in-out 0.15s;
 }
 
-.float-block--small.inline {
-  display: inline-block;
+#add-post-btn:hover {
+  filter: brightness(0.8);
 }
+
+/* NAV */
 
 nav {
   display: flex;
@@ -119,14 +117,82 @@ main {
 
 /* shamelessly stolen from Leon Paternoster
 https://www.kjz.im
+main:not(figure:has(img), p:has(img:first-child), img, div, article) { }
 */
-main:not(figure:has(img), p:has(img:first-child), img, div, article) {
-  max-inline-size: 50vw;
+
+/* Limit any text container to 50rem while keeping main full width */
+main:not(:has(div.admin) > div.container, article) {
+  max-inline-size: 50rem;
+}
+
+main > article > .article_title a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+main > article > .article_title a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.admin.with-sidebar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.admin > .sidebar {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+
+.admin > .not-sidebar {
+  flex-basis: 0;
+  flex-grow: 999;
+}
+
+/* Post editor */
+form.not-sidebar * {
+  display: block;
+  width: 100%;
+}
+
+form.not-sidebar * + * {
+  margin-block-end: var(--s1);
+}
+
+form input[type="text"] {
+  line-height: var(--s1);
+  padding: var(--s-4);
+}
+
+form input[name="title"] {
+  line-height: var(--s2);
+  font-size: var(--s1);
+}
+
+form textarea[name="post_body"] {
+  height: 50vh;
+  padding: var(--s-2);
+  font-family: monospace;
+}
+
+form input[type="submit"] {
+  width: auto;
+}
+
+/* Set a checkbox next to its label */
+form input[type="checkbox"] {
+  display: inline;
+  width: auto;
 }
 
 footer {
-  margin-block-start: var(--s4);
   font-size: var(--s-1);
+}
+
+footer:not(.article_footer) {
+  margin-block-start: var(--s4);
 }
 
 /* Comments */

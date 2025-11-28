@@ -1,29 +1,34 @@
 {% extends "_layout.html" %} {% block main_content %}
-<form hx-trigger="submit" hx-post="/admin/posts/add">
-  <label
-    >Title
-    <input name="title" type="text" />
-  </label>
-  <textarea name="post_body" id="post_body"></textarea>
-  <label
-    >Tags
-    <input type="text" name="tags" autocomplete="off" />
-  </label>
-  <label for="published"
-    >Published:
-    <input type="checkbox" name="published" />
-  </label>
-  <input type="submit" />
-</form>
-<form
-  id="img-upload"
-  hx-post="{{ url_for('admin.save_new_image') }}"
-  hx-encoding="multipart/form-data"
-  hx-target="#result"
-  hx-swap="innerHTML"
->
-  <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
-  <input type="submit" value="Submit" />
-</form>
-<img id="result" src=""></div>
+<a href="{{ url_for('admin.admin_posts')}}">Back</a>
+<div class="admin container with-sidebar">
+  <form class="not-sidebar" hx-trigger="submit" hx-post="/admin/posts/add">
+    <h2>New Post</h2>
+    <label
+      >Title
+      <input name="title" type="text" />
+    </label>
+    <textarea name="post_body" id="post_body"></textarea>
+    <label
+      >Tags
+      <input type="text" name="tags" autocomplete="off" />
+    </label>
+    <label for="published"
+      >Published:
+      <input type="checkbox" name="published" />
+    </label>
+    <input type="submit" value="Post" />
+  </form>
+  <form
+    class="sidebar"
+    id="img-upload"
+    hx-post="{{ url_for('admin.save_new_image') }}"
+    hx-encoding="multipart/form-data"
+    hx-target="#result"
+    hx-swap="innerHTML"
+  >
+    <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
+    <input type="submit" value="Upload" />
+  </form>
+  <img id="result" src="" />
+</div>
 {% endblock %}

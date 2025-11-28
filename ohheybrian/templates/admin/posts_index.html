@@ -1,0 +1,52 @@
+{% extends '_layout.html' %} {% block nav %}
+<nav>
+  <a href="/">Home</a>
+  <ul class="nav-items">
+    <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
+    <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
+    <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
+  </ul>
+</nav>
+{% endblock %} {% block main_content %}
+<a class="btn" id="add-post-btn" href="{{ url_for('admin.create_post')}}"
+  >New post</a
+>
+
+<h2>Posts</h2>
+<div class="admin container with-sidebar">
+  <section class="sidebar">
+    <h3>Filters</h3>
+    <label>
+      <input type="checkbox" value="all" />
+      All
+    </label>
+    <label>
+      <input type="checkbox" value="published" />
+      Published
+    </label>
+    <label>
+      <input type="checkbox" value="draft" />
+      Draft
+    </label>
+  </section>
+  <section class="not-sidebar">
+    {% for post in posts %}
+    <article>
+      <section class="meta">
+        <h3>
+          <a href="{{ url_for('admin.edit_post', post_id=post.id)}}"
+            >{{post.title}}</a
+          >
+        </h3>
+        <p>{{ post.created_on.strftime('%Y-%m-%d : %I:%M %p' )}}</p>
+        <p>{{ post.post_body|safe|truncate}}</p>
+      </section>
+      <section class="status">
+        <p>{% if post.published %}published{% else %}draft{% endif %}</p>
+      </section>
+    </article>
+    {% endfor %}
+  </section>
+</div>
+
+{% endblock %}

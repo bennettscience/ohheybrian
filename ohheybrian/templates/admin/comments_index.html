@@ -1,0 +1,51 @@
+{% extends '_layout.html' %} {% block nav %}
+<nav>
+  <ul class="nav-items">
+    <li><a href="/">Home</a></li>
+    <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
+    <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
+    <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
+  </ul>
+</nav>
+{% endblock %} {% block main_content %}
+<div class="admin container with-sidebar">
+  <section>
+    <h2>Comments</h2>
+    {% for comment in comments %}
+    <div class="comment">
+      <p>
+        {{comment.name}}{% if comment.url %}-
+        <a href="{{comment.url}}">Website</a>{% endif %}
+      </p>
+      <time datetime="{{comment.occurred}}"
+        >{{ comment.occurred.strftime("%Y-%m-%d")}}</time
+      >
+      <p>{% if comment.approved %}Approved{% else %}Pending{% endif %}</p>
+      <p>
+        Page:
+        <a href="https://blog.ohheybrian.com/{{comment.slug}}"
+          >{{ comment.slug }}</a
+        >
+      </p>
+      <p>Spam: {{comment.is_spam}}</p>
+      <p>{{comment.message}}</p>
+    </div>
+    {% endfor %}
+  </section>
+  <section>
+    <h3>Filters</h3>
+    <label>
+      <input type="checkbox" value="all" />
+      All
+    </label>
+    <label>
+      <input type="checkbox" value="published" />
+      Published
+    </label>
+    <label>
+      <input type="checkbox" value="draft" />
+      Draft
+    </label>
+  </section>
+</div>
+{% endblock %}
