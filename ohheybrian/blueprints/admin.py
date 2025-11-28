@@ -1,6 +1,7 @@
 import os
 
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from flask import (
     abort,
@@ -12,14 +13,19 @@ from flask import (
     url_for,
 )
 from flask_login import current_user
-from slugify import slugify
 from werkzeug.utils import secure_filename
 from htmx_flask import make_response
 
 import markdown
 
 from ohheybrian.extensions import db
-from ohheybrian.functions.helpers import check_category, parse_post_tags, validate_image
+from ohheybrian.functions.helpers import (
+    check_category,
+    parse_post_tags,
+    validate_image,
+    check_post_slug,
+)
+from ohheybrian.functions import rss
 from ohheybrian.models import Category, Comment, Post, Tag
 
 bp = Blueprint("admin", __name__)
@@ -92,11 +98,13 @@ def save_new_post():
     form = request.form
 
     args["title"] = form.get("title")
-    # create the post slug from the title
-    args["slug"] = slugify(form.get("title"))
 
-    # set the post publish date - no scheduling yet.
-    args["created_on"] = datetime.now()
+    # Check that the slug is unique and create
+    # a new one if needed
+    args["slug"] = check_post_slug(form.get("title"))
+
+    # set the post publish date. include the timezone for RSS creation
+    args["created_on"] = datetime.now(ZoneInfo("America/Indianapolis"))
 
     args["author"] = current_user
 

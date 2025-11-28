@@ -12,6 +12,8 @@ from ohheybrian.blueprints import (
     search,
     tag,
 )
+from ohheybrian.functions.rss import create_feed
+from ohheybrian.models import Post
 
 
 def create_app(config):
@@ -37,5 +39,12 @@ def create_app(config):
     app.register_blueprint(post.bp, url_prefix="/otherblog")
     app.register_blueprint(search.bp)
     app.register_blueprint(tag.bp)
+
+    @app.route("/feed")
+    def rss_feed():
+        stmt = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
+        posts = db.session.scalars(stmt).all()
+
+        return create_feed(posts)
 
     return app

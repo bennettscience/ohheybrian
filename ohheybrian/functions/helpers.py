@@ -1,12 +1,32 @@
 import imghdr
+from slugify import slugify
 
 from ohheybrian.extensions import db
-from ohheybrian.models import Category, Tag
+from ohheybrian.models import Category, Post, Tag
 
 
 def check_tag_or_category_exists(table: str, name: str) -> bool:
     stmt = db.select(table).where(getattr(table, "name") == name)
     return db.session.scalar(stmt)
+
+
+def check_post_slug(slug: str):
+    post_slug = slugify(slug)
+
+    # Check the database for an existing slug of that name
+    check_stmt = db.select(Post).where(Post.slug == post_slug)
+    slug_exists = db.session.scalars(check_stmt).all()
+
+    if not slug_exists:
+        return post_slug
+    else:
+        # check the length of the returned array
+        # and append +1 to the end to create a unique
+        # value for the post
+        length = len(slug_exists) + 1
+        post_slug = "{}-{}".format(post_slug, length)
+
+    return post_slug
 
 
 def parse_post_tags(tags: list) -> list:

@@ -26,6 +26,8 @@ decorator==5.2.1
     # via ipython
 executing==2.2.1
     # via stack-data
+feedgen==1.0.0
+    # via ohheybrian
 flask==2.3.2
     # via flask-cors
     # via flask-login
@@ -61,6 +63,8 @@ jinja2==3.1.2
     # via flask
     # via jinja-partials
     # via ohheybrian
+lxml==6.0.2
+    # via feedgen
 mako==1.2.4
     # via alembic
     # via ohheybrian
@@ -95,10 +99,14 @@ pure-eval==0.2.3
 pygments==2.19.2
     # via ipython
     # via ipython-pygments-lexers
+python-dateutil==2.9.0.post0
+    # via feedgen
 python-dotenv==1.0.0
     # via ohheybrian
 python-slugify==8.0.4
     # via ohheybrian
+six==1.17.0
+    # via python-dateutil
 sqlalchemy==2.0.16
     # via alembic
     # via flask-sqlalchemy
