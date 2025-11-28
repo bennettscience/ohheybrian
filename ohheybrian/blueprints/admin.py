@@ -20,13 +20,11 @@ import markdown
 
 from ohheybrian.extensions import db
 from ohheybrian.functions.helpers import (
-    check_category,
     parse_post_tags,
     validate_image,
     check_post_slug,
 )
-from ohheybrian.functions import rss
-from ohheybrian.models import Category, Comment, Post, Tag
+from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
 
@@ -39,22 +37,24 @@ def admin_posts():
     stmt = db.select(Post).order_by(Post.created_on.desc())
     posts = db.session.scalars(stmt).all()
 
-    return render_template("admin/index.html", posts=posts)
+    return render_template("admin/posts_index.html", posts=posts)
 
 
 @bp.get("/comments")
 def admin_comments():
     comments = Comment.query.order_by(Comment.occurred.desc()).all()
-    return render_template("admin/index.html", comments=comments)
+    return render_template("admin/comments_index.html", comments=comments)
+
+
+@bp.get("/tags")
+def admin_tags():
+    pass
 
 
 # Start a new post
 @bp.get("/posts/add")
 def create_post():
-    tags = db.session.scalars(db.select(Tag)).all()
-    categories = db.session.scalars(db.select(Category)).all()
-
-    return render_template("microblog/write.html", tags=tags, categories=categories)
+    return render_template("microblog/write.html")
 
 
 @bp.post("/upload")
@@ -144,7 +144,7 @@ def save_new_post():
     # If the tags or category fail, flip the post to "draft" and flash and error?
     db.session.commit()
 
-    return redirect(url_for("admin.admin_posts"))
+    return make_response(redirect=url_for("admin.admin_posts"))
 
 
 # Edit a post

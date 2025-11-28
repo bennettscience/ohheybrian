@@ -1,13 +1,4 @@
-from flask import abort, current_app, Blueprint, redirect, render_template
-from htmx_flask import make_response, request
-from ohheybrian.extensions import db
-from ohheybrian.models import Contact
-from ohheybrian.templates.icons import icons
-
-import nh3
-
-from webargs import fields
-from webargs.flaskparser import parser
+from flask import Blueprint, request, render_template
 
 bp = Blueprint("home", __name__)
 
