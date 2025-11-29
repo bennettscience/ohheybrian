@@ -113,15 +113,14 @@ nav {
 main {
   display: flex;
   flex-direction: column;
+  margin-block-end: var(--s4);
 }
 
 /* shamelessly stolen from Leon Paternoster
 https://www.kjz.im
-main:not(figure:has(img), p:has(img:first-child), img, div, article) { }
-*/
 
-/* Limit any text container to 50rem while keeping main full width */
-main:not(:has(div.admin) > div.container, article) {
+Limit any text container to 50rem while keeping main full width */
+main:not(:has(div.admin), div.container, article) {
   max-inline-size: 50rem;
 }
 
@@ -135,10 +134,16 @@ main > article > .article_title a:hover {
   text-decoration: underline;
 }
 
+/* Push pagination down after the last article */
+article:last-of-type {
+  margin-block-end: var(--s2);
+}
+
 .admin.with-sidebar {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .admin > .sidebar {
@@ -149,6 +154,7 @@ main > article > .article_title a:hover {
 .admin > .not-sidebar {
   flex-basis: 0;
   flex-grow: 999;
+  min-width: 50%;
 }
 
 /* Post editor */
