@@ -10,7 +10,7 @@ bp = Blueprint("post", __name__)
 def posts_index():
     page = request.args.get("page", 1, type=int)
     query = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
-    posts = db.paginate(query, page=page, per_page=2)
+    posts = db.paginate(query, page=page, per_page=20)
 
     return render_template("microblog/index.html", pagination=posts)
 
