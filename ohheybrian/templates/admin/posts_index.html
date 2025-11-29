@@ -16,18 +16,25 @@
 <div class="admin container with-sidebar">
   <section class="sidebar">
     <h3>Filters</h3>
-    <label>
-      <input type="checkbox" value="all" />
-      All
-    </label>
-    <label>
-      <input type="checkbox" value="published" />
-      Published
-    </label>
-    <label>
-      <input type="checkbox" value="draft" />
-      Draft
-    </label>
+    <!--
+      <label>
+        <input type="checkbox" value="all" />
+        All
+      </label>
+      <label>
+        <input type="checkbox" value="published" />
+        Published
+      </label>
+      <label>
+        <input type="checkbox" value="draft" />
+        Draft
+      </label>
+      -->
+    <p>Search posts</p>
+    <input
+      type="text"
+      _="on keyup show <article /> in .not-sidebar when its textContent.toLowerCase() contains my value.toLowerCase()"
+    />
   </section>
   <section class="not-sidebar">
     {% for post in posts %}
@@ -46,6 +53,24 @@
       </section>
     </article>
     {% endfor %}
+    <div class="pagination">
+      {% if pagination.has_prev %}
+      <a href="{{ url_for('admin.admin_posts', page=pagination.prev_num)}}"
+        >Previous</a
+      >
+      {% endif %} {% for page in pagination.iter_pages() %} {% if page %} {% if
+      page != pagination.page %}
+      <a href="{{ url_for('admin.admin_posts', page=pagination.page) }}"
+        >{{ page }}</a
+      >
+      {% else %}
+      <strong>{{ page }}</strong>
+      {% endif %} {% endif %} {% endfor %} {% if pagination.has_next %}
+      <a href="{{ url_for('admin.admin_posts', page=pagination.next_num)}}"
+        >Next</a
+      >
+      {% endif %}
+    </div>
   </section>
 </div>
 

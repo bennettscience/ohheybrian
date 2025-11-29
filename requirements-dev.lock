@@ -15,6 +15,8 @@ alembic==1.11.1
     # via ohheybrian
 asttokens==3.0.0
     # via stack-data
+beautifulsoup4==4.14.2
+    # via markdownify
 blinker==1.6.2
     # via flask
     # via ohheybrian
@@ -70,6 +72,8 @@ mako==1.2.4
     # via ohheybrian
 markdown==3.10
     # via ohheybrian
+markdownify==1.2.2
+    # via ohheybrian
 markupsafe==2.1.2
     # via jinja2
     # via mako
@@ -106,7 +110,10 @@ python-dotenv==1.0.0
 python-slugify==8.0.4
     # via ohheybrian
 six==1.17.0
+    # via markdownify
     # via python-dateutil
+soupsieve==2.8
+    # via beautifulsoup4
 sqlalchemy==2.0.16
     # via alembic
     # via flask-sqlalchemy
@@ -120,6 +127,7 @@ traitlets==5.14.3
     # via matplotlib-inline
 typing-extensions==4.6.3
     # via alembic
+    # via beautifulsoup4
     # via ipython
     # via ohheybrian
     # via sqlalchemy

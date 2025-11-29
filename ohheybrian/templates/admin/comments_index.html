@@ -1,7 +1,7 @@
 {% extends '_layout.html' %} {% block nav %}
 <nav>
+  <a href="/">Home</a>
   <ul class="nav-items">
-    <li><a href="/">Home</a></li>
     <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
     <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
     <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>

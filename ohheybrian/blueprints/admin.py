@@ -34,16 +34,24 @@ def admin_posts():
     if current_user.is_anonymous:
         redirect(url_for("home.index"))
     # gather stats from the database
+    page = request.args.get("page", 1, type=int)
     stmt = db.select(Post).order_by(Post.created_on.desc())
-    posts = db.session.scalars(stmt).all()
+    pagination = db.paginate(stmt, page=page, per_page=25)
 
-    return render_template("admin/posts_index.html", posts=posts)
+    return render_template(
+        "admin/posts_index.html", posts=pagination.items, pagination=pagination
+    )
 
 
 @bp.get("/comments")
 def admin_comments():
-    comments = Comment.query.order_by(Comment.occurred.desc()).all()
-    return render_template("admin/comments_index.html", comments=comments)
+    page = request.args.get("page", 1, type=int)
+    stmt = db.select(Comment).order_by(Comment.occurred.desc())
+    pagination = db.paginate(stmt, page=page, per_page=25)
+
+    return render_template(
+        "admin/comments_index.html", comments=pagination.items, pagination=pagination
+    )
 
 
 @bp.get("/tags")
@@ -150,4 +158,15 @@ def save_new_post():
 # Edit a post
 @bp.get("/posts/<int:post_id>")
 def edit_post(post_id: int):
-    pass
+    from markdownify import markdownify
+
+    stmt = db.select(Post).where(Post.id == post_id)
+    post = db.session.scalars(stmt).first()
+
+    # Turn the body back into markdown
+    post_body = markdownify(post.post_body)
+    tags = [tag.name for tag in post.tags] if post.tags else None
+
+    return render_template(
+        "microblog/write.html", post=post, tags=tags, post_body=post_body
+    )

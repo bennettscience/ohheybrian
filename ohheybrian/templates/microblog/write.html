@@ -5,12 +5,35 @@
     <h2>New Post</h2>
     <label
       >Title
-      <input name="title" type="text" />
+      <input
+        name="title"
+        type="text"
+        {%
+        if
+        post
+        %}value="{{post.title}}"
+        {%
+        endif
+        %}
+      />
     </label>
-    <textarea name="post_body" id="post_body"></textarea>
+    <textarea name="post_body" id="post_body">
+{% if post %}{{post_body}}{% endif %}</textarea
+    >
     <label
       >Tags
-      <input type="text" name="tags" autocomplete="off" />
+      <input
+        type="text"
+        name="tags"
+        autocomplete="off"
+        {%
+        if
+        post
+        %}value="{{', '.join(tags)}}"
+        {%
+        endif
+        %}
+      />
     </label>
     <label for="published"
       >Published:
