@@ -1,5 +1,5 @@
 {% extends "_layout.html" %} {% block head %} {% endblock %} {% block
-main_content %} {% if posts %} {% for post in posts %}
+main_content %} {% for post in pagination %}
 <article>
   <header class="article_title">
     <h2>
@@ -22,6 +22,19 @@ main_content %} {% if posts %} {% for post in posts %}
     {% endif %}
   </footer>
 </article>
-{% endfor %} {% else %}
-<p>There's nothing to see here today.</p>
-{% endif %} {% endblock %}
+{% endfor %}
+<div class="pagination">
+  {% if pagination.has_prev %}
+  <a href="{{ url_for('post.posts_index', page=pagination.prev_num)}}"
+    >Previous</a
+  >
+  {% endif %} {% for page in pagination.iter_pages() %} {% if page %} {% if page
+  != pagination.page %}
+  <a href="{{ url_for('post.posts_index', page=page) }}">{{ page }}</a>
+  {% else %}
+  <strong>{{ page }}</strong>
+  {% endif %} {% endif %} {% endfor %} {% if pagination.has_next %}
+  <a href="{{ url_for('post.posts_index', page=pagination.next_num)}}">Next</a>
+  {% endif %}
+</div>
+{% endblock %}

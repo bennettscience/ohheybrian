@@ -1,4 +1,4 @@
-from flask import abort, Blueprint, render_template
+from flask import abort, Blueprint, render_template, request
 
 from ohheybrian.extensions import db
 from ohheybrian.models import Post
@@ -8,10 +8,11 @@ bp = Blueprint("post", __name__)
 
 @bp.get("/")
 def posts_index():
+    page = request.args.get("page", 1, type=int)
     query = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
-    posts = db.session.scalars(query).all()
+    posts = db.paginate(query, page=page, per_page=2)
 
-    return render_template("microblog/index.html", posts=posts)
+    return render_template("microblog/index.html", pagination=posts)
 
 
 @bp.get("/posts/<string:post_slug>")
