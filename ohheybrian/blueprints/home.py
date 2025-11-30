@@ -1,36 +1,23 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, render_template
+
+# from ohheybrian.extensions import db
+# from ohheybrian.models import Post
 
 bp = Blueprint("home", __name__)
 
 
 @bp.get("/")
 def index():
-    template = "home/index.html"
-    resp_data = {}
+    # Placeholder for doing more stuff later on the home page
+    # stmt = db.select(Post).order_by(Post.created_on.desc())
+    # latest_post = db.session.scalars(stmt).first()
 
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
-
-    return resp
+    return render_template("home/index.html")
 
 
 @bp.get("/about/contact")
 def contact():
-    template = "about/index.html"
-    resp_data = {}
-
-    if request.htmx:
-        resp = render_template(template, **resp_data)
-    else:
-        resp = render_template(
-            "shared/layout-wrap.html", partial=template, data=resp_data
-        )
-
-    return resp
+    return render_template("about/index.html")
 
 
 @bp.get("/privacy/endnote.html")
