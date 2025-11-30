@@ -3,11 +3,7 @@
 Describe your project here.
 
 Todo:
-- Add categories to single posts on publish
-- Page routing
-  - Redo landing page
-- RSS
-- Post importer
+- Dark mode colors?
 
 Longer:
 - Generalize index and single pages
@@ -15,6 +11,3 @@ Longer:
 - Switch to flask-sqlalchemy-lite
 - Switch to flask-alembic
 - Options table for global definitions
-
-Visual
-- Update CSS to match current blog
