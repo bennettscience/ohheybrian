@@ -8,3 +8,5 @@ cover.txt
 config.py
 .env
 .flaskenv
+
+*.db
