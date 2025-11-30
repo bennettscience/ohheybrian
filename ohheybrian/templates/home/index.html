@@ -1,3 +1,4 @@
+{% extends "_layout.html" %} {% block main_content %}
 <div class="container">
   <div>
     <h1>Oh, hey.</h1>
@@ -9,22 +10,25 @@
   </div>
 </div>
 <div class="container">
-  <p>
-    When I'm not teaching, I'm working on our
-    <a href="https://www.upstreamfarm.com" target="_blank"
-      >family's farm in Michigan</a
-    >. We raise animals, produce, flowers, and honey bees. We're carving out a
-    well-cared for space and teaching our kids the value of hard work.
-  </p>
-  <p>
-    Like to read blogs? I have a blog. I've got the
-    <a href="https://blog.ohheybrian.com">long blog</a> where I've been writing
-    for a while. I also have the
-    <a href="{{ url_for('post.posts_index') }}">otherblog</a> where I tinker
-    with smaller ideas.
-  </p>
-  <p>
-    Have other questions? Please
-    <a class="cta" href="{{ url_for('home.contact') }}">get in touch</a>
-  </p>
+  <section>
+    <p>
+      When I'm not teaching, I'm working on our
+      <a href="https://www.upstreamfarm.com" target="_blank"
+        >family's farm in Michigan</a
+      >. We raise animals, produce, flowers, and honey bees. We're carving out a
+      well-cared for space and teaching our kids the value of hard work.
+    </p>
+    <p>
+      Like to read blogs? I have a blog. I've got the
+      <a href="https://blog.ohheybrian.com">long blog</a> where I've been
+      writing for a while. I also have the
+      <a href="{{ url_for('post.posts_index') }}">otherblog</a> where I tinker
+      with smaller ideas.
+    </p>
+    <p>
+      Have other questions? Please
+      <a class="cta" href="{{ url_for('home.contact') }}">get in touch</a>
+    </p>
+  </section>
 </div>
+{% endblock %}
