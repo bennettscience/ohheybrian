@@ -1,11 +1,10 @@
 {% extends "_layout.html" %} {% block main_content %}
-<h2>{{ tag.name }}</h2>
+<h2>#{{ tag.name }}</h2>
 {% for post in tag.posts %}
 <article>
   <header class="article_title">
     <h2>
-      <a
-        href="{{ url_for('posts.get_single_post', post_month=post.created_on.strftime('%m'), post_year=post.created_on.strftime('%Y'), post_slug=post.slug)}}"
+      <a href="{{ url_for('post.get_single_post', post_slug=post.slug)}}"
         >{{post.title}}</a
       >
     </h2>
@@ -17,7 +16,6 @@
       pubdate="{{ post.created_on.isoformat() }}"
       >{{ post.created_on.strftime('%Y-%m-%d') }}</time
     >
-    <p>{{ post.category }}</p>
   </footer>
 </article>
 {% endfor %} {% endblock %}

@@ -17,7 +17,7 @@ main_content %}
           {% if article.tags %} {% for tag in article.tags
           %}
           <a href="{{ url_for('tag.single_tag', tag_id=tag.id)}}"
-            >{% if not loop.last %}#{% endif %}{{ tag.name }}</a
+            >#{{ tag.name }}</a
           > {% endfor %}
         </p>
         {% endif %}
