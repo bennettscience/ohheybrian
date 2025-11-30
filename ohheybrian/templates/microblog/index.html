@@ -1,0 +1,40 @@
+{% extends "_layout.html" %} {% block head %} {% endblock %} {% block
+main_content %} {% for post in pagination %}
+<article>
+  <header class="article_title">
+    <h2>
+      <a href="{{ url_for('post.get_single_post', post_slug=post.slug)}}"
+        >{{post.title}}</a
+      >
+    </h2>
+  </header>
+  {{ post.post_body|safe}}
+  <footer class="article_footer">
+    <time
+      datetime="{{ post.created_on.isoformat() }}"
+      pubdate="{{ post.created_on.isoformat() }}"
+      >{{ post.created_on.strftime('%Y-%m-%d') }}</time
+    >
+    {% if post.category %}<a
+      href="{{ url_for('category.get_category', cat_id=post.category.id)}}"
+      >{{ post.category.name }}</a
+    >
+    {% endif %}
+  </footer>
+</article>
+{% endfor %}
+<div class="pagination">
+  {% if pagination.has_prev %}
+  <a href="{{ url_for('post.posts_index', page=pagination.prev_num)}}"
+    >Previous</a
+  >
+  {% endif %} {% for page in pagination.iter_pages() %} {% if page %} {% if page
+  != pagination.page %}
+  <a href="{{ url_for('post.posts_index', page=page) }}">{{ page }}</a>
+  {% else %}
+  <strong>{{ page }}</strong>
+  {% endif %} {% endif %} {% endfor %} {% if pagination.has_next %}
+  <a href="{{ url_for('post.posts_index', page=pagination.next_num)}}">Next</a>
+  {% endif %}
+</div>
+{% endblock %}

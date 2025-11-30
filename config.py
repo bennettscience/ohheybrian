@@ -12,3 +12,12 @@ class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY")
     CORS_ENDPOINT = os.environ.get("CORS_ENDPOINT")
     COMMENTS_ENDPOINT = os.environ.get("COMMENTS_ENDPOINT")
+
+    # Set the general upload path
+    UPLOAD_PATH = os.path.join(basedir, "ohheybrian/static/images")
+
+    # Keep files to 3MB or less
+    MAX_CONTENT_LENGTH = 3 * 1000 * 1000
+
+    # Set allowed filetypes
+    UPLOAD_EXTENSIONS = [".jpg", ".png"]

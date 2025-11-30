@@ -1,7 +1,19 @@
 from flask import Flask
 from flask_cors import CORS
 from ohheybrian.extensions import db, htmx, lm, migrate, partials
-from ohheybrian.blueprints import admin, auth, comments, home
+from ohheybrian.blueprints import (
+    admin,
+    auth,
+    category,
+    comment,
+    home,
+    microblog,
+    post,
+    search,
+    tag,
+)
+from ohheybrian.functions.rss import create_feed
+from ohheybrian.models import Post
 
 
 def create_app(config):
@@ -19,9 +31,20 @@ def create_app(config):
 
     partials.register_extensions(app)
 
-    app.register_blueprint(admin.bp)
+    app.register_blueprint(admin.bp, url_prefix="/admin")
     app.register_blueprint(auth.bp)
-    app.register_blueprint(comments.bp)
+    app.register_blueprint(category.bp)
+    app.register_blueprint(comment.bp)
     app.register_blueprint(home.bp)
+    app.register_blueprint(post.bp, url_prefix="/otherblog")
+    app.register_blueprint(search.bp)
+    app.register_blueprint(tag.bp)
+
+    @app.route("/feed")
+    def rss_feed():
+        stmt = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
+        posts = db.session.scalars(stmt).all()
+
+        return create_feed(posts)
 
     return app

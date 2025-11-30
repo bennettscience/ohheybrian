@@ -1,0 +1,21 @@
+{% extends "_layout.html" %} {% block main_content %}
+<h2>#{{ tag.name }}</h2>
+{% for post in tag.posts %}
+<article>
+  <header class="article_title">
+    <h2>
+      <a href="{{ url_for('post.get_single_post', post_slug=post.slug)}}"
+        >{{post.title}}</a
+      >
+    </h2>
+  </header>
+  {{ post.post_body|safe|truncate(150, True)}}
+  <footer class="article_footer">
+    <time
+      datetime="{{ post.created_on.isoformat() }}"
+      pubdate="{{ post.created_on.isoformat() }}"
+      >{{ post.created_on.strftime('%Y-%m-%d') }}</time
+    >
+  </footer>
+</article>
+{% endfor %} {% endblock %}

@@ -6,18 +6,24 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
+#   universal: false
 
 -e file:.
-alembic==1.11.1 ; python_version >= "3.8" and python_version < "4.0"
+alembic==1.11.1
     # via flask-migrate
     # via ohheybrian
-blinker==1.6.2 ; python_version >= "3.8" and python_version < "4.0"
+beautifulsoup4==4.14.2
+    # via markdownify
+blinker==1.6.2
     # via flask
     # via ohheybrian
-click==8.1.3 ; python_version >= "3.8" and python_version < "4.0"
+click==8.1.3
     # via flask
     # via ohheybrian
-flask==2.3.2 ; python_version >= "3.8" and python_version < "4.0"
+feedgen==1.0.0
+    # via ohheybrian
+flask==2.3.2
     # via flask-cors
     # via flask-login
     # via flask-migrate
@@ -28,55 +34,70 @@ flask-cors==4.0.0
     # via ohheybrian
 flask-login==0.6.3
     # via ohheybrian
-flask-migrate==4.0.4 ; python_version >= "3.8" and python_version < "4.0"
+flask-migrate==4.0.4
     # via ohheybrian
-flask-sqlalchemy==3.0.3 ; python_version >= "3.8" and python_version < "4.0"
+flask-sqlalchemy==3.1.1
     # via flask-migrate
     # via ohheybrian
-greenlet==2.0.2 ; (python_version >= "3.8" and python_version < "4.0" and platform_machine == "aarch64") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "ppc64le") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "x86_64") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "amd64") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "AMD64") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "win32") or (python_version >= "3.8" and python_version < "4.0" and platform_machine == "WIN32")
+htmx-flask==0.1.0
     # via ohheybrian
-    # via sqlalchemy
-htmx-flask==0.1.0 ; python_version >= "3.8" and python_version < "4.0"
-    # via ohheybrian
-itsdangerous==2.1.2 ; python_version >= "3.8" and python_version < "4.0"
+itsdangerous==2.1.2
     # via flask
     # via ohheybrian
-jinja-partials==0.1.1 ; python_version >= "3.8" and python_version < "4.0"
+jinja-partials==0.1.1
     # via ohheybrian
-jinja2==3.1.2 ; python_version >= "3.8" and python_version < "4.0"
+jinja2==3.1.2
     # via flask
     # via jinja-partials
     # via ohheybrian
-mako==1.2.4 ; python_version >= "3.8" and python_version < "4.0"
+lxml==6.0.2
+    # via feedgen
+mako==1.2.4
     # via alembic
     # via ohheybrian
-markupsafe==2.1.2 ; python_version >= "3.8" and python_version < "4.0"
+markdown==3.10
+    # via ohheybrian
+markdownify==1.2.2
+    # via ohheybrian
+markupsafe==2.1.2
     # via jinja2
     # via mako
     # via ohheybrian
     # via werkzeug
-marshmallow==3.19.0 ; python_version >= "3.8" and python_version < "4.0"
+marshmallow==3.19.0
     # via ohheybrian
     # via webargs
-nh3==0.2.13 ; python_version >= "3.8" and python_version < "4.0"
+nh3==0.2.13
     # via ohheybrian
-packaging==23.1 ; python_version >= "3.8" and python_version < "4.0"
+packaging==23.1
     # via marshmallow
     # via ohheybrian
     # via webargs
-python-dotenv==1.0.0 ; python_version >= "3.8" and python_version < "4.0"
+python-dateutil==2.9.0.post0
+    # via feedgen
+python-dotenv==1.0.0
     # via ohheybrian
-sqlalchemy==2.0.16 ; python_version >= "3.8" and python_version < "4.0"
+python-slugify==8.0.4
+    # via ohheybrian
+six==1.17.0
+    # via markdownify
+    # via python-dateutil
+soupsieve==2.8
+    # via beautifulsoup4
+sqlalchemy==2.0.16
     # via alembic
     # via flask-sqlalchemy
     # via ohheybrian
-typing-extensions==4.6.3 ; python_version >= "3.8" and python_version < "4.0"
+text-unidecode==1.3
+    # via python-slugify
+typing-extensions==4.6.3
     # via alembic
+    # via beautifulsoup4
     # via ohheybrian
     # via sqlalchemy
 webargs==8.4.0
     # via ohheybrian
-werkzeug==2.3.4 ; python_version >= "3.8" and python_version < "4.0"
+werkzeug==2.3.4
     # via flask
     # via flask-login
     # via ohheybrian

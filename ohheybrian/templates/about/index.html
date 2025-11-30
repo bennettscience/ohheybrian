@@ -1,23 +1,42 @@
+{% extends "_layout.html" %} {% block main_content %}
 <div class="container--flex full-bleed">
-	<div class="gallery">
-		<img class="gallery--img left" src="{{ url_for('static', filename='images/gallery1.webp') }}" />
-		<img class="gallery--img" src="{{ url_for('static', filename='images/gallery2-small.webp') }}" />
-		<img class="gallery--img" src="{{ url_for('static', filename='images/gallery3-small.webp') }}" />
-		<img class="gallery--img" src="{{ url_for('static', filename='images/gallery4-small.webp') }}" />
-	</div>
-	<section>
-		<h1>Brian Bennett</h1>
-		<em>A collaborative educator and leader focused on using innovative instructional methods to design authentic
-			learning experiences for all students.</em>
-		<hr />
-		<p>Send me a message directly by emailing <a href="mailto:brian@ohheybrian.com">brian@ohheybrian.com</a> or use
-			one of my social media options.</p>
-		<section class="social">
-			<a href="https://blog.ohheybrian.com">Blog</a>
-			<a href="https://pixelfed.social/@bennettscience">Photos</a>
-			<a href="https://youtube.com/bennettscience">YouTube</a>
-			<a href="https://fosstodon.org/@brianb">Mastodon</a>
-			<a href="https://github.com/bennettscience">Github</a>
-		</section>
-	</section>
+  <div class="gallery">
+    <img
+      class="gallery--img left"
+      src="{{ url_for('static', filename='images/gallery1.webp') }}"
+    />
+    <img
+      class="gallery--img"
+      src="{{ url_for('static', filename='images/gallery2-small.webp') }}"
+    />
+    <img
+      class="gallery--img"
+      src="{{ url_for('static', filename='images/gallery3-small.webp') }}"
+    />
+    <img
+      class="gallery--img"
+      src="{{ url_for('static', filename='images/gallery4-small.webp') }}"
+    />
+  </div>
+  <section>
+    <h1>Brian Bennett</h1>
+    <em
+      >A collaborative educator and leader focused on using innovative
+      instructional methods to design authentic learning experiences for all
+      students.</em
+    >
+    <hr />
+    <p>
+      Send me a message directly by emailing
+      <a href="mailto:brian@ohheybrian.com">brian@ohheybrian.com</a> or use one
+      of my social media options.
+    </p>
+    <section class="social">
+      <a href="https://blog.ohheybrian.com">Blog</a>
+      <a href="https://youtube.com/bennettscience">YouTube</a>
+      <a href="https://fosstodon.org/@brianb">Mastodon</a>
+      <a href="https://github.com/bennettscience">Github</a>
+    </section>
+  </section>
 </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "_layout.html" %} {% block main_content %}
+<h2>{{ category.name }}</h2>
+{% for post in category.posts %}
+<article>
+  <header class="article_title">
+    <h2>
+      <a href="{{ url_for('posts.get_single_post', post_id=post.id)}}"
+        >{{post.title}}</a
+      >
+    </h2>
+  </header>
+  {{ post.post_body|safe|truncate(150, True)}}
+  <footer class="article_footer">
+    <time
+      datetime="{{ post.created_on.isoformat() }}"
+      pubdate="{{ post.created_on.isoformat() }}"
+      >{{ post.created_on.strftime('%Y-%m-%d') }}</time
+    >
+    <p>{{ post.category }}</p>
+  </footer>
+</article>
+{% endfor %} {% endblock %}

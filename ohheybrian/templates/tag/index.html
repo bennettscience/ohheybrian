@@ -1,0 +1,3 @@
+{% extends "_layout.html" %} {% block main_content %} {% for tag in tags %}
+<a href="{{ url_for('tag.get_tag', tag_id=tag.id )}}">{{ tag.name }}</a>
+{% endfor %} {% endblock %}

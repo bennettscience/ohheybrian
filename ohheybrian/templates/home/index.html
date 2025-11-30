@@ -1,7 +1,5 @@
-<div id="cover" class="container container--flex">
-  <div class="yellow float-block--small" id="block1"></div>
-  <div class="orange float-block--small" id="block2"></div>
-  <img class="face" src="static/images/selfie.webp" alt="A sketch of my face" />
+{% extends "_layout.html" %} {% block main_content %}
+<div class="container">
   <div>
     <h1>Oh, hey.</h1>
     <p>I'm <b>Brian</b> and I teach.</p>
@@ -12,25 +10,7 @@
   </div>
 </div>
 <div class="container">
-  <div class="box--title__wrap">
-    <div class="box--title__outer">
-      <div class="box--title__inner green">about</div>
-    </div>
-  </div>
-</div>
-<div class="container--flex">
   <section>
-    <p>
-      I started teaching at an international school in 2009. My principal had
-      enough confidence that a newly-graduated biology education major would be
-      able to teach high school chemistry. Since then, I've taught
-      <strong>chemistry, physics, biology</strong>, and some
-      <strong>introductory computer science</strong>. I'm a teacher at heart but
-      also have experience as an <strong>instructional coach</strong> and
-      district-level team leader for
-      <strong>professional development</strong> and
-      <strong>curriculum design</strong>.
-    </p>
     <p>
       When I'm not teaching, I'm working on our
       <a href="https://www.upstreamfarm.com" target="_blank"
@@ -39,59 +19,16 @@
       well-cared for space and teaching our kids the value of hard work.
     </p>
     <p>
+      Like to read blogs? I have a blog. I've got the
+      <a href="https://blog.ohheybrian.com">long blog</a> where I've been
+      writing for a while. I also have the
+      <a href="{{ url_for('post.posts_index') }}">otherblog</a> where I tinker
+      with smaller ideas.
+    </p>
+    <p>
       Have other questions? Please
       <a class="cta" href="{{ url_for('home.contact') }}">get in touch</a>
     </p>
   </section>
-  <section id="beekeeping">
-    <img
-      src="/static/images/beekeeping.webp"
-      alt="A decorate line drawing of a beekeeper working with frames in a beehive."
-    />
-  </section>
 </div>
-<div class="container">
-  <div class="box--title__wrap">
-    <div class="box--title__outer">
-      <div class="box--title__inner orange">writing</div>
-    </div>
-  </div>
-</div>
-<div class="container--flex">
-  <section id="academics">
-    <img
-      src="static/images/teaching_small.webp"
-      alt="A decorative line drawing of a man teaching."
-    />
-  </section>
-  <section>
-    <p>Like to read blogs? I have a blog. You might be interested in:</p>
-    <ul>
-      <li>
-        <a
-          href="https://blog.ohheybrian.com/2023/03/consistency-and-variety/"
-          target="_blank"
-          >Consistency and Variety</a
-        >: How does our use of the LMS hurt or help students? This post
-        considers the LMS as a tool from a system and individual perspective
-      </li>
-      <li>
-        <a
-          href="https://blog.ohheybrian.com/2020/08/supporting-hybrid-and-online-learning/"
-          target="_blank"
-          >Supporting Hybrid and Online Learning</a
-        >: Written during COVID-19 closures, this post explores how districts
-        can best support students and staff in different modes of instruction.
-      </li>
-      <li>
-        <a
-          href="https://blog.ohheybrian.com/2017/09/outsourcing-edtech-and-1986/"
-          target="_blank"
-          >Outsourcing, EdTech, and 1986</a
-        >: Written after finishing <em>Amusing Ourselves to Death,</em> this is
-        a look at how the education technology industry employs social tactics
-        to get users rather than providing strong learning services.
-      </li>
-    </ul>
-  </section>
-</div>
+{% endblock %}
