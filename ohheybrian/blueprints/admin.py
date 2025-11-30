@@ -29,6 +29,12 @@ from ohheybrian.models import Comment, Post
 bp = Blueprint("admin", __name__)
 
 
+@bp.before_request
+def restricted():
+    if current_user.is_anonymous:
+        return redirect(url_for("home.index"))
+
+
 @bp.get("/posts")
 def admin_posts():
     if current_user.is_anonymous:
@@ -56,7 +62,7 @@ def admin_comments():
 
 @bp.get("/tags")
 def admin_tags():
-    pass
+    return redirect(url_for("admin.admin_posts"))
 
 
 # Start a new post

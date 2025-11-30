@@ -44,6 +44,7 @@
       <a href="{{ url_for('rss_feed') }}">RSS</a>
       {% if not current_user.is_anonymous %}
       <a href="{{ url_for('admin.admin_posts')}}">Admin</a>
+      <a href="{{ url_for('auth.logout')}}">Logout</a>
       {% endif %}
     </footer>
     <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>

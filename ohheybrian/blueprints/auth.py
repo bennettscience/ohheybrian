@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import current_user, login_user, logout_user
 from htmx_flask import make_response
 from webargs import fields
@@ -20,14 +20,17 @@ def login():
         {"email": fields.Str(), "password": fields.Str()}, location="form"
     )
 
+    error = None
+
     user = User.query.filter(User.email == args["email"]).first()
     if user is None or not user.check_password(args["password"]):
-        return make_response(
-            trigger={"showToast": "Usernmame or password is incorrect."}
-        )
+        error = "Invalid username or password."
+    else:
+        flash("Login successful")
+        login_user(user)
+        return redirect(url_for("admin.admin_posts"))
 
-    login_user(user)
-    return make_response(redirect=url_for("admin.admin_posts"))
+    return render_template("shared/forms/login.html", error=error)
 
 
 @bp.get("/logout")
