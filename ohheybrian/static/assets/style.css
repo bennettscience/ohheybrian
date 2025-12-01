@@ -1,5 +1,5 @@
 :root {
-  --black: #121212;
+  --black: #222;
   --dark-gray: #bababa;
   --gray: #eee;
   --white: #fff;
@@ -29,6 +29,17 @@
   /* Default font settings */
   --sans-serif: system-ui;
   --lh-base: var(--ratio);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --white: #222;
+    --black: #eee;
+  }
+
+  #nav-face {
+    filter: invert();
+  }
 }
 
 * {
