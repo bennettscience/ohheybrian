@@ -10,6 +10,7 @@
       content="Brian Bennett is a teacher in Buchanan, Michigan."
     />
     <meta name="color-scheme" content="light dark" />
+    <meta name="fediverse:creator" content="@brianb@fosstodon.org" />
     <meta
       name="robots"
       content="index,
@@ -17,11 +18,11 @@
       max-snippet:-1,max-image-preview:large,
       max-video-preview:-1"
     />
+    <link rel="me" href="https://fosstodon.org/@brianb">
     <link rel="canonical" href="https://ohheybrian.com" />
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='assets/2025_style.css')}}" /> -->
     <link rel="stylesheet" href="/static/assets/style.css" />
     <link rel="icon" type="image/webp" sizes="24x32" href="{{ url_for('static', filename='assets/img/selfie.webp')}}" />
-    <!-- <link rel="stylesheet" href="/static/assets/new_style.css" /> -->
+    {% block head %} {% endblock %}
   </head>
 
   <body>
