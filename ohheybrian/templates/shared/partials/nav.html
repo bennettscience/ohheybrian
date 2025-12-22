@@ -5,9 +5,9 @@
       src="{{url_for('static', filename='assets/img/selfie.webp')}}"
       alt="A sketch of my face"
   /></a>
-  <div class="nav-items">
-    <a href="https://blog.ohheybrian.com">blog</a>
-    <a href="{{ url_for('post.posts_index') }}">otherblog</a>
-    <a href="{{ url_for('home.contact') }}">contact</a>
-  </div>
+  <ul class="nav-items">
+    <li><a href="https://blog.ohheybrian.com">blog</a></li>
+    <li><a href="{{ url_for('post.posts_index') }}">otherblog</a></li>
+    <li><a href="{{ url_for('home.contact') }}">contact</a></li>
+  </ul>
 </nav>

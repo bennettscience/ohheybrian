@@ -53,8 +53,8 @@ html {
   line-height: var(--ratio);
   overflow-wrap: break-word;
   word-break: break-word;
-  padding-block: var(--s3);
-  padding-inline: var(--s4);
+  padding-block: var(--s0);
+  padding-inline: var(--s0);
 }
 
 body {
@@ -115,6 +115,10 @@ nav {
   align-items: center;
   justify-content: flex-end;
   gap: 1.5rem;
+}
+
+.nav-items li {
+  list-style-type: none;
 }
 
 .nav-items a:last-child {
