@@ -54,7 +54,7 @@ html {
   overflow-wrap: break-word;
   word-break: break-word;
   padding-block: var(--s0);
-  padding-inline: var(--s0);
+  padding-inline: var(--s3);
 }
 
 body {
@@ -103,6 +103,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   margin-block-end: var(--s4);
+  flex-wrap: wrap;
 }
 
 #nav-face {
@@ -115,6 +116,7 @@ nav {
   align-items: center;
   justify-content: flex-end;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .nav-items li {
