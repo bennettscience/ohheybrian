@@ -2,7 +2,7 @@
 <meta name="keywords" content="{{ article.tags|map(attribute='name')|join(', ')  }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ article.title }}" />
-<meta property="og:url" content="/otherblog/posts/{{ article.title }}" />
+<meta property="og:url" content="https://ohheybrian.com/otherblog/posts/{{ article.slug}}" />
 {% endblock %} {% block title %}{{ article.title }}{% endblock %} {% block
 main_content %}
     <article>
