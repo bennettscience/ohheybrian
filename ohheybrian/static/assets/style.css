@@ -133,6 +133,10 @@ main {
   margin-block-end: var(--s4);
 }
 
+#article_text img {
+  width: 100%;
+}
+
 /* shamelessly stolen from Leon Paternoster
 https://www.kjz.im
 
