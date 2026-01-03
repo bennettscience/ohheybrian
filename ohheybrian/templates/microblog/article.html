@@ -1,4 +1,5 @@
 {% extends "_layout.html" %} {% block head %}
+<title>{{ article.title }}</title>
 <link rel="canonical" href="https://ohheybrian.com/otherblog/posts/{{ article.slug}}" />
 <meta name="keywords" content="{{ article.tags|map(attribute='name')|join(', ')  }}" />
 <meta property="og:type" content="article" />
