@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped
-from sqlalchemy.sql import func
+from sqlalchemy import func, select
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from ohheybrian.extensions import db, lm
@@ -111,6 +111,19 @@ class Post(db.Model, Base):
     post_body = db.Column(db.String)
     published = db.Column(db.Boolean, default=False)
     slug = db.Column(db.String)
+
+    # Load neighbor posts for individual posts
+    def load_neighbors(self):
+        prev_q = db.select(Post).where(Post.id < self.id).order_by(Post.id.desc()).limit(1)
+
+        next_q = db.select(Post).where(Post.id > self.id).order_by(Post.id.asc()).limit(1)
+
+        neighbors = db.session.scalars(prev_q.union(next_q)).all()
+
+        self.prev = next((p for p in neighbors if p.id < self.id), None)
+        self.next = next((p for p in neighbors if p.id > self.id), None)
+
+        return self
 
 
 class Category(db.Model, Base):
