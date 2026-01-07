@@ -133,7 +133,7 @@ main {
   margin-block-end: var(--s4);
 }
 
-#article_text img {
+article img {
   width: 100%;
 }
 
