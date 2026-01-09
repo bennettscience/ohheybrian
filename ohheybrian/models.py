@@ -112,6 +112,21 @@ class Post(db.Model, Base):
     published = db.Column(db.Boolean, default=False)
     slug = db.Column(db.String)
 
+    # Load neighbor posts for individual posts
+    def load_neighbors(self):
+        prev_q = db.select(Post).where(Post.id < self.id).order_by(Post.id.desc())
+
+        next_q = db.select(Post).where(Post.id > self.id).order_by(Post.id.asc())
+
+        # It is not possible to do this against an SQLite database
+        # https://github.com/sqlalchemy/sqlalchemy/issues/8094:w
+        # neighbors = db.session.scalars(prev_q.union_all(next_q))
+
+        self.prev = db.session.scalar(prev_q.limit(1))
+        self.next = db.session.scalar(next_q.limit(1))
+
+        return self
+
 
 class Category(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)
