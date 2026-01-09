@@ -31,5 +31,19 @@ main_content %}
           >Share this post</a
         >
       </div>
+      <div id="pagination">
+        {% if article.prev %}
+        <div class="pag-item">
+        <p>Previous</p>
+        <a href="{{ url_for('post.get_single_post', post_slug=article.prev.slug)}}">{{ article.prev.title }}</a>
+        </div>
+        {% endif %}
+        {% if article.next %}
+        <div class="pag-item">
+        <p>Next</p>
+        <a href="{{ url_for('post.get_single_post', post_slug=article.next.slug)}}">{{ article.next.title }}</a>
+        </div>
+        {% endif %}
+      </div>
     </article>
 {% endblock %}

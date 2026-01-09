@@ -133,8 +133,21 @@ main {
   margin-block-end: var(--s4);
 }
 
-article img {
+article > #article_text img {
   width: 100%;
+}
+
+article > #pagination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-block-start: var(--s0);
+}
+
+#pagination > .pag-item p {
+  font-size: var(--s-1);
+  text-transform: uppercase;
 }
 
 /* shamelessly stolen from Leon Paternoster
