@@ -1,8 +1,9 @@
 {% extends "_layout.html" %} {% block head %}
+<title>{{ article.title }}</title>
 <meta name="keywords" content="{{ article.tags|join(', ')  }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ article.title }}" />
-<meta property="og:url" content="{{ SITEURL }}/{{ article.title }}" />
+<meta property="og:url" content="{{SITEURL}}/otherblog/posts/{{ article.slug }}" />
 {% endblock %} {% block title %}{{ article.title }}{% endblock %} {% block
 main_content %}
 <main>
@@ -23,6 +24,14 @@ main_content %}
         {% endif %}
       </div>
       <div id="article_text">{{ article.post_body|safe }}</div>
+      <div id="pagination">
+      {% if article.prev %}
+      <a href="{{ url_for('post.get_single_post', post_slug=article.prev.slug) }}">Prev</a>
+      {% endif %}
+      {% if article.next %}
+      <a href="{{ url_for('post.get_single_post', post_slug=article.next.slug) }}">Next</a>
+      {% endif %}
+      </div>
       <div class="article_actions">
         <img src="https://shareopenly.org/images/logo.svg" />
         <a

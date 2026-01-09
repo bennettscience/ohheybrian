@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped
-from sqlalchemy import func, select
+from sqlalchemy import func, select, union_all
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from ohheybrian.extensions import db, lm
@@ -114,14 +114,16 @@ class Post(db.Model, Base):
 
     # Load neighbor posts for individual posts
     def load_neighbors(self):
-        prev_q = db.select(Post).where(Post.id < self.id).order_by(Post.id.desc()).limit(1)
+        prev_q = db.select(Post).where(Post.id < self.id).order_by(Post.id.desc())
 
-        next_q = db.select(Post).where(Post.id > self.id).order_by(Post.id.asc()).limit(1)
+        next_q = db.select(Post).where(Post.id > self.id).order_by(Post.id.asc())
 
-        neighbors = db.session.scalars(prev_q.union(next_q)).all()
+        # It is not possible to do this against an SQLite database
+        # https://github.com/sqlalchemy/sqlalchemy/issues/8094:w
+        # neighbors = db.session.scalars(prev_q.union_all(next_q))
 
-        self.prev = next((p for p in neighbors if p.id < self.id), None)
-        self.next = next((p for p in neighbors if p.id > self.id), None)
+        self.prev = db.session.scalar(prev_q.limit(1))
+        self.next = db.session.scalar(next_q.limit(1))
 
         return self
 

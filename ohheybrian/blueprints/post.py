@@ -20,6 +20,9 @@ def get_single_post(post_slug):
     stmt = db.select(Post).where(Post.slug == post_slug)
     post = db.session.scalars(stmt).first()
 
+    # Load the neighbor posts
+    post.load_neighbors()
+
     if post:
         result = render_template("microblog/article.html", article=post)
     else:

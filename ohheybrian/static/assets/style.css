@@ -134,6 +134,14 @@ main > article > .article_title a:hover {
   text-decoration: underline;
 }
 
+article > #pagination {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-block-end: var(--s0);
+}
+
 /* Push pagination down after the last article */
 article:last-of-type {
   margin-block-end: var(--s2);
