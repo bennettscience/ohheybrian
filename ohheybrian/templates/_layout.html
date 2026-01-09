@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>oh, hey Brian | Brian Bennett</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,11 +16,9 @@
       max-snippet:-1,max-image-preview:large,
       max-video-preview:-1"
     />
-    <link rel="canonical" href="https://ohheybrian.com" />
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='assets/2025_style.css')}}" /> -->
     <link rel="stylesheet" href="/static/assets/style.css" />
     <link rel="icon" type="image/webp" sizes="24x32" href="{{ url_for('static', filename='assets/img/selfie.webp')}}" />
-    <!-- <link rel="stylesheet" href="/static/assets/new_style.css" /> -->
+    {% block head %}{% endblock %}
   </head>
 
   <body>
