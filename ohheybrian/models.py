@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped
-from sqlalchemy.sql import func
+from sqlalchemy import func, select, union_all
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from ohheybrian.extensions import db, lm
