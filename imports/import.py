@@ -8,24 +8,33 @@ from docutils.core import publish_doctree
 from ohheybrian.extensions import db
 from ohheybrian.models import Category, Post, Tag
 
-def save_post():
+def save_post(data):
+    if isinstance(data, dict):
+        print(data)
+        return True
+    else:
+        return False
+
+def get_rst_meta(document):
     pass
 
-def get_meta(document):
-    pass
-
-def get_post_body(document):
+def get_rst_post_body(document):
     pass
 
 def parse_rst(file):
     print(f"Received {file.name}")
 
-def parse_markdown(file):
+def parse_markdown(file_path):
     # Load the meta extension to extract frontmatter from any *.md post.
     # https://python-markdown.github.io/extensions/meta_data/
-    # md = markdown.Markdown(extensions=["meta"])
-    print(f"Received {file.name}")
+    md = markdown.Markdown(extensions=["meta"])
+    file = file_path.open('r')
+    post_data = {
+        "post_body": md.convert(file.read()),
+        "post_meta": md.Meta
+    }
 
+    return save_post(post_data)
 
 def process_files(dir):
     """
