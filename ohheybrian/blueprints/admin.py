@@ -174,5 +174,17 @@ def edit_post(post_id: int):
     tags = [tag.name for tag in post.tags] if post.tags else None
 
     return render_template(
-        "microblog/write.html", post=post, tags=tags, post_body=post_body
+        "microblog/write.html", post=post, tags=tags, post_body=post_body, published=post.published
     )
+
+
+# delete a post
+@bp.delete("/posts/<int:post_id>")
+def delete_post(post_id: int):
+    stmt = db.select(Post).where(Post.id == post_id)
+    post = db.session.scalars(stmt).first()
+
+    db.session.delete(post)
+    db.session.commit()
+    
+    return make_response(redirect=url_for("admin.admin_posts"))

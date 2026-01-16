@@ -7,6 +7,7 @@
   --green: #47b65d;
   --orange: #f0ca6a;
   --pink: #ffc2b0;
+  --red: #e81f1f;
 
   /*
 		Suggested ratio from Every Layout.
@@ -189,6 +190,34 @@ article:last-of-type {
   flex-basis: 0;
   flex-grow: 999;
   min-width: 50%;
+}
+
+.admin > .not-sidebar > article > .meta,
+.admin > .not-sidebar > article > .actions {
+  display: flex;
+  align-items: center;
+}
+
+.admin > .not-sidebar > article > .meta {
+  justify-content: space-between;
+}
+
+.admin > .not-sidebar > article > .meta p {
+  color: var(--dark-gray);
+  font-size: var(--s-1);
+}
+
+.admin > .not-sidebar > article > .actions {
+  gap: var(--s2);
+}
+
+.admin > .not-sidebar > article > .actions a:last-child {
+  color: var(--red);
+}
+
+.admin > .not-sidebar > article > .actions a:last-child:hover {
+  cursor: pointer;
+  font-weight: 600;
 }
 
 /* Post editor */

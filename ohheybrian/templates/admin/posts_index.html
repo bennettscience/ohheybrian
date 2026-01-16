@@ -40,16 +40,19 @@
     {% for post in posts %}
     <article>
       <section class="meta">
-        <h3>
-          <a href="{{ url_for('admin.edit_post', post_id=post.id)}}"
-            >{{post.title}}</a
-          >
-        </h3>
-        <p>{{ post.created_on.strftime('%Y-%m-%d : %I:%M %p' )}}</p>
-        <p>{{ post.post_body|safe|truncate}}</p>
+        <h3>{{post.title}}</h3>
+        <p>
+          {{ post.created_on.strftime('%Y-%m-%d %H:%M' )}} - {% if
+          post.published %}published{% else %}draft{% endif %}
+        </p>
       </section>
-      <section class="status">
-        <p>{% if post.published %}published{% else %}draft{% endif %}</p>
+      <section class="actions">
+        <a href="{{ url_for('admin.edit_post', post_id=post.id)}}">Edit</a>
+        <a
+          hx-delete="{{ url_for('admin.delete_post', post_id=post.id)}}"
+          hx-confirm="This cannot be undone."
+          >Delete</a
+        >
       </section>
     </article>
     {% endfor %}
