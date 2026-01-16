@@ -1,3 +1,4 @@
+import click
 from flask import Flask
 from flask_cors import CORS
 from ohheybrian.extensions import db, htmx, lm, migrate, partials
@@ -13,6 +14,7 @@ from ohheybrian.blueprints import (
     tag,
 )
 from ohheybrian.functions.rss import create_feed
+from ohheybrian.functions.sync_client.sync import sync_posts
 from ohheybrian.models import Post
 
 
@@ -39,6 +41,11 @@ def create_app(config):
     app.register_blueprint(post.bp, url_prefix="/otherblog")
     app.register_blueprint(search.bp)
     app.register_blueprint(tag.bp)
+
+    @app.cli.command("sync")
+    @click.argument('dir')
+    def run(dir):
+        sync_posts(dir)
 
     @app.route("/feed")
     def rss_feed():

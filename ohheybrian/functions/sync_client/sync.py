@@ -3,9 +3,11 @@ from pathlib import Path
 import sys
 from zoneinfo import ZoneInfo
 
-import markdown
+import click
+from flask.cli import with_appcontext
 import docutils.nodes
 from docutils.core import publish_doctree, publish_parts
+import markdown
 
 from ohheybrian.extensions import db
 from ohheybrian.functions.helpers import (
@@ -124,7 +126,8 @@ def parse_markdown(file_path):
 
     return save_post(post_data)
 
-def process_files(dir):
+
+def sync_posts(dir):
     """
         Read files from a directory and handle importng content
     """
@@ -146,5 +149,5 @@ if __name__ == "__main__":
 
     path_str = sys.argv[1]
 
-    process_files(path_str)
+    sync_posts(path_str)
 
