@@ -1,8 +1,8 @@
 {% extends "_layout.html" %} {% block main_content %}
 <a href="{{ url_for('admin.admin_posts')}}">Back</a>
 <div class="admin container with-sidebar">
-  <form class="not-sidebar" hx-trigger="submit" hx-post="/admin/posts/add">
-    <h2>New Post</h2>
+  <form class="not-sidebar" hx-trigger="submit" {{method}}="{{endpoint}}">
+    <h2>{{editor_title}}</h2>
     <label
       >Title
       <input
@@ -42,8 +42,9 @@
         name="published"
         {%
         if
-        published
-        %}checked{%
+        post.published
+        %}checked="checked"
+        {%
         endif
         %}
       />

@@ -127,6 +127,12 @@ class Post(db.Model, Base):
 
         return self
 
+    def update(self, data):
+        for key, value in data.items():
+            setattr(self, key, value)
+        db.session.commit()
+        return self
+
 
 class Category(db.Model, Base):
     id = db.Column(db.Integer, primary_key=True)

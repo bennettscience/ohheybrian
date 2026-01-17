@@ -42,6 +42,9 @@ def parse_post_tags(tags: list) -> list:
 
     return result
 
+def check_edit_post_tags(current: list, incoming: list):
+    return list(set(current).symmetric_difference(set(incoming)))
+
 
 def check_category(category: str) -> type(Category):
     stmt = db.select(Category).where(Category.name == category)

@@ -23,6 +23,7 @@ from ohheybrian.functions.helpers import (
     parse_post_tags,
     validate_image,
     check_post_slug,
+    check_edit_post_tags
 )
 from ohheybrian.models import Comment, Post
 
@@ -68,7 +69,7 @@ def admin_tags():
 # Start a new post
 @bp.get("/posts/add")
 def create_post():
-    return render_template("microblog/write.html")
+    return render_template("microblog/write.html", method="hx-post", editor_title="New Post")
 
 
 @bp.post("/upload")
@@ -174,8 +175,47 @@ def edit_post(post_id: int):
     tags = [tag.name for tag in post.tags] if post.tags else None
 
     return render_template(
-        "microblog/write.html", post=post, tags=tags, post_body=post_body, published=post.published
+        "microblog/write.html",
+        post=post,
+        tags=tags,
+        post_body=post_body,
+        method="hx-put",
+        endpoint=url_for('admin.save_edit_post', post_id=post.id),
+        editor_title="Edit Post"
     )
+
+@bp.put("/posts/<int:post_id>")
+def save_edit_post(post_id : int):
+    args = {}
+    form = request.form
+    
+    stmt = db.select(Post).where(Post.id == post_id)
+    post = db.session.scalars(stmt).first()
+
+    # To avoid duplicate tags, check that the post doesn't
+    # already have a given tag attached to it and then
+    # check for the new one.
+    incoming_tags = form.get("tags").split(", ")
+    current_tags = [tag.name for tag in post.tags]
+
+    new_tags = check_edit_post_tags(current_tags, incoming_tags)
+
+    if form.get("published") == "on":
+        args["published"] = True
+    else:
+        args["published"] = False
+
+    args["title"] = form.get("title")
+    args["post_body"] = markdown.markdown(form.get("post_body"))
+
+    # Send a dict of objects to update EXCEPT for tags!
+    post.update(args)
+
+    tags_to_add = parse_post_tags(new_tags)
+
+    post.tags.extend(tags_to_add)
+
+    return make_response(redirect=url_for("admin.admin_posts"))
 
 
 # delete a post
