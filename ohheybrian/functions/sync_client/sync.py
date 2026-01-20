@@ -1,4 +1,5 @@
 from datetime import datetime
+import dateutil.parser as parser
 from pathlib import Path
 import sys
 from zoneinfo import ZoneInfo
@@ -18,8 +19,8 @@ from ohheybrian.models import Category, Post, Tag
 
 def save_post(data):
     if isinstance(data, dict):
-        date_format = "%Y-%m-%d %I:%M"
-        date = datetime.strptime(data.get("meta", {}).get("date"), date_format)
+        date_format = "%Y-%m-%d %H:%M"
+        date = parser.parse(data.get("meta", {}).get("date"))
 
         args = {}
 
@@ -30,7 +31,7 @@ def save_post(data):
         args["slug"] = check_post_slug(data.get("meta", {}).get("slug"))
 
         # set the post publish date. include the timezone for RSS creation
-        args["created_on"] = datetime.strptime(data.get("meta", {}).get("date"), date_format).replace(tzinfo=ZoneInfo('America/Indianapolis'))
+        args["created_on"] = date.replace(tzinfo=ZoneInfo('America/Indianapolis'))
 
         args["author"] = "Brian"
 
@@ -53,8 +54,11 @@ def save_post(data):
         # Add the tags to the new post object
         # check the tags and create new ones if necessary
         # Turn the tags field into a list
-        args["tags"] = parse_post_tags(data.get("meta", {}).get("tags").split(", "))
-        post.tags.extend(args["tags"])
+        has_tags = data.get("meta", {}).get("tags")
+
+        if has_tags:
+            args["tags"] = parse_post_tags(has_tags.split(", "))
+            post.tags.extend(args["tags"])
 
         # check the post category
         # Can only be single, so checking here isn't awful
