@@ -1,6 +1,6 @@
 Title: This is a test
 Author: Brian
-Date: 2026-01-14 10:00
+Date: 2026-01-14 
 Slug: this-is-a-test
 Category: Something
 Tags: something, comma, another
