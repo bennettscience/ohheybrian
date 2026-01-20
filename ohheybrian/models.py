@@ -114,9 +114,9 @@ class Post(db.Model, Base):
 
     # Load neighbor posts for individual posts
     def load_neighbors(self):
-        prev_q = db.select(Post).where(Post.id < self.id).order_by(Post.id.desc())
+        prev_q = db.select(Post).where(Post.created_on < self.created_on).order_by(Post.created_on.desc())
 
-        next_q = db.select(Post).where(Post.id > self.id).order_by(Post.id.asc())
+        next_q = db.select(Post).where(Post.created_on > self.created_on).order_by(Post.created_on.asc())
 
         # It is not possible to do this against an SQLite database
         # https://github.com/sqlalchemy/sqlalchemy/issues/8094:w
