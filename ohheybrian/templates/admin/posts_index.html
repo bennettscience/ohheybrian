@@ -40,7 +40,11 @@
     {% for post in posts %}
     <article>
       <section class="meta">
-        <h3>{{post.title}}</h3>
+        <h3>
+          <a href="{{url_for('post.get_single_post', post_slug=post.slug)}}"
+            >{{post.title}}</a
+          >
+        </h3>
         <p>
           {{ post.created_on.strftime('%Y-%m-%d %H:%M' )}} - {% if
           post.published %}published{% else %}draft{% endif %}
@@ -50,7 +54,7 @@
         <a href="{{ url_for('admin.edit_post', post_id=post.id)}}">Edit</a>
         <a
           hx-delete="{{ url_for('admin.delete_post', post_id=post.id)}}"
-          hx-confirm="This cannot be undone."
+          hx-confirm="Are you sure? This cannot be undone."
           >Delete</a
         >
       </section>
