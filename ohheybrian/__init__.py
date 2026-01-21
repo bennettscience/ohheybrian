@@ -14,17 +14,13 @@ from ohheybrian.blueprints import (
     tag,
 )
 from ohheybrian.functions.rss import create_feed
-from ohheybrian.functions.sync_client.sync import sync_posts
+from ohheybrian.functions.sync_client.sync import sync_posts, migrate_comments
 from ohheybrian.models import Post
 
 
 def create_app(config):
     app = Flask(__name__, static_url_path="/static")
     app.config.from_object(config)
-
-    cors = CORS(
-        app, resources={r"/comments\/\S*": {"origins": app.config["CORS_ENDPOINT"]}}
-    )
 
     db.init_app(app)
     htmx.init_app(app)
@@ -46,6 +42,10 @@ def create_app(config):
     @click.argument('dir')
     def run(dir):
         sync_posts(dir)
+
+    @app.cli.command("migrate_comments")
+    def run():
+        migrate_comments()
 
     @app.route("/feed")
     def rss_feed():
