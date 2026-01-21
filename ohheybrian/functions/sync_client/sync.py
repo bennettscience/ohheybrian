@@ -15,7 +15,7 @@ from ohheybrian.functions.helpers import (
     parse_post_tags,
     check_post_slug,
 )
-from ohheybrian.models import Category, Post, Tag
+from ohheybrian.models import Category, Comment, Post, Tag
 
 def save_post(data):
     if isinstance(data, dict):
@@ -145,6 +145,16 @@ def sync_posts(dir):
             else:
                 continue
 
+def migrate_comments():
+    stmt = db.select(Comment)
+    comments = db.session.scalars(stmt).all()
+
+    for comment in comments:
+        query = db.select(Post).where(Post.slug == comment.slug)
+        post = db.session.scalars(query).first()
+
+        post.comments.append(comment)
+        db.session.commit()
 
 if __name__ == "__main__":    
     if len(sys.argv) < 1:
