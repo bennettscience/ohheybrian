@@ -8,7 +8,7 @@ from webargs.flaskparser import parser
 from webargs.multidictproxy import MultiDictProxy
 
 from ohheybrian.extensions import db
-from ohheybrian.models import Comment
+from ohheybrian.models import Comment, Post
 
 bp = Blueprint("comments", __name__)
 
@@ -43,29 +43,41 @@ def get_post_comments(slug):
     return render_template("comments/comments.html", comments=comments)
 
 
-@bp.post("/comments/<string:slug>")
-def post_comment(slug):
+@bp.post("/comments/<int:post_id>")
+def post_comment(post_id):
+    # TODO: Remove webargs and parse the form
+    
     args = parser.parse(
         {
             "name": fields.Str(),
-            "slug": fields.Str(),
+            "post_id": fields.Int(),
             "url": fields.Str(),
             "message": fields.Str(),
-            "user_email": fields.Bool(),
+            "user_email": fields.Str(),
         },
         location="form",
     )
 
+    # start by looking up the post
+    post_stmt = db.select(Post).where(Post.id == args["post_id"])
+    post = db.session.scalars(post_stmt).first()
+
+    if not post:
+        return "Sorry! Something went wrong. Refresh and try again."
+    
     clean_text = nh3.clean(args["message"])
 
     comment = Comment(
-        slug=args["slug"], name=args["name"], url=args["url"], message=clean_text
+        name=args["name"], url=args["url"], message=clean_text
     )
 
     if hasattr(args, "user_email"):
         comment.is_spam = True
 
     db.session.add(comment)
+
+    # Save it to the post
+    post.comments.append(comment)
 
     # If the comment has a reply_to key, do that now
     if request.args.get("reply_to"):
@@ -100,6 +112,6 @@ def delete_comment(id):
 
 
 # Get a form to reply to a comment
-@bp.get("/comments/<string:slug>/reply/<int:id>")
-def get_comment_form(slug, id):
-    return render_template("shared/forms/comment-reply.html", slug=slug, comment_id=id)
+@bp.get("/comments/<int:post_id>/reply/<int:comment_id>")
+def get_comment_form(post_id, comment_id):
+    return render_template("shared/forms/comment-reply.html", post_id=post_id, comment_id=comment_id)

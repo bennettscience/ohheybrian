@@ -112,6 +112,14 @@ class Post(db.Model, Base):
     published = db.Column(db.Boolean, default=False)
     slug = db.Column(db.String)
 
+    comments = db.relationship(
+        "Comment",
+        secondary="post_comment",
+        uselist=True,
+        lazy="subquery",
+        backref=db.backref("post", lazy="subquery")
+    )
+
     # Load neighbor posts for individual posts
     def load_neighbors(self):
         prev_q = db.select(Post).where(Post.created_on < self.created_on).order_by(Post.created_on.desc())
@@ -178,4 +186,10 @@ postcategory_association = db.Table(
     "postcategory_association",
     db.Column("category_id", db.Integer, db.ForeignKey("category.id")),
     db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
+)
+
+post_comment = db.Table(
+    "post_comment",
+    db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
+    db.Column("comment_id", db.Integer, db.ForeignKey("comment.id"))
 )
