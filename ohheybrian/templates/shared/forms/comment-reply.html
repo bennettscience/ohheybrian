@@ -1,10 +1,10 @@
 <form
-  hx-post="{{ config.COMMENTS_ENDPOINT }}/comments/{{slug}}?reply_to={{comment_id}}"
+  hx-post="{{ url_for('comments.post_comment', post_id=post_id, reply_to=comment_id)}}"
   hx-trigger="submit"
   hx-target="this"
   hx-swap="outerHTML"
 >
-  <input name="slug" value="{{slug}}" type="hidden" />
+  <input name="post_id" value="{{post_id}}" type="hidden" />
   <label
     >Name *
     <input name="name" type="text" />

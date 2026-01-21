@@ -46,4 +46,48 @@ main_content %}
         {% endif %}
       </div>
     </article>
+    <div class="comments">
+    <form
+      hx-post="{{ url_for('comments.post_comment', post_id=article.id)}}"
+      hx-trigger="submit"
+      hx-target="this"
+      hx-swap="outerHTML"
+    >
+      <input name="post_id" value="{{article.id}}" type="hidden" />
+      <label>Name *
+        <input name="name" type="text" required />
+      </label>
+      <label>Website
+        <input name="url" type="text" />
+      </label>
+      <label>What do you think?
+        <textarea name="message"></textarea>
+      </label>
+      <input name="user_email" class="user_email" type="checkbox" />
+      <input type="submit" value="Submit" />
+    </form>
+    {% from 'shared/macros.html' import render_comment %}
+    {% for comment in article.comments if not comment.is_reply %}
+      <article class="comment">
+        <span class="comment--meta">
+          <p>A thought from <b>{{ comment.name }}</b></p>
+        </span>
+        <em class="comment--datestamp">{{comment.occurred}}</em>
+        <p>{{ comment.message|safe }}</p>
+        <button
+          class="btn"
+          hx-get="{{ url_for('comments.get_comment_form', post_id=article.id, comment_id=comment.id)}}"
+          hx-target="next div"
+          hx-swap="innerHTML"
+          hx-trigger="click"
+        >
+          Reply
+        </button>
+        <div class="reply"></div>
+        {% if comment.has_replies %} {% for reply in comment.replies %} {% if
+        reply.approved %} {{ render_comment(reply) }} {% endif %} {% endfor %} {%
+        endif %}
+      </article>
+      {% endfor %}
+    </div>
 {% endblock %}
