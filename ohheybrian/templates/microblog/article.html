@@ -35,13 +35,13 @@ main_content %}
         {% if article.prev %}
         <div class="pag-item">
         <p>Previous</p>
-        <a href="{{ url_for('post.get_single_post', post_slug=article.prev.slug)}}">{{ article.prev.title }}</a>
+        <a href="{{ url_for('post.get_single_post', year=article.prev.created_year, month=article.prev.created_month, post_slug=article.prev.slug)}}">{{ article.prev.title }}</a>
         </div>
         {% endif %}
         {% if article.next %}
         <div class="pag-item">
         <p>Next</p>
-        <a href="{{ url_for('post.get_single_post', post_slug=article.next.slug)}}">{{ article.next.title }}</a>
+        <a href="{{ url_for('post.get_single_post', year=article.next.created_year, month=article.next.created_month, post_slug=article.next.slug)}}">{{ article.next.title }}</a>
         </div>
         {% endif %}
       </div>
