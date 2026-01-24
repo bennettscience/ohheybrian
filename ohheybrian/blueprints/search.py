@@ -13,7 +13,9 @@ def search_index():
     if not param:
         results = ""
     else:
-        stmt = db.select(Post).where(Post.title.like(param))
+        search = "%{}%".format(param)
+        
+        stmt = db.select(Post).where(Post.title.like(search))
         results = db.session.scalars(stmt).all()
 
     return render_template("microblog/search.html", results=results, query=param)

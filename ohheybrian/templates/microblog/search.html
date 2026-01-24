@@ -16,22 +16,20 @@ main_content %}
   <header class="article_title">
     <h2>
       <a
-        href="{{ url_for('posts.get_single_post', post_month=post.created_on.strftime('%m'), post_year=post.created_on.strftime('%Y'), post_slug=post.slug)}}"
+        href="{{ url_for('post.get_single_post', month=post.created_on.strftime('%m'), year=post.created_on.strftime('%Y'), post_slug=post.slug)}}"
         >{{post.title}}</a
       >
     </h2>
   </header>
-  {{ post.post_body|safe}}
+  <!-- {{ post.post_body|safe}} -->
   <footer class="article_footer">
     <time
       datetime="{{ post.created_on.isoformat() }}"
       pubdate="{{ post.created_on.isoformat() }}"
       >{{ post.created_on.strftime('%Y-%m-%d') }}</time
     >
-    <a href="{{ url_for('category.get_category', cat_id=post.category.id)}}"
-      >{{ post.category.name }}</a
-    >
   </footer>
+  </article>
   {% endfor %} {% else %}
   <p>There's nothing to see here today.</p>
   {% endif %} {% endblock %}
