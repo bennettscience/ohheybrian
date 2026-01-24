@@ -120,6 +120,19 @@ class Post(db.Model, Base):
         backref=db.backref("post", lazy="subquery")
     )
 
+    # Set the date hybrid properties to make URL building easier
+    @hybrid_property
+    def created_year(self):
+        return self.created_on.strftime("%Y")
+
+    @hybrid_property
+    def created_month(self):
+        return self.created_on.strftime("%m")
+
+    @hybrid_property
+    def created_day(self):
+        return self.created_on.strftime("%d")
+
     # Load neighbor posts for individual posts
     def load_neighbors(self):
         prev_q = db.select(Post).where(Post.created_on < self.created_on).order_by(Post.created_on.desc())
