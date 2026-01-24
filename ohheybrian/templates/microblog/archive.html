@@ -1,9 +1,7 @@
 {% extends "_layout.html" %} {% block head %} {% endblock %} {% block
-main_content %}{% if title %}
+main_content %}
 <h1>{{title}}</h1>
-{% else %}
-<h1>Posts</h1>
-{%endif%} {% for post in pagination %}
+{% for post in pagination %}
 <article>
   <header class="article_title">
     <h2>
@@ -13,18 +11,12 @@ main_content %}{% if title %}
       >
     </h2>
   </header>
-  {{ post.post_body|safe}}
   <footer class="article_footer">
     <time
       datetime="{{ post.created_on.isoformat() }}"
       pubdate="{{ post.created_on.isoformat() }}"
       >{{ post.created_on.strftime('%Y-%m-%d') }}</time
     >
-    {% if post.category %}<a
-      href="{{ url_for('category.get_category', cat_id=post.category.id)}}"
-      >{{ post.category.name }}</a
-    >
-    {% endif %}
   </footer>
 </article>
 {% endfor %}
