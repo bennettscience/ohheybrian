@@ -51,17 +51,30 @@
     </label>
     <input type="submit" value="Save" />
   </form>
-  <form
-    class="sidebar"
-    id="img-upload"
-    hx-post="{{ url_for('admin.save_new_image') }}"
-    hx-encoding="multipart/form-data"
-    hx-target="#result"
-    hx-swap="innerHTML"
-  >
-    <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
-    <input type="submit" value="Upload" />
-  </form>
-  <img id="result" src="" />
+  <div class="sidebar">
+    <div class="post-search">
+      <input
+        type="search"
+        value=""
+        name="search"
+        placeholder="Search posts"
+        hx-post="/search"
+        hx-trigger="input changed delay:500ms, keyup[key=='Enter']"
+        hx-target="#search-results"
+      />
+    </div>
+    <div id="search-results"></div>
+    <form
+      id="img-upload"
+      hx-post="{{ url_for('admin.save_new_image') }}"
+      hx-encoding="multipart/form-data"
+      hx-target="#result"
+      hx-swap="innerHTML"
+    >
+      <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
+      <input type="submit" value="Upload" />
+    </form>
+    <img id="result" src="" />
+  </div>
 </div>
 {% endblock %}
