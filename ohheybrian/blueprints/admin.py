@@ -69,7 +69,7 @@ def admin_tags():
 # Start a new post
 @bp.get("/posts/add")
 def create_post():
-    return render_template("microblog/write.html", method="hx-post", editor_title="New Post")
+    return render_template("microblog/write.html", method="hx-post", editor_title="New Post", post=None)
 
 
 @bp.post("/upload")
