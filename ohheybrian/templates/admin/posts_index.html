@@ -41,7 +41,8 @@
     <article>
       <section class="meta">
         <h3>
-          <a href="{{url_for('post.get_single_post', post_slug=post.slug)}}"
+          <a
+            href="{{url_for('post.get_single_post', year=post.created_year, month=post.created_month, post_slug=post.slug)}}"
             >{{post.title}}</a
           >
         </h3>
