@@ -54,3 +54,4 @@ htmx.on("insertImgSrc", (evt) => {
 });
 
 window.showToast = showToast;
+window.insertAtCursor = insertAtCursor;
