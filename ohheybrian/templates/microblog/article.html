@@ -54,14 +54,14 @@ main_content %}
       hx-swap="outerHTML"
     >
       <input name="post_id" value="{{article.id}}" type="hidden" />
-      <label>Name *
-        <input name="name" type="text" required />
+      <label for="name">Name *
+        <input name="name" id="name" type="text" required />
       </label>
-      <label>Website
-        <input name="url" type="text" />
+      <label for="url">Website
+        <input name="url" id="url" type="text" />
       </label>
-      <label>What do you think?
-        <textarea name="message"></textarea>
+      <label for="message">What do you think?
+        <textarea name="message" id="message"></textarea>
       </label>
       <input name="user_email" class="user_email" type="checkbox" />
       <input type="submit" value="Submit" />
@@ -71,8 +71,8 @@ main_content %}
       <article class="comment">
         <span class="comment--meta">
           <p>A thought from <b>{{ comment.name }}</b></p>
+          <em class="comment--datestamp">{{comment.occurred}}</em>
         </span>
-        <em class="comment--datestamp">{{comment.occurred}}</em>
         <p>{{ comment.message|safe }}</p>
         <button
           class="btn"

@@ -1,21 +1,22 @@
 <form
+  class="comment-reply"
   hx-post="{{ url_for('comments.post_comment', post_id=post_id, reply_to=comment_id)}}"
   hx-trigger="submit"
   hx-target="this"
   hx-swap="outerHTML"
 >
   <input name="post_id" value="{{post_id}}" type="hidden" />
-  <label
+  <label for="reply-name"
     >Name *
-    <input name="name" type="text" />
+    <input id="reply-name" name="name" type="text" />
   </label>
-  <label
+  <label for="reply-url"
     >Website
-    <input name="url" type="url" />
+    <input id="reply-url" name="url" type="text" />
   </label>
-  <label
+  <label for="reply-message"
     >What do you think?
-    <textarea name="message"></textarea>
+    <textarea id="reply-message" name="message"></textarea>
   </label>
   <input name="user_email" class="user_email" type="checkbox" />
   <input type="submit" value="Submit" />
