@@ -3,9 +3,9 @@
 Describe your project here.
 
 Todo:
-- Comment form on posts
-  - Comments associate by id rather than slug
 - Post URL routing to not break all the things
+ - ^(blog\.ohheybrian\.com)\/(\d+)\/(\d+)\/([A-Aa-z0-9\-]+)
+ - substitution ohheybrian.com/blog/$2/$3/$4
 - Image URL routing
 - Fix posts with pelican-style links
 
