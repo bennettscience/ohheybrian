@@ -26,6 +26,9 @@ def search():
     form = request.form
     param = form.get("search")
 
+    if not param:
+        return ""
+
     search = handle_search(param)
 
     results = [(post.title, url_for('post.get_single_post', post_slug=post.slug, year=post.created_year, month=post.created_month)) for post in search]

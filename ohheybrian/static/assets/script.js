@@ -1,4 +1,4 @@
-function insertAtCursor(el, value) {
+function insertImageAtCursor(el, value) {
   let field = document.querySelector(el);
   if (field.selectionStart || field.selectionStart == "0") {
     let startPos = field.selectionStart;
@@ -7,12 +7,24 @@ function insertAtCursor(el, value) {
     // After saving the field value, rewrite the entire field,
     // adding the new string in at the end (or where the cursor was)
     // sent from the submit event
-    field.value =
-      field.value.substring(0, startPos) +
-      "\n\n" +
-      value +
-      "\n\n" +
-      field.value.substring(endPos, field.value.length);
+    // https://javascript.info/selection-range#selection-in-form-controls
+
+    let selected = field.value(startPos, endPos);
+
+    field.setRangeText(`![${selected}](${value})`);
+  } else {
+    field.value += `![](${value})`;
+  }
+}
+
+function insertTextAtCursor(el, value) {
+  let field = document.querySelector(el);
+  if (field.selectionStart || field.selectionStart == "0") {
+    let startPos = field.selectionStart;
+    let endPos = field.selectionEnd;
+
+    let selected = field.value.slice(startPos, endPos);
+    field.setRangeText(`[${selected}](${value})`);
   } else {
     field.value += value;
   }
@@ -50,8 +62,8 @@ htmx.on("showToast", (evt) => {
 htmx.on("insertImgSrc", (evt) => {
   console.log(evt.detail);
   let formattedString = `![](${evt.detail.value})`;
-  insertAtCursor(evt.detail.textarea, formattedString);
+  insertImageAtCursor(evt.detail.textarea, formattedString);
 });
 
 window.showToast = showToast;
-window.insertAtCursor = insertAtCursor;
+window.insertTextAtCursor = insertTextAtCursor;

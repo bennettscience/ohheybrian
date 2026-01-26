@@ -3,7 +3,7 @@
   {% for post in results %}
   <li
     data-url="{{post[1]}}"
-    _="on click call insertAtCursor('#post_body', @data-url)"
+    _="on click call insertTextAtCursor('#post_body', @data-url)"
   >
     {{ post[0] }}
   </li>

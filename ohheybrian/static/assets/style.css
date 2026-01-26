@@ -250,6 +250,25 @@ form input[type="submit"] {
   width: auto;
 }
 
+.admin > .sidebar * + * {
+  margin-block-end: var(--s2);
+}
+
+.admin > .sidebar #search-results {
+  height: 25%;
+  overflow-y: auto;
+  padding: var(--s1);
+}
+
+.admin > .sidebar #search-results > ol > li {
+  margin-block-end: 0;
+}
+
+.admin > .sidebar #search-results > ol > li:hover {
+  cursor: pointer;
+  background-color: var(--gray);
+}
+
 /* Set a checkbox next to its label */
 form input[type="checkbox"] {
   display: inline;
