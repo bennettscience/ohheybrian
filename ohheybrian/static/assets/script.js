@@ -9,11 +9,11 @@ function insertImageAtCursor(el, value) {
     // sent from the submit event
     // https://javascript.info/selection-range#selection-in-form-controls
 
-    let selected = field.value(startPos, endPos);
+    let selected = field.value.slice(startPos, endPos);
 
     field.setRangeText(`![${selected}](${value})`);
   } else {
-    field.value += `![](${value})`;
+    field.setRangeText(`![](${value})`);
   }
 }
 
@@ -60,9 +60,7 @@ htmx.on("showToast", (evt) => {
 });
 
 htmx.on("insertImgSrc", (evt) => {
-  console.log(evt.detail);
-  let formattedString = `![](${evt.detail.value})`;
-  insertImageAtCursor(evt.detail.textarea, formattedString);
+  insertImageAtCursor(evt.detail.textarea, evt.detail.value);
 });
 
 window.showToast = showToast;

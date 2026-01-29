@@ -88,7 +88,7 @@ def validate_image(stream):
     """
     header = stream.read(512)
     stream.seek(0)
-    format = imghdr.what(None, header)
-    if not format:
+    img_format = imghdr.what(None, header)
+    if not img_format:
         return None
-    return "." + (format if format != "jpeg" else "jpg")
+    return "." + (img_format if img_format == "jpeg" else "jpg")

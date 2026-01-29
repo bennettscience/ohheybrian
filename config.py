@@ -20,4 +20,4 @@ class Config(object):
     MAX_CONTENT_LENGTH = 3 * 1000 * 1000
 
     # Set allowed filetypes
-    UPLOAD_EXTENSIONS = [".jpg", ".png"]
+    UPLOAD_EXTENSIONS = [".jpg", ".jpeg", ".png"]
