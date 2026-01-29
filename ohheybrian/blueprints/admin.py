@@ -46,7 +46,7 @@ def admin_posts():
     pagination = db.paginate(stmt, page=page, per_page=25)
 
     return render_template(
-        "admin/posts_index.html", posts=pagination.items, pagination=pagination
+        "admin/posts_index.html", posts=pagination.items, pagination=pagination, endpoint='admin.admin_posts'
     )
 
 
