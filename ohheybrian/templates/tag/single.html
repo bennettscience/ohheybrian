@@ -4,12 +4,12 @@
 <article>
   <header class="article_title">
     <h2>
-      <a href="{{ url_for('post.get_single_post', post_slug=post.slug)}}"
+      <a
+        href="{{ url_for('post.get_single_post', year=post.created_year, month=post.created_month, post_slug=post.slug)}}"
         >{{post.title}}</a
       >
     </h2>
   </header>
-  {{ post.post_body|safe|truncate(150, True)}}
   <footer class="article_footer">
     <time
       datetime="{{ post.created_on.isoformat() }}"
