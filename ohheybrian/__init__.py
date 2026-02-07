@@ -1,5 +1,8 @@
+import os
+import shutil
+
 import click
-from flask import Flask
+from flask import Flask, current_app, send_from_directory
 from flask_cors import CORS
 from ohheybrian.extensions import db, htmx, lm, migrate, partials
 from ohheybrian.blueprints import (
@@ -13,7 +16,7 @@ from ohheybrian.blueprints import (
     search,
     tag,
 )
-from ohheybrian.functions.rss import create_feed
+from ohheybrian.functions.rss import FeedGenerator
 from ohheybrian.functions.sync_client.sync import sync_posts, migrate_comments
 from ohheybrian.models import Post
 
@@ -49,9 +52,7 @@ def create_app(config):
 
     @app.route("/feed")
     def rss_feed():
-        stmt = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
-        posts = db.session.scalars(stmt).all()
 
-        return create_feed(posts)
+        return send_from_directory("static", "feed.atom.xml")
 
     return app

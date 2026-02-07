@@ -25,6 +25,7 @@ from ohheybrian.functions.helpers import (
     check_post_slug,
     check_edit_post_tags
 )
+from ohheybrian.functions.rss import FeedGenerator
 from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
@@ -159,6 +160,15 @@ def save_new_post():
     # If the tags or category fail, flip the post to "draft" and flash and error?
     db.session.commit()
 
+    # Regenerate the RSS file
+    output_path = os.path.join(current_app.root_path, "static")
+
+    # Instantiate a new feed object and set an upper limit.
+    # No limit defaults to all posts
+    feed = FeedGenerator(output_path, limit=25)
+
+    feed.write_feed()
+
     return make_response(redirect=url_for("admin.admin_posts"))
 
 
@@ -226,5 +236,13 @@ def delete_post(post_id: int):
 
     db.session.delete(post)
     db.session.commit()
+
+    output_path = os.path.join(current_app.root_path, "static")
+
+    # Instantiate a new feed object and set an upper limit.
+    # No limit defaults to all posts
+    feed = FeedGenerator(output_path, limit=25)
+
+    feed.write_feed()
     
     return make_response(redirect=url_for("admin.admin_posts"))
