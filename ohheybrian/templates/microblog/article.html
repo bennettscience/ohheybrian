@@ -27,7 +27,7 @@ main_content %}
       <div class="article_actions">
         <img src="https://shareopenly.org/images/logo.svg" />
         <a
-          href="https://shareopenly.org/share/?url=https://ohheybrian.com/otherblog/posts/{{ article.slug }}&text={{ article.title | urlencode }}"
+          href="https://shareopenly.org/share/?url=https://ohheybrian.com{{url_for('post.get_single_post', year=article.created_year, month=article.created_month, post_slug=article.slug)}}&text={{ article.title | urlencode }}"
           >Share this post</a
         >
       </div>
