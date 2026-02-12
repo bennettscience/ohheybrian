@@ -17,6 +17,7 @@ def posts_index():
 
     return render_template("microblog/index.html", endpoint='post.posts_index', pagination=posts)
 
+@bp.get("/<int:year>/")
 @bp.get("/<int:year>")
 def get_posts_by_year(year):
     page = request.args.get("page", 1, type=int)
@@ -30,6 +31,7 @@ def get_posts_by_year(year):
     )
 
 @bp.get("/otd")
+@bp.get("/otd/")
 def on_this_day():
     page = request.args.get("page", 1, type=int)
     date = datetime.today()
@@ -42,6 +44,7 @@ def on_this_day():
     return render_template("microblog/index.html", pagination=posts, title="On this day...")
 
 
+@bp.get("/<string:year>/<string:month>/<string:post_slug>/")
 @bp.get("/<string:year>/<string:month>/<string:post_slug>")
 def get_single_post(year, month, post_slug):
     stmt = db.select(Post).where(Post.slug == post_slug)
