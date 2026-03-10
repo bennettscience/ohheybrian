@@ -4,7 +4,7 @@
 <meta name="keywords" content="{{ article.tags|map(attribute='name')|join(', ')  }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ article.title }}" />
-<meta property="og:url" content="https://ohheybrian.com/otherblog/posts/{{ article.slug}}" />
+<meta property="og:url" content="{{url_for('post.get_single_post', year=article.created_year, month=article.created_month, post_slug=article.slug)}}" />
 {% endblock %} {% block title %}{{ article.title }}{% endblock %} {% block
 main_content %}
     <article>
@@ -14,6 +14,9 @@ main_content %}
       <div id="article_meta">
         <p>
           {{ article.created_on.strftime('%Y-%m-%d %-I:%M %p') }}
+        {% if not current_user.is_anonymous %}
+        - <a href="{{ url_for('admin.edit_post', post_id=article.id)}}">Edit</a>
+        {% endif %}
         </p>
           {% if article.tags %} {% for tag in article.tags
           %}

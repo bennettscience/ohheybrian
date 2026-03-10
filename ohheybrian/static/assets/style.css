@@ -245,6 +245,8 @@ form input[name="title"] {
 }
 
 form textarea[name="post_body"] {
+  font-size: inherit;
+  line-height: inherit;
   height: 50vh;
   padding: var(--s-2);
   font-family: monospace;
