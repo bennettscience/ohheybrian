@@ -42,7 +42,7 @@ class Contact(db.Model):
 
 
 @dataclass
-class Comment(db.Model, Base):
+class Comment(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     slug: str = db.Column(db.String(128))
     occurred: str = db.Column(db.DateTime(timezone=True), default=func.now())
@@ -70,6 +70,10 @@ class Comment(db.Model, Base):
     def has_reply(self, comment):
         query = self.replies.filter(Comment.id == comment.id).first()
         return query is not None
+
+    def toggle_state(self):
+        self.approved = not self.approved
+        db.session.commit()
 
     @property
     def num_replies(self):
@@ -117,7 +121,7 @@ class Post(db.Model, Base):
         secondary="post_comment",
         uselist=True,
         lazy="subquery",
-        backref=db.backref("post", lazy="subquery")
+        backref=db.backref("post", lazy="subquery"),
     )
 
     # Set the date hybrid properties to make URL building easier
@@ -135,9 +139,17 @@ class Post(db.Model, Base):
 
     # Load neighbor posts for individual posts
     def load_neighbors(self):
-        prev_q = db.select(Post).where(Post.created_on < self.created_on).order_by(Post.created_on.desc())
+        prev_q = (
+            db.select(Post)
+            .where(Post.created_on < self.created_on)
+            .order_by(Post.created_on.desc())
+        )
 
-        next_q = db.select(Post).where(Post.created_on > self.created_on).order_by(Post.created_on.asc())
+        next_q = (
+            db.select(Post)
+            .where(Post.created_on > self.created_on)
+            .order_by(Post.created_on.asc())
+        )
 
         # It is not possible to do this against an SQLite database
         # https://github.com/sqlalchemy/sqlalchemy/issues/8094:w
@@ -204,5 +216,5 @@ postcategory_association = db.Table(
 post_comment = db.Table(
     "post_comment",
     db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
-    db.Column("comment_id", db.Integer, db.ForeignKey("comment.id"))
+    db.Column("comment_id", db.Integer, db.ForeignKey("comment.id")),
 )

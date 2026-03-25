@@ -20,12 +20,23 @@
       <time datetime="{{comment.occurred}}"
         >{{ comment.occurred.strftime("%Y-%m-%d")}}</time
       >
-      <p>{% if comment.approved %}Approved{% else %}Pending{% endif %}</p>
+      <button hx-trigger="click" hx-put="/comments/{{comment.id}}">
+        {% if comment.approved %}Approved {% else %}Pending{% endif %}
+      </button>
+      <button hx-trigger="click" hx-delete="/comments/{{comment.id}}">
+        Delete
+      </button>
       <p>
-        Page:
+        Page: {% if comment.post %}
+        <a
+          href="{{ url_for('post.get_single_post', year=comment.post[0].created_year, month=comment.post[0].created_month, post_slug=comment.post[0].slug) }}"
+          >{{comment.post[0].title}}</a
+        >
+        {% else %}
         <a href="https://blog.ohheybrian.com/{{comment.slug}}"
           >{{ comment.slug }}</a
         >
+        {% endif %}
       </p>
       <p>Spam: {{comment.is_spam}}</p>
       <p>{{comment.message}}</p>

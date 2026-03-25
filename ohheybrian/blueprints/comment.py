@@ -46,7 +46,7 @@ def get_post_comments(slug):
 @bp.post("/comments/<int:post_id>")
 def post_comment(post_id):
     # TODO: Remove webargs and parse the form
-    
+
     args = parser.parse(
         {
             "name": fields.Str(),
@@ -64,12 +64,10 @@ def post_comment(post_id):
 
     if not post:
         return "Sorry! Something went wrong. Refresh and try again."
-    
+
     clean_text = nh3.clean(args["message"])
 
-    comment = Comment(
-        name=args["name"], url=args["url"], message=clean_text
-    )
+    comment = Comment(name=args["name"], url=args["url"], message=clean_text)
 
     if hasattr(args, "user_email"):
         comment.is_spam = True
@@ -114,4 +112,6 @@ def delete_comment(id):
 # Get a form to reply to a comment
 @bp.get("/comments/<int:post_id>/reply/<int:comment_id>")
 def get_comment_form(post_id, comment_id):
-    return render_template("shared/forms/comment-reply.html", post_id=post_id, comment_id=comment_id)
+    return render_template(
+        "shared/forms/comment-reply.html", post_id=post_id, comment_id=comment_id
+    )
