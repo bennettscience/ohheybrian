@@ -31,10 +31,18 @@
       </label>
       -->
     <p>Search posts</p>
-    <input
-      type="text"
-      _="on keyup show <article /> in .not-sidebar when its textContent.toLowerCase() contains my value.toLowerCase()"
-    />
+    <div class="post-search">
+      <input
+        type="search"
+        value=""
+        name="search"
+        placeholder="Search posts"
+        hx-post="/search?origin=admin"
+        hx-trigger="input changed delay:500ms, keyup[key=='Enter']"
+        hx-target=".not-sidebar"
+        hx-swap="innerHTML"
+      />
+    </div>
   </section>
   <section class="not-sidebar">
     {% for post in posts %}

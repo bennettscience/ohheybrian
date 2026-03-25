@@ -1,0 +1,25 @@
+{% for post in results %}
+  <article>
+    <section class="meta">
+      <h3>
+        <a
+          href="{{url_for('post.get_single_post', year=post.created_year, month=post.created_month, post_slug=post.slug)}}"
+          >{{post.title}}</a
+        >
+      </h3>
+      <p>
+        {{ post.created_on.strftime('%Y-%m-%d %H:%M' )}} - {% if post.published
+        %}published{% else %}draft{% endif %}
+      </p>
+    </section>
+    <section class="actions">
+      <a href="{{ url_for('admin.edit_post', post_id=post.id)}}">Edit</a>
+      <a
+        hx-delete="{{ url_for('admin.delete_post', post_id=post.id)}}"
+        hx-confirm="Are you sure? This cannot be undone."
+        >Delete</a
+      >
+    </section>
+  </article>
+  {% endfor %}
+</h1>
