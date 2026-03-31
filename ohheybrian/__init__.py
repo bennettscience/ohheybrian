@@ -52,7 +52,10 @@ def create_app(config):
 
     @app.route("/feed")
     def rss_feed():
-
         return send_from_directory("static", "feed.atom.xml")
+
+    @app.route("/human.json")
+    def human_json():
+        return send_from_directory("static", "human.json")
 
     return app
