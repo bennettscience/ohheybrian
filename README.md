@@ -3,13 +3,7 @@
 Describe your project here.
 
 Todo:
-<!-- - Post URL routing to not break all the things -->
- - ^(blog\.ohheybrian\.com)\/(\d+)\/(\d+)\/([A-Aa-z0-9\-]+)
- - substitution ohheybrian.com/blog/$2/$3/$4
-- Image URL routing
-  - Upload path
-  - Sort by year with datetime for new uploads
-- Fix posts with pelican-style links
+- Style editor tools
 
 Longer:
 - Generalize index and single pages
@@ -17,3 +11,4 @@ Longer:
 - Switch to flask-sqlalchemy-lite
 - Switch to flask-alembic
 - Options table for global definitions
+- CodeMirror syntax highlights in the post editor?
