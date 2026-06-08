@@ -1,4 +1,6 @@
-{% extends "_layout.html" %} {% block main_content %}
+{% extends "_layout.html" %} {% block head %}
+<title>Create Post</title>
+{% endblock %} {% block main_content %}
 <a href="{{ url_for('admin.admin_posts')}}">Back</a>
 <div class="admin container with-sidebar">
   <form class="not-sidebar" hx-trigger="submit" {{method}}="{{endpoint}}">
