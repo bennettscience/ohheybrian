@@ -15,7 +15,7 @@ def posts_index():
     query = db.select(Post).where(Post.published).order_by(Post.created_on.desc())
     posts = db.paginate(query, page=page, per_page=20)
 
-    return render_template("microblog/index.html", endpoint='post.posts_index', pagination=posts)
+    return render_template("microblog/index.html", endpoint='post.posts_index', pagination=posts, page_title="Oh, hey blog")
 
 @bp.get("/<int:year>/")
 @bp.get("/<int:year>")
