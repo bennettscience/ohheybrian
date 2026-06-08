@@ -1,13 +1,11 @@
-{% extends '_layout.html' %} {% block nav %}
-<nav>
-  <a href="/">Home</a>
-  <ul class="nav-items">
-    <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
-    <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
-    <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
-  </ul>
-</nav>
+{% extends '_layout.html' %} {% block head %}
+<title>Admin - Comments</title>
 {% endblock %} {% block main_content %}
+<ul class="nav-items">
+  <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
+  <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
+  <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
+</ul>
 <div class="admin container with-sidebar">
   <section>
     <h2>Comments</h2>

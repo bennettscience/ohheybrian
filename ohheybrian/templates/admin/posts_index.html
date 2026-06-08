@@ -1,16 +1,16 @@
-{% extends '_layout.html' %} {% block nav %}
-<nav>
-  <a href="/">Home</a>
-  <ul class="nav-items">
-    <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
-    <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
-    <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
-  </ul>
-</nav>
+{% extends '_layout.html' %} {% block head %}
+<title>Admin</title>
 {% endblock %} {% block main_content %}
-<a class="btn" id="add-post-btn" href="{{ url_for('admin.create_post')}}"
-  >New post</a
->
+<ul class="nav-items">
+  <li><a href="{{ url_for('admin.admin_posts')}}">Posts</a></li>
+  <li><a href="{{ url_for('admin.admin_comments')}}">Comments</a></li>
+  <li><a href="{{ url_for('admin.admin_tags')}}">Tags</a></li>
+  <li>
+    <a class="btn" id="add-post-btn" href="{{ url_for('admin.create_post')}}"
+      >New post</a
+    >
+  </li>
+</ul>
 
 <h2>Posts</h2>
 <div class="admin container with-sidebar">
