@@ -17,7 +17,7 @@ class Config(object):
     UPLOAD_PATH = os.path.join(basedir, "ohheybrian/static/images")
 
     # Keep files to 3MB or less
-    MAX_CONTENT_LENGTH = 3 * 1000 * 1000
-
+    MAX_CONTENT_LENGTH = 4 * 1024 * 1024
+    
     # Set allowed filetypes
-    UPLOAD_EXTENSIONS = [".jpg", ".jpeg", ".png"]
+    UPLOAD_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
