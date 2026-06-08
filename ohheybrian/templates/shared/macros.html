@@ -1,5 +1,5 @@
 {% macro render_comment(comment) -%}
-<article class="comment">
+<article class="comment {% if comment.is_reply %}is-reply{% endif %}">
   <span class="comment--meta">
     <p>A thought from <b>{{ comment.name }}</b></p>
   </span>

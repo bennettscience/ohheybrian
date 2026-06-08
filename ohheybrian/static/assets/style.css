@@ -364,6 +364,10 @@ footer:not(.article_footer) {
   color: var(--dark-gray);
 }
 
+.comment.is-reply {
+  margin-block-start: var(--s1);
+}
+
 .comment-reply {
   margin-block-start: var(--s1);
   padding-block-start: var(--s0);
