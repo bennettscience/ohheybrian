@@ -19,9 +19,8 @@
         %}
       />
     </label>
-    <textarea name="post_body" id="post_body">
-{% if post %}{{post_body}}{% endif %}</textarea
-    >
+    <div name="post_body" id="post_body" style="height: 400px"></div>
+    {% if post %}{{post_body}}{%else%}{% endif %}
     <label
       >Tags
       <input
@@ -79,4 +78,19 @@
     <img id="result" src="" />
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/overtype@latest"></script>
+<script defer>
+  const [editor] = new OverType("#post_body", {
+    placeholder: "Start writing",
+    textareaProps: {
+      required: true,
+      name: "post_body",
+    },
+    showStats: true,
+  });
+
+  document.querySelector(`#post_body`).addEventListener("submit", (e) => {
+    const content = editor.getValue();
+  });
+</script>
 {% endblock %}

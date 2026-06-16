@@ -18,15 +18,20 @@ function insertImageAtCursor(el, value) {
 }
 
 function insertTextAtCursor(el, value) {
-  let field = document.querySelector(el);
-  if (field.selectionStart || field.selectionStart == "0") {
-    let startPos = field.selectionStart;
-    let endPos = field.selectionEnd;
+  // `editor` is a global constant variable, so only
+  // interact with the one passed by the inline item.
+  let active_editor = OverType.getInstance(el);
+  if (
+    active_editor.textarea.selectionStart ||
+    active_editor.textarea.selectionStart == "0"
+  ) {
+    let startPos = active_editor.textarea.selectionStart;
+    let endPos = active_editor.textarea.selectionEnd;
 
-    let selected = field.value.slice(startPos, endPos);
-    field.setRangeText(`[${selected}](${value})`);
+    let selected = active_editor.textarea.value.slice(startPos, endPos);
+    active_editor.insertAtCursor(`[${selected}](${value})`);
   } else {
-    field.value += value;
+    active_editor.insertAtCursor(value);
   }
 }
 

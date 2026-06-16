@@ -225,13 +225,17 @@ article:last-of-type {
 }
 
 /* Post editor */
-form.not-sidebar * {
+form.not-sidebar > * {
   display: block;
   width: 100%;
 }
 
 form.not-sidebar * + * {
   margin-block-end: var(--s1);
+}
+
+form input {
+  width: 100%;
 }
 
 form input[type="text"] {
