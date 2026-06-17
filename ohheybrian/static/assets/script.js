@@ -1,19 +1,22 @@
 function insertImageAtCursor(el, value) {
-  let field = document.querySelector(el);
-  if (field.selectionStart || field.selectionStart == "0") {
-    let startPos = field.selectionStart;
-    let endPos = field.selectionEnd;
+  let active_editor = OverType.getInstance(el);
+  if (
+    active_editor.textarea.selectionStart ||
+    active_editor.textarea.selectionStart == "0"
+  ) {
+    let startPos = active_editor.textarea.selectionStart;
+    let endPos = active_editor.textarea.selectionEnd;
 
-    // After saving the field value, rewrite the entire field,
+    // After saving the active_editor value, rewrite the entire active_editor,
     // adding the new string in at the end (or where the cursor was)
     // sent from the submit event
     // https://javascript.info/selection-range#selection-in-form-controls
 
-    let selected = field.value.slice(startPos, endPos);
+    let selected = active_editor.textarea.value.slice(startPos, endPos);
 
-    field.setRangeText(`![${selected}](${value})`);
+    active_editor.insertAtCursor(`![${selected}](${value})`);
   } else {
-    field.setRangeText(`![](${value})`);
+    active_editor.insertatCursor(`![](${value})`);
   }
 }
 
