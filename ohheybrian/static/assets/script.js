@@ -38,6 +38,28 @@ function insertTextAtCursor(el, value) {
   }
 }
 
+function insertThumbnails(value) {
+  let container = document.querySelector(`#thumbnails`);
+  let results = paginate(value, 15);
+  console.log(results);
+  for (let i = 0; i < results[0].length; i++) {
+    container.insertAdjacentHTML(
+      "beforeend",
+      `<li><img src="${results[0][i]}" loading="lazy" /></li>`,
+    );
+  }
+}
+
+function paginate(items, size) {
+  return items.reduce((acc, val, i) => {
+    let idx = Math.floor(i / size);
+    let page = acc[idx] || (acc[idx] = []);
+    page.push(val);
+
+    return acc;
+  }, []);
+}
+
 function showToast(msg = "Loading...", timeout = 5000, err = false) {
   const toast = document.querySelector(`#toast`);
   // Handle message objects from hyperscript
@@ -71,5 +93,10 @@ htmx.on("insertImgSrc", (evt) => {
   insertImageAtCursor(evt.detail.textarea, evt.detail.value);
 });
 
+htmx.on("insertImageThumbs", (evt) => {
+  insertThumbnails(evt.detail.thumbnails);
+});
+
 window.showToast = showToast;
 window.insertTextAtCursor = insertTextAtCursor;
+window.insertThumbnails = insertThumbnails;

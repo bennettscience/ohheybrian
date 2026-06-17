@@ -69,13 +69,15 @@
       id="img-upload"
       hx-post="{{ url_for('admin.save_new_image') }}"
       hx-encoding="multipart/form-data"
-      hx-target="#result"
       hx-swap="innerHTML"
     >
       <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
       <input type="submit" value="Upload" />
     </form>
-    <img id="result" src="" />
+    <button hx-get="{{ url_for('admin.load_images')}}" hx-swap="none">
+      Browse Images
+    </button>
+    <ul id="thumbnails"></ul>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/overtype@latest"></script>

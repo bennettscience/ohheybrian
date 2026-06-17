@@ -186,7 +186,7 @@ article:last-of-type {
 }
 
 .admin > .sidebar {
-  flex-basis: 20rem;
+  flex-basis: 30rem;
   flex-grow: 1;
 }
 
@@ -277,6 +277,26 @@ form input[type="submit"] {
 .admin > .sidebar #search-results > ol > li:hover {
   cursor: pointer;
   background-color: var(--gray);
+}
+
+.admin > .sidebar #thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  max-height: 40vh;
+  overflow-y: scroll;
+  list-style-type: none;
+}
+
+.admin > .sidebar #thumbnails li {
+  flex-grow: 1;
+  margin-block-end: 0;
+}
+
+.admin > .sidebar #thumbnails li img {
+  max-height: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
 }
 
 /* Set a checkbox next to its label */

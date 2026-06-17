@@ -30,6 +30,12 @@ from ohheybrian.models import Comment, Post
 
 bp = Blueprint("admin", __name__)
 
+# function to get data about each admin page
+# args: <Type> of resource
+# returns: dict of properties
+# prop total: total number of items
+# prop: published: total number of public items
+# prop: drafts: total number of drafts/moderation
 
 @bp.before_request
 def restricted():
@@ -99,6 +105,22 @@ def save_new_image():
         src = url_for("static", filename=f"images/{year}/" + filename)
         response = {"textarea": "#post_body", "value": src}
     return make_response(response, trigger={"insertImgSrc": response})
+
+# Load a list of images currently present on the server
+# The list is text only, so all images are returned, sorted by upload year.
+@bp.get("/images")
+def load_images():
+    import re
+    image_dir = current_app.config["UPLOAD_PATH"]
+    image_paths = []
+    for root,dirs,files in os.walk(image_dir):
+        for file in files:
+            if any(file.endswith(ext) for ext in current_app.config["UPLOAD_EXTENSIONS"]):
+                # Get the correct URL for each public image
+                year = re.search(r'\d{4}', os.path.join(root, file)).group()
+                image_paths.append(url_for("static", filename=f"images/{year}/{file}"))
+    response = {"thumbnails": sorted(image_paths)}
+    return make_response(response, trigger={"insertImageThumbs": response })
 
 
 # Create the new post
