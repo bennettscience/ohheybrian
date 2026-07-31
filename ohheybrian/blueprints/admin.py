@@ -119,8 +119,9 @@ def load_images():
                 # Get the correct URL for each public image
                 year = re.search(r'\d{4}', os.path.join(root, file)).group()
                 image_paths.append(url_for("static", filename=f"images/{year}/{file}"))
-    response = {"thumbnails": sorted(image_paths)}
-    return make_response(response, trigger={"insertImageThumbs": response })
+    # response = {"thumbnails": sorted(image_paths)}
+    # return make_response(response, trigger={"insertImageThumbs": response })
+    return render_template("shared/partials/image-thumbnails.html", images=image_paths)
 
 
 # Create the new post
@@ -246,6 +247,16 @@ def save_edit_post(post_id : int):
     tags_to_add = parse_post_tags(new_tags)
 
     post.tags.extend(tags_to_add)
+
+    
+    # Regenerate the RSS file
+    output_path = os.path.join(current_app.root_path, "static")
+
+    # Instantiate a new feed object and set an upper limit.
+    # No limit defaults to all posts
+    feed = FeedGenerator(output_path, limit=25)
+
+    feed.write_feed()
 
     return make_response(redirect=url_for("admin.admin_posts"))
 
