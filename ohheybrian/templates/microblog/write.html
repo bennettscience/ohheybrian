@@ -69,9 +69,10 @@
       id="img-upload"
       hx-post="{{ url_for('admin.save_new_image') }}"
       hx-encoding="multipart/form-data"
-      hx-swap="innerHTML"
+      hx-swap="none"
     >
-      <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp" />
+      <p>Allowed extensions: <i>.jpg, .png, .webp</i></p>
+      <input type="file" name="file" accept=".jpg,.png,.webp" />
       <input type="submit" value="Upload" />
     </form>
     <button
