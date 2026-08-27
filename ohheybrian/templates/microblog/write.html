@@ -20,7 +20,6 @@
       />
     </label>
     <div name="post_body" id="post_body" style="height: 400px"></div>
-    <!-- {% if post %}{{post_body}}{%else%}{% endif %} -->
     <label
       >Tags
       <input
@@ -87,7 +86,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/overtype@latest"></script>
 <script defer>
-  let val = "{{ post_body|safe }}" || null;
+  let val = `{{ post_body|safe }}` || null;
 
   const [editor] = new OverType("#post_body", {
     placeholder: "Start writing",
