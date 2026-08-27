@@ -86,8 +86,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/overtype@latest"></script>
 <script defer>
-  let val = `{{ post_body|safe }}` || null;
-
   const [editor] = new OverType("#post_body", {
     placeholder: "Start writing",
     textareaProps: {
@@ -101,8 +99,6 @@
     const content = editor.getValue();
   });
 
-  if (val) {
-    editor.setValue(val);
-  }
+  editor.setValue(`{{ post_body|replace("`", "\`")|safe }}`)
 </script>
 {% endblock %}
