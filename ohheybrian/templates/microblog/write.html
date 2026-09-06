@@ -99,6 +99,6 @@
     const content = editor.getValue();
   });
 
-  editor.setValue(`{{ post_body|replace("`", "\`")|safe }}`)
+  editor.setValue(`{{ post_body|replace("`", "\`")|replace("{", "\{")|replace("}", "\}")|safe }}`)
 </script>
 {% endblock %}
