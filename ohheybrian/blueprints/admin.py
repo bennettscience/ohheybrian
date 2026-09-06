@@ -16,7 +16,7 @@ from flask_login import current_user
 from werkzeug.utils import secure_filename
 from htmx_flask import make_response
 
-import markdown
+import markdown2
 
 from ohheybrian.extensions import db
 from ohheybrian.functions.helpers import (
@@ -147,7 +147,7 @@ def save_new_post():
 
     args["author"] = current_user
 
-    args["post_body"] = markdown.markdown(form.get("post_body"))
+    args["post_body"] = markdown2.markdown(form.get("post_body"), extras=["fenced-code-blocks"])
 
     # check published - HTML sends "ok" for checkboxes
     if form.get("published") == "on":
@@ -204,14 +204,14 @@ def edit_post(post_id: int):
     post = db.session.scalars(stmt).first()
 
     # Turn the body back into markdown
-    post_body = markdownify(post.post_body)
+    # post_body = markdownify(post.post_body)
     tags = [tag.name for tag in post.tags] if post.tags else None
 
     return render_template(
         "microblog/write.html",
         post=post,
         tags=tags,
-        post_body=post_body,
+        post_body=post.post_body,
         method="hx-put",
         endpoint=url_for('admin.save_edit_post', post_id=post.id),
         editor_title="Edit Post"
@@ -239,7 +239,7 @@ def save_edit_post(post_id : int):
         args["published"] = False
 
     args["title"] = form.get("title")
-    args["post_body"] = markdown.markdown(form.get("post_body"))
+    args["post_body"] = markdown2.markdown(form.get("post_body"), extras=['fenced-code-blocks'])
 
     # Send a dict of objects to update EXCEPT for tags!
     post.update(args)

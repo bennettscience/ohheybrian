@@ -31,11 +31,12 @@ dependencies = [
     "flask-login>=0.6.3",
     "flask-cors>=4.0.0",
     "python-slugify>=8.0.4",
-    "markdown>=3.10",
     "markdownify>=1.2.2",
     "docutils>=0.22.4",
     "feedgenerator>=2.2.1",
     "python-dateutil>=2.9.0.post0",
+    "pygments>=2.21.0",
+    "markdown2>=2.5.5",
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
