@@ -204,14 +204,14 @@ def edit_post(post_id: int):
     post = db.session.scalars(stmt).first()
 
     # Turn the body back into markdown
-    # post_body = markdownify(post.post_body)
+    post_body = markdownify(post.post_body)
     tags = [tag.name for tag in post.tags] if post.tags else None
 
     return render_template(
         "microblog/write.html",
         post=post,
         tags=tags,
-        post_body=post.post_body,
+        post_body=post_body,
         method="hx-put",
         endpoint=url_for('admin.save_edit_post', post_id=post.id),
         editor_title="Edit Post"
