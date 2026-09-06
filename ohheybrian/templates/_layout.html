@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {% block head %}{% endblock %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,10 +17,10 @@
       max-snippet:-1,max-image-preview:large,
       max-video-preview:-1"
     />
-    <link rel="stylesheet" href="/static/assets/style.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/manni.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/style.css')}}" />
     <link rel="icon" type="image/webp" sizes="24x32" href="{{ url_for('static', filename='assets/img/selfie.webp')}}" />
     <link rel="human-json" href="/human.json">
-    {% block head %}{% endblock %}
   </head>
 
   <body>
@@ -49,5 +50,6 @@
     <script src="https://unpkg.com/hyperscript.org@0.9.8"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <script src="{{ url_for("static", filename="assets/script.js")}}"></script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

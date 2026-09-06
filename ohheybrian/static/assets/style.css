@@ -45,7 +45,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: inherit;
+  /* font-family: inherit; */
 }
 
 /* GENERICS */
@@ -68,6 +68,12 @@ body {
 
 img {
   max-width: 100%;
+}
+
+pre {
+  padding: clamp(1rem, 3vw, 2rem);
+  overflow: auto;
+  border: 1px solid var(--dark-gray);
 }
 
 .gallery {
