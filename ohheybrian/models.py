@@ -75,6 +75,10 @@ class Comment(db.Model):
         self.approved = not self.approved
         db.session.commit()
 
+    def toggle_spam(self):
+        self.is_spam = not self.is_spam
+        db.session.commit()
+
     @property
     def num_replies(self):
         return len(self.replies.all())

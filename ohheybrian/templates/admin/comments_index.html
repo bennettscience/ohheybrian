@@ -18,8 +18,11 @@
       <time datetime="{{comment.occurred}}"
         >{{ comment.occurred.strftime("%Y-%m-%d")}}</time
       >
-      <button hx-trigger="click" hx-put="/comments/{{comment.id}}">
-        {% if comment.approved %}Approved {% else %}Pending{% endif %}
+      <button hx-trigger="click" hx-put="/comments/{{comment.id}}/moderate">
+        {% if comment.approved %}Approved{% else %}Pending{% endif %}
+      </button>
+      <button hx-trigger="click" hx-put="/comments/{{comment.id}}/spam">
+        {% if comment.is_spam %}This is AI{% else %}Mark as AI slop{% endif %}
       </button>
       <button hx-trigger="click" hx-delete="/comments/{{comment.id}}">
         Delete

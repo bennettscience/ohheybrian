@@ -89,8 +89,21 @@ def post_comment(post_id):
 
     return "Thanks! All comments are moderated, so yours will appear once approved."
 
+@bp.put("/comments/<int:id>/spam")
+@login_required
+def mark_as_spam(id):
+    query = db.select(Comment).where(Comment.id == id)
+    comment = db.session.scalars(query).first()
 
-@bp.put("/comments/<int:id>")
+    comment.toggle_spam()
+
+    value = "This is AI" if comment.is_spam else "Mark as AI slop"
+    return make_response(value, trigger={"showToast": "Marked as slop"})
+    
+
+    
+
+@bp.put("/comments/<int:id>/moderate")
 @login_required
 def moderate(id):
     comment = Comment.query.filter(Comment.id == id).first()
